@@ -86,22 +86,24 @@ class NewsScraper:
                         exists = True
 
                     token = child.contents[1].contents[1].contents[0]
-                    if len(child.find_all('div', {'class': 'info'})[0].contents[5].contents) > 1:
-                        element_count = len(child.find_all('div', {'class': 'info'})[0].contents[-2])
-                        if element_count == 3:
-                            category = child.find_all('div', {'class': 'info'})[0].contents[-2]\
-                                .contents[1].text
-                        else:
-                            category = child.find_all('div', {'class': 'info'})[0].contents[-2]\
-                                .contents[0].strip()
-                    else:
-                        category = 'N/A'
+                    # if len(child.find_all('div', {'class': 'info'})[0].contents[5].contents) > 1:
+                    #     element_count = len(child.find_all('div', {'class': 'info'})[0].contents[-2])
+                    #     if element_count == 3:
+                    #         category = child.find_all('div', {'class': 'info'})[0].contents[1].contents[-2\
+                    #             .contents[-2].contents[1].text
+                    #     else:
+                    #         category = child.find_all('div', {'class': 'info'})[0].contents[-2]\
+                    #             .contents[0].strip()
+                    # else:
+                    #     category = 'N/A'
+                    category = child.find_all('div', {'class': 'info'})[0].contents[1]\
+                        .contents[-2].contents[-2].contents[1].text
 
-                    if len(child.find_all('div', {'class': 'info'})[0].contents[1].contents[1].contents[0].contents) > 0:
-                        news = child.find_all('div', {'class': 'info'})[0].contents[1].contents[1].contents[0].contents[0] \
-                            .replace(',', ' and')
-                    else:
-                        news = child.find_all('div', {'class': 'info'})[0].contents[1].contents[3].contents[0].contents[0]
+                    # if len(child.find_all('div', {'class': 'info'})[0].contents[1].contents[1].contents[0].contents) > 0:
+                    news = child.find_all('div', {'class': 'info'})[0].contents[1].contents[1]\
+                        .text.replace('\n', '').replace(',',' and')
+                    # else:
+                    #     news = child.find_all('div', {'class': 'info'})[0].contents[1].contents[3].contents[0].contents[0]
 
                     asset = get_asset(token, ticker)
 
