@@ -1,19 +1,16 @@
 #!/usr/bin/python3
 
-import bs4
-import time
-import math
-from apis.cmc import get_asset
-from apis.news.coindar import get_news_data
-from database import sqlite
+from apis.news.coindar import *
+from apis.news.coinmarketcal import *
+
+from apis.prices.cmc import get_asset
+from common.database import sqlite
 import dateutil.parser as parser
 from datetime import date
 import datetime
-from models.NewsEvent import NewsEvent
+from common.models.NewsEvent import NewsEvent
 
 # -*- coding: utf-8 -*-
-import sys
-import codecs
 
 class NewsScraper:
     def __init__(self):
@@ -21,6 +18,8 @@ class NewsScraper:
         self.events = []
         self.count = 1
         self.daily_events = set()
+        self.coindar = CoinDar()
+        self.coinmarketcal = CoinMarketCal()
 
     def clean_slate(self):
         self.news_events.clear()
@@ -65,9 +64,16 @@ class NewsScraper:
     def get_element_children(self, child_element, dom_type, class_name):
         return len(child_element.find_all(dom_type, {'class': class_name}))
 
-
     def run(self):
-        self.events_list = get_news_data()
+        self.events_list = self.coindar.get_news_data()
+        self.test = self.coindar.api_news1_last_events()
+        self.test2 = self.coindar.api_news1_coin_events("btc")
+        self.test3 = self.coindar.api_news1_custom_date(2018,1,1)
+
+        self.test4 = self.coinmarketcal.api_news2_get_access_token()
+        self.test5 = self.coinmarketcal.api_news2_get_list_of_coins()
+        self.test6 = self.coinmarketcal.api_news2_get_categories()
+        self.test7 = self.coinmarketcal.api_news2_get_events()
 
         print('Starting news scraper job (' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
 
