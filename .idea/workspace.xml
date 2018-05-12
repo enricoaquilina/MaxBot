@@ -2,18 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc51d902-9740-4812-a559-99df56ff5856" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/apis/news/coinmarketcal.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/common/http/request.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/trading-bot.iml" afterPath="$PROJECT_DIR$/.idea/MaxBot.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/apis/cmc.py" afterPath="$PROJECT_DIR$/apis/prices/cmc.py" />
-      <change beforePath="$PROJECT_DIR$/apis/news/coindar.py" afterPath="$PROJECT_DIR$/apis/news/coindar.py" />
-      <change beforePath="$PROJECT_DIR$/database/events.db" afterPath="$PROJECT_DIR$/holy_grail/data/events.db" />
-      <change beforePath="$PROJECT_DIR$/database/sqlite.py" afterPath="$PROJECT_DIR$/common/database/sqlite.py" />
-      <change beforePath="$PROJECT_DIR$/models/NewsEvent.py" afterPath="$PROJECT_DIR$/common/models/NewsEvent.py" />
-      <change beforePath="$PROJECT_DIR$/news-scraper.py" afterPath="$PROJECT_DIR$/jobs/news-scraper.py" />
+      <change beforePath="$PROJECT_DIR$/common/database/sqlite.py" afterPath="$PROJECT_DIR$/common/database/sqlite.py" />
+      <change beforePath="$PROJECT_DIR$/common/models/NewsEvent.py" afterPath="$PROJECT_DIR$/common/models/NewsEvent.py" />
+      <change beforePath="$PROJECT_DIR$/holy_grail/data/events.db" afterPath="$PROJECT_DIR$/holy_grail/data/events.db" />
+      <change beforePath="$PROJECT_DIR$/jobs/news-scraper.py" afterPath="$PROJECT_DIR$/jobs/news-scraper.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,14 +16,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.44927537">
+    <splitter split-orientation="horizontal" split-proportion="0.6683077">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="153">
-                  <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+                <state relative-caret-position="0">
+                  <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#33#0" expanded="true" />
                   </folding>
@@ -38,11 +31,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="news-scraper.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="news-scraper.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/jobs/news-scraper.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="494">
-                  <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+                <state relative-caret-position="102">
+                  <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
                   <folding>
                     <element signature="e#20#51#0" expanded="true" />
                   </folding>
@@ -60,19 +53,15 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="sqlite.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="sqlite.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/common/database/sqlite.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="221">
-                  <caret line="52" column="107" lean-forward="false" selection-start-line="52" selection-start-column="107" selection-end-line="52" selection-end-column="107" />
+                <state relative-caret-position="204">
+                  <caret line="49" column="20" lean-forward="false" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
                   <folding>
-                    <element signature="e#116#216#0" expanded="false" />
-                    <element signature="e#254#1188#0" expanded="false" />
-                    <element signature="e#313#1166#0" expanded="false" />
-                    <element signature="e#1219#1235#0" expanded="false" />
-                    <element signature="e#1285#1902#0" expanded="false" />
-                    <element signature="e#2019#2500#0" expanded="false" />
-                    <element signature="e#2531#2546#0" expanded="false" />
+                    <element signature="e#321#1174#0" expanded="false" />
+                    <element signature="e#1227#1243#0" expanded="false" />
+                    <element signature="e#2582#2597#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -81,8 +70,8 @@
           <file leaf-file-name="coindar.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/apis/news/coindar.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="10" column="38" lean-forward="true" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
+                <state relative-caret-position="136">
+                  <caret line="10" column="38" lean-forward="false" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                     <marker date="1525895825106" expanded="true" signature="391:479" ph="..." />
@@ -98,8 +87,8 @@
           <file leaf-file-name="coinmarketcal.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/apis/news/coinmarketcal.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="406">
-                  <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
+                <state relative-caret-position="136">
+                  <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
                   <folding>
                     <element signature="e#87#359#0" expanded="false" />
                     <element signature="e#411#634#0" expanded="false" />
@@ -149,6 +138,7 @@
       <find>update_dailies</find>
       <find>storing</find>
       <find>dailies</find>
+      <find>newseve</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -167,9 +157,11 @@
         <option value="$PROJECT_DIR$/news-scraper.py" />
         <option value="$PROJECT_DIR$/common/http/my-request.py" />
         <option value="$PROJECT_DIR$/common/http/request.py" />
-        <option value="$PROJECT_DIR$/jobs/news-scraper.py" />
         <option value="$PROJECT_DIR$/apis/news/coindar.py" />
         <option value="$PROJECT_DIR$/apis/news/coinmarketcal.py" />
+        <option value="$PROJECT_DIR$/common/models/NewsEvent.py" />
+        <option value="$PROJECT_DIR$/jobs/news-scraper.py" />
+        <option value="$PROJECT_DIR$/common/database/sqlite.py" />
       </list>
     </option>
   </component>
@@ -194,8 +186,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -206,7 +196,24 @@
             <path>
               <item name="MaxBot" type="b2602c69:ProjectViewProjectNode" />
               <item name="MaxBot" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MaxBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MaxBot" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MaxBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MaxBot" type="462c0819:PsiDirectoryNode" />
               <item name="holy_grail" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MaxBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MaxBot" type="462c0819:PsiDirectoryNode" />
+              <item name="holy_grail" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MaxBot" type="b2602c69:ProjectViewProjectNode" />
@@ -217,6 +224,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -391,17 +400,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15364583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52492046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.52492046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3319194" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28419936" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28419936" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -430,13 +438,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/jobs/news-scraper.py</url>
-          <line>74</line>
-          <option name="timeStamp" value="94" />
+          <line>116</line>
+          <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/jobs/news-scraper.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="100" />
+          <line>113</line>
+          <option name="timeStamp" value="105" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -446,12 +454,47 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="104" />
+      <option name="time" value="106" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>print(time.strftime(&quot;%d/%m/%Y %H:%M:%S&quot;, time.gmtime()))</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>print(time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;, time.gmtime()))</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>print(datetime.datetime.now().time().strftime('%H:%M:%S.%f')) # 11:20:08.272239</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>print(datetime.datetime.now().time().isoformat())             # 11:20:08.272239</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>print(datetime.datetime.now().time())                         # 11:20:08.272239</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>print(time.strftime(&quot;%H:%M:%S.%f&quot;, time.localtime()), str)    # 11:20:08.%f</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>import time</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>auth_info['access_token']</expression-string>
         <language-id>Python</language-id>
@@ -459,41 +502,6 @@
       </expression>
       <expression>
         <expression-string>jsonResponse</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>jsonResponse = json.loads(response.decode('utf-8'))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>response = urlreq.urlopen(req).read()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>import json</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>news_events.json()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>news_events</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>child.find_all('div', {'class': 'info'})[0].contents[1].contents[1].text.replace('\n', '').replace(',',' and')</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>child.find_all('div', {'class': 'info'})[0]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -607,13 +615,9 @@
         <state relative-caret-position="68">
           <caret line="5" column="32" lean-forward="true" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
           <folding>
-            <element signature="e#116#216#0" expanded="false" />
-            <element signature="e#254#1188#0" expanded="false" />
-            <element signature="e#313#1166#0" expanded="false" />
-            <element signature="e#1219#1235#0" expanded="false" />
-            <element signature="e#1285#1902#0" expanded="false" />
-            <element signature="e#2019#2500#0" expanded="false" />
-            <element signature="e#2531#2546#0" expanded="false" />
+            <element signature="e#321#1174#0" expanded="false" />
+            <element signature="e#1227#1243#0" expanded="false" />
+            <element signature="e#2582#2597#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -660,13 +664,9 @@
         <state relative-caret-position="68">
           <caret line="5" column="32" lean-forward="true" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
           <folding>
-            <element signature="e#116#216#0" expanded="false" />
-            <element signature="e#254#1188#0" expanded="false" />
-            <element signature="e#313#1166#0" expanded="false" />
-            <element signature="e#1219#1235#0" expanded="false" />
-            <element signature="e#1285#1902#0" expanded="false" />
-            <element signature="e#2019#2500#0" expanded="false" />
-            <element signature="e#2531#2546#0" expanded="false" />
+            <element signature="e#321#1174#0" expanded="false" />
+            <element signature="e#1227#1243#0" expanded="false" />
+            <element signature="e#2582#2597#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -830,21 +830,7 @@
     <entry file="file://$PROJECT_DIR$/database/dd.py" />
     <entry file="file://$PROJECT_DIR$/news.csv" />
     <entry file="file://$PROJECT_DIR$/crypto_events.db" />
-    <entry file="file://$PROJECT_DIR$/common/models/NewsEvent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="32" lean-forward="false" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/news_events/news-scraper.py" />
-    <entry file="file://$PROJECT_DIR$/holy_grail/data/events.db">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apis/prices/cmc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -857,32 +843,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="33" lean-forward="true" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/database/sqlite.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="52" column="107" lean-forward="false" selection-start-line="52" selection-start-column="107" selection-end-line="52" selection-end-column="107" />
-          <folding>
-            <element signature="e#116#216#0" expanded="false" />
-            <element signature="e#254#1188#0" expanded="false" />
-            <element signature="e#313#1166#0" expanded="false" />
-            <element signature="e#1219#1235#0" expanded="false" />
-            <element signature="e#1285#1902#0" expanded="false" />
-            <element signature="e#2019#2500#0" expanded="false" />
-            <element signature="e#2531#2546#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
@@ -891,8 +858,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apis/news/coindar.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="71" lean-forward="false" selection-start-line="15" selection-start-column="71" selection-end-line="15" selection-end-column="71" />
+        <state relative-caret-position="136">
+          <caret line="10" column="38" lean-forward="false" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <marker date="1525895825106" expanded="true" signature="391:479" ph="..." />
@@ -904,29 +871,56 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
           <caret line="305" column="19" lean-forward="true" selection-start-line="305" selection-start-column="19" selection-end-line="305" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apis/news/coinmarketcal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="20" column="37" lean-forward="false" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+          <folding>
+            <element signature="e#87#359#0" expanded="false" />
+            <element signature="e#411#634#0" expanded="false" />
+            <element signature="e#687#803#0" expanded="false" />
+            <element signature="e#853#974#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/models/NewsEvent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/holy_grail/data/events.db">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="27" lean-forward="true" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/jobs/news-scraper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+        <state relative-caret-position="102">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="e#20#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apis/news/coinmarketcal.py">
+    <entry file="file://$PROJECT_DIR$/common/database/sqlite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
+        <state relative-caret-position="204">
+          <caret line="49" column="20" lean-forward="false" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
           <folding>
-            <element signature="e#87#359#0" expanded="false" />
-            <element signature="e#411#634#0" expanded="false" />
-            <element signature="e#687#803#0" expanded="false" />
-            <element signature="e#853#974#0" expanded="false" />
+            <element signature="e#321#1174#0" expanded="false" />
+            <element signature="e#1227#1243#0" expanded="false" />
+            <element signature="e#2582#2597#0" expanded="false" />
           </folding>
         </state>
       </provider>

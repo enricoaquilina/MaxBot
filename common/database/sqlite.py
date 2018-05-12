@@ -6,7 +6,7 @@ class DB:
         self.db = self.connect()
 
     def connect(self):
-        self.db = sqlite3.connect('./database/events.db')
+        self.db = sqlite3.connect('../holy_grail/data/events.db')
         self.create_table()
         return self.db
 
@@ -44,11 +44,11 @@ class DB:
 
     def insert_entry(self, news_event):
         self.cursor.execute('''INSERT OR IGNORE INTO events
-        (date, ticker, token, event, category, price_usd,price_usd2,price_usd3,price_usd4, 
+        (date, date_inserted, ticker, token, event, category, price_usd,price_usd2,price_usd3,price_usd4, 
         price_btc, price_btc2,price_btc3,price_btc4,change_24h,change_24h2,change_24h3,change_24h4, 
         change_7d,change_7d2,change_7d3,change_7d4)
-         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
-            (news_event.date, news_event.ticker, news_event.token,
+         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+            (news_event.date, news_event.date_inserted, news_event.ticker, news_event.token,
              news_event.event, news_event.category, news_event.price_usd, 0, 0, 0,
              news_event.price_btc, 0, 0, 0, news_event.change_24h, 0, 0, 0, news_event.change_7d, 0, 0, 0))
 

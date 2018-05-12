@@ -7,7 +7,7 @@ from apis.prices.cmc import get_asset
 from common.database import sqlite
 import dateutil.parser as parser
 from datetime import date
-import datetime
+import time, datetime
 from common.models.NewsEvent import NewsEvent
 
 # -*- coding: utf-8 -*-
@@ -130,7 +130,7 @@ class NewsScraper:
                                 change_7d = 'NULL'
 
                         if not exists:
-                            event = NewsEvent(event_date, ticker,
+                            event = NewsEvent(event_date, time.strftime("%d/%m/%Y %H:%M:%S", time.gmtime()), ticker,
                                               token, news,
                                               category, price_usd,
                                               price_btc, change_24h, change_7d)

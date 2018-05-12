@@ -1,5 +1,6 @@
 class NewsEvent(object):
     date = ''
+    date_inserted = ''
     ticker = ''
     event = ''
     category = ''
@@ -20,8 +21,9 @@ class NewsEvent(object):
     change_7d3 = ''
     change_7d4 = ''
 
-    def __init__(self, date, ticker, token, event, category, price_usd, price_btc, change_24h, change_7d):
+    def __init__(self, date, date_inserted, ticker, token, event, category, price_usd, price_btc, change_24h, change_7d):
         self.date = date
+        self.date_inserted = date_inserted
         self.ticker = ticker
         self.token = token
         self.event = event
