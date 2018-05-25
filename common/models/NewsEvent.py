@@ -21,7 +21,11 @@ class NewsEvent(object):
     change_7d3 = ''
     change_7d4 = ''
 
-    def __init__(self, date, date_inserted, ticker, token, event, category, price_usd, price_btc, change_24h, change_7d):
+    def __init__(self, date, date_inserted,
+                 ticker, token, event,
+                 price_usd, price_btc,
+                 change_24h, change_7d,
+                 category=''):
         self.date = date
         self.date_inserted = date_inserted
         self.ticker = ticker

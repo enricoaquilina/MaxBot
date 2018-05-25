@@ -15,7 +15,8 @@ class DB:
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS events(
             date      DATETIME,
-            ticker    TEXT,
+                        date      DATETIME,
+ticker    TEXT,
             token     TEXT,
             event     TEXT,
             category  TEXT,

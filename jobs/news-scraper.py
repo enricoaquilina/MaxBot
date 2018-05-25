@@ -80,7 +80,11 @@ class NewsScraper:
         for idx, child in enumerate(self.events_list):
             if type(child) is bs4.element.Tag:
                 if self.get_element_children(child, 'span', 'day') > 0:
-                    event_date = parser.parse(str(child.contents[1].contents[0]).strip().replace(',', '')).strftime("%d/%m/%Y")
+                    if len(child.contents) == 3:
+                        event_date = parser.parse(str(child.contents[1].contents[0]).strip().replace(',', '')).strftime("%d/%m/%Y")
+                    else:
+                        event_date = parser.parse(str(child.contents[3].contents[0]).strip().replace(',', '')).strftime(
+                            "%d/%m/%Y")
                     self.clean_slate()
 
                 if self.get_element_children(child, 'div', 'coin') > 0:
