@@ -64,6 +64,8 @@ ticker    TEXT,
                     date = "'''+str(date)+'''" AND 
                     ticker = "'''+str(ticker)+'"')
 
+
+
     def close(self):
         self.db.close()
 

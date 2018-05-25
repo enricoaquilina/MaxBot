@@ -8,7 +8,7 @@ from common.database import sqlite
 import dateutil.parser as parser
 from datetime import date
 import time, datetime
-from common.models.NewsEvent import NewsEvent
+from common.models.event_hunter.NewsEvent import NewsEvent
 
 # -*- coding: utf-8 -*-
 

@@ -3,12 +3,9 @@
 from apis.news.coindar import *
 from apis.news.coinmarketcal import *
 
-from apis.prices.cmc import get_asset
 from common.database import sqlite
-import dateutil.parser as parser
-from datetime import date
-import time, datetime
-from common.models.NewsEvent import NewsEvent
+import datetime
+from common.models.event_hunter.CDModel import CDModel
 
 # -*- coding: utf-8 -*-
 
@@ -61,6 +58,25 @@ class EventHunter:
                                      event.change_24h, event.change_7d)
                 self.db.write()
 
+    def create_model(self, event):
+        ticker = event['coin_symbol']
+        token = event['coin_name']
+        news = event['caption']
+        proof = event['proof']
+        end_date = event['end_date']
+        start_date = event['start_date']
+        public_date = event['public_date']
+        # category = ??
+
+        return CDModel(news, proof, public_date, start_date, end_date, token, ticker)
+
+    def cluster_events(self, start_date, event):
+        if len(self.events) == 0:
+            self.events[start_date] = [event]
+        elif start_date not in self.events:
+            self.events[start_date] = [event]
+        else:
+            self.events[start_date].append(event)
 
     def run(self):
         # self.events_list = self.coindar.get_news_data()
@@ -70,64 +86,29 @@ class EventHunter:
 
         self.events_list = sorted(self.events_list, key=lambda k: k['start_date'])
 
-
-        self.test4 = self.coinmarketcal.api_news2_get_access_token()
-        self.test5 = self.coinmarketcal.api_news2_get_list_of_coins()
-        self.test6 = self.coinmarketcal.api_news2_get_categories()
-        self.test7 = self.coinmarketcal.api_news2_get_events()
+        # Coinmarketcal API
+        # self.test4 = self.coinmarketcal.api_news2_get_access_token()
+        # self.test5 = self.coinmarketcal.api_news2_get_list_of_coins()
+        # self.test6 = self.coinmarketcal.api_news2_get_categories()
+        # self.test7 = self.coinmarketcal.api_news2_get_events()
 
         # print('Starting news hunter job (' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
+        self.events = {}
+        start_date = ''
 
-        for idx, child in enumerate(self.events_list):
-            event_date = child['start_date']
-            # self.clean_slate()
+        for idx, raw_event in enumerate(self.events_list):
+            event = self.create_model(raw_event)
 
-        if self.get_element_children(child, 'div', 'coin') > 0:
-            ticker = child['coin_symbol']
-            if ticker not in self.news_events:
-                self.news_events.add(ticker)
-                exists = False
-            else:
-                exists = True
+            # process and cluster start_date(remove time)
+            if start_date != raw_event['start_date']:
+                start_date = raw_event['start_date']
 
-            token = child['coin_name']
+            self.cluster_events(start_date, event)
 
-            # category = child.find_all('div', {'class': 'info'})[0].contents[1]\
-            #     .contents[-2].contents[-2].contents[1].text
+        # now we need to check if events exist or not
+        # if they do -> do nothing
+        # if not -> save them!
 
-            news = child['caption']
-
-            asset = get_asset(token, ticker)
-
-            if asset:
-                if 'price_usd' in asset[0]:
-                    price_usd = asset[0]['price_usd']
-                if 'price_btc' in asset[0]:
-                    price_btc = asset[0]['price_btc']
-                if 'percent_change_24h' in asset[0]:
-                    if asset[0]['percent_change_24h'] is not None:
-                        change_24h = asset[0]['percent_change_24h']
-                    else:
-                        change_24h = 'NULL'
-                if 'percent_change_7d' in asset[0]:
-                    if asset[0]['percent_change_7d'] is not None:
-                        change_7d = asset[0]['percent_change_7d']
-                    else:
-                        change_7d = 'NULL'
-
-                if not exists:
-                    event = NewsEvent(event_date, time.strftime("%d/%m/%Y %H:%M:%S", time.gmtime()), ticker,
-                                      token, news,
-                                      price_usd,
-                                      price_btc, change_24h,
-                                      change_7d)
-                    self.events.append(event)
-
-                    if datetime.datetime.strptime(event_date, '%d/%m/%Y').date() == date.today():
-                        self.daily_events.add(event)
-                else:
-                    event = [event for event in self.events if event.ticker == ticker]
-                    event[0].event += ' AND ' + news
 
         self.write_to_csv()
         self.update_dailies(self.daily_events)

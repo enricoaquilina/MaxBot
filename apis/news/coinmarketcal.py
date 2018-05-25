@@ -40,10 +40,11 @@ class CoinMarketCal:
         url = 'https://api.coinmarketcal.com/v1/events?' \
               'access_token='+self.access_token +\
               '&page='+str(page) +\
-              '&max='+str(max) +\
-              '&dateRangeEnd=09%2F05%2F2018' \
-              '&coins=bytom%2Ccasinocoin' \
-              '&categories=9%2C8%2C7' \
-              '&sortBy=created_desc' \
-              '&showMetadata=true'
+              '&max='+str(max)
         return self.req.get_data(url)
+
+    # '&dateRangeEnd=09%2F05%2F2018' \
+    # '&coins=bytom%2Ccasinocoin' \
+    # '&categories=9%2C8%2C7' \
+    # '&sortBy=created_desc' \
+    # '&showMetadata=true'
