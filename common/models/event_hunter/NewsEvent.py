@@ -23,11 +23,11 @@ class NewsEvent(object):
 
     def __init__(self, date, date_inserted,
                  ticker, token, event,
-                 price_usd, price_btc,
-                 change_24h, change_7d,
-                 category=''):
-        self.date = date
+                 price_usd=0, price_btc=0,
+                 change_24h=0, change_7d=0,
+                 category='', proof=''):
         self.date_inserted = date_inserted
+        self.date = date
         self.ticker = ticker
         self.token = token
         self.event = event
