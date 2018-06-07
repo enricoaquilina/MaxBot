@@ -8,6 +8,7 @@ from common.models.event_hunter.NewsEvent import NewsEvent
 
 from common.database import sqlite
 import datetime
+# from datetime import datetime
 from dateutil.parser import parse
 
 # -*- coding: utf-8 -*-
@@ -39,12 +40,13 @@ class EventHunter:
     def update_dailies(self):
         self.db = sqlite.DB('news_events')
 
-        timestamp = datetime.datetime.now().time()
-        daily_events = self.db.get_events_for_today(datetime.date.today())
+        daily_events = self.db.get_events_for_today()
 
         second_run = datetime.time(hour=6, minute=0)
         third_run = datetime.time(hour=12, minute=0)
         fourth_run = datetime.time(hour=18, minute=0)
+
+        timestamp = datetime.datetime.now().time()
 
         if timestamp < second_run:
             time_of_day = 0
@@ -59,25 +61,35 @@ class EventHunter:
         for event in daily_events:
 
             price_usd, price_btc, change_24h, change_7d = self.cmc.get_asset_prices(event[5], event[6])
-            event = NewsEvent(date=event[3], ticker=event[6], token=event[5],
+            event = NewsEvent(start_date=event[3], public_date=event[2], end_date=[4],
+                              ticker=event[6], token=event[5], event=event[0],
                               price_usd=price_usd, price_btc=price_btc, change_24h=change_24h, change_7d=change_7d)
             self.dailies_updated.append(event)
 
         if time_of_day > 0:
             for event in self.dailies_updated:
-                self.db.update_entry(time_of_day, event.date,
+                self.db.update_entry2(time_of_day, event.start_date,
                                      event.ticker, event.token,
                                      event.price_usd, event.price_btc,
                                      event.change_24h, event.change_7d)
                 self.db.write()
 
-    def extract_date_from_string(self, date, type):
-        extracted = date[type]
-        if len(date[type].split('-')) > 2:
-            day = date[type].split('-')[2]
+    def extract_date_from_string(self, event, type):
+        date = event[type]
+
+        if len(date.split('-')) > 2:
+            day = date.split('-')[2]
             if len(day.split(' ')) == 2:
-                extracted = date[type].split('-')[0]+'-'+date[type].split('-')[1]+'-'+day.split()[0]
-        return extracted
+                date = event[type].split('-')[0]+'-'+event[type].split('-')[1]+'-'+day.split()[0]
+
+        # this is to get padded month and days which are less than 10
+        if date != '':
+            if len(date.split('-')) > 2:
+                date = str(datetime.datetime.strptime(date, '%Y-%m-%d')).split(' ')[0]
+            elif len(date.split('-')) == 2:
+                # date = str(datetime.datetime.strptime(date, '%Y-%m')).split(' ')[0]
+                return date
+        return date
 
     def create_model(self, event):
         ticker = event['coin_symbol']
@@ -89,7 +101,7 @@ class EventHunter:
         public_date = self.extract_date_from_string(event, 'public_date')
         # category = ??
 
-        return NewsEvent(start_date, public_date, ticker, token, news, proof=proof)
+        return NewsEvent(start_date, public_date, end_date, ticker, token, news, proof=proof)
 
     def cluster_events(self, start_date, event):
         if len(self.events) == 0:

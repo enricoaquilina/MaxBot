@@ -59,7 +59,7 @@ class NewsScraper:
 
         if time_of_day > 0:
             for event in daily_events:
-                self.db.update_entry(time_of_day, event.date,
+                self.db.update_entry(time_of_day, event.start_date,
                                      event.ticker, event.token,
                                      event.price_usd, event.price_btc,
                                      event.change_24h, event.change_7d)
@@ -113,17 +113,18 @@ class NewsScraper:
                     price_usd, price_btc, change_24h, change_7d = self.cmc.get_asset_prices(token, ticker)
 
                     if not exists:
-                        event = NewsEvent(event_date, time.strftime("%d/%m/%Y %H:%M:%S", time.gmtime()), ticker,
-                                          token, news,
-                                          category, price_usd,
-                                          price_btc, change_24h, change_7d)
+                        event = NewsEvent(event_date, time.strftime("%d/%m/%Y %H:%M:%S", time.gmtime()), '',
+                                          ticker=ticker, token=token, event=news, category=category,
+                                          price_usd=price_usd, price_btc=price_btc,
+                                          change_24h=change_24h, change_7d=change_7d)
                         self.events.append(event)
 
                         if datetime.datetime.strptime(event_date, '%d/%m/%Y').date() == date.today():
                             self.daily_events.add(event)
                     else:
                         event = [event for event in self.events if event.ticker == ticker]
-                        event[0].event += ' AND ' + news
+                        if len(event) > 0:
+                            event[0].event += ' AND ' + news
 
         self.write_to_csv()
         self.update_dailies(self.daily_events)

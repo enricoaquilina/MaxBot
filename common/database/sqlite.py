@@ -1,5 +1,5 @@
 import sqlite3
-
+import datetime
 
 class DB:
     def __init__(self, db_name):
@@ -17,7 +17,8 @@ class DB:
         self.cursor = self.db.cursor()
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS events(
-            date      DATETIME,
+            start_date      DATETIME,
+            public_date      DATETIME,
             ticker    TEXT,
             token     TEXT,
             event     TEXT,
@@ -38,7 +39,7 @@ class DB:
             change_7d2 DECIMAL(10,5),
             change_7d3 DECIMAL(10,5),
             change_7d4 DECIMAL(10,5),
-            PRIMARY KEY(date, ticker))
+            PRIMARY KEY(start_date, ticker))
         ''')
         self.write()
 
@@ -79,15 +80,15 @@ class DB:
 
     def insert_entry(self, news_event):
         self.cursor.execute('''INSERT OR IGNORE INTO events
-        (date, date_inserted, ticker, token, event, category, price_usd, price_usd2,price_usd3,price_usd4, 
+        (start_date, public_date, ticker, token, event, category, price_usd, price_usd2,price_usd3,price_usd4, 
         price_btc, price_btc2,price_btc3,price_btc4,change_24h,change_24h2,change_24h3,change_24h4, 
         change_7d,change_7d2,change_7d3,change_7d4)
          VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
-            (news_event.date, news_event.date_inserted, news_event.ticker, news_event.token,
+            (news_event.start_date, news_event.public_date, news_event.ticker, news_event.token,
              news_event.event, news_event.category, news_event.price_usd, 0, 0, 0,
              news_event.price_btc, 0, 0, 0, news_event.change_24h, 0, 0, 0, news_event.change_7d, 0, 0, 0))
 
-    def update_entry(self, time_of_day, date, ticker, token, price_usd, price_btc, change_24h, change_7d):
+    def update_entry(self, time_of_day, start_date, ticker, token, price_usd, price_btc, change_24h, change_7d):
         self.cursor.execute('''UPDATE events
               SET 
                 price_usd''' + str(time_of_day) + '''="'''+price_usd+'''",
@@ -95,8 +96,22 @@ class DB:
                 change_24h''' + str(time_of_day) + '''="'''+change_24h+'''",
                 change_7d''' + str(time_of_day) + '''="'''+change_7d+'''"
                 WHERE
-                    date = "'''+str(date)+'''" AND 
+                    start_date = "'''+str(start_date)+'''" AND 
+                    token = "'''+str(token)+'''" AND 
                     ticker = "'''+str(ticker)+'"')
+        self.write()
+
+    def update_entry2(self, time_of_day, start_date, ticker, token, price_usd, price_btc, change_24h, change_7d):
+        self.cursor.execute('''UPDATE news_events
+              SET 
+                price_usd''' + str(time_of_day) + '''="'''+price_usd+'''",
+                price_btc''' + str(time_of_day) + '''="'''+price_btc+'''",
+                change_24h''' + str(time_of_day) + '''="'''+change_24h+'''",
+                change_7d''' + str(time_of_day) + '''="'''+change_7d+'''"
+                WHERE
+                    start_date = "'''+str(start_date)+'''" AND
+                    coin_name = "'''+str(token)+'''" AND 
+                    coin_symbol = "'''+str(ticker)+'"')
         self.write()
 
     def check_or_insert(self, event):
@@ -107,15 +122,15 @@ class DB:
                  change_7d,change_7d2,change_7d3,change_7d4)
                  VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
                             (event.event, event.proof, event.public_date, event.start_date,
-                             event.end_date, event.coin_name, event.coin_symbol, 0,
+                             event.end_date, event.token, event.ticker, 0,
                              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
 
-    def get_events_for_today(self, date):
+    def get_events_for_today(self):
         self.cursor = self.db.cursor()
         self.cursor.execute('''
             SELECT * FROM news_events 
             WHERE
-                start_date = "2018-5-29"''')
+                start_date = "'''+str(datetime.date.today())+'''"''')
         return self.cursor.fetchall()
 
     def close(self):
