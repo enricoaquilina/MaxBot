@@ -4,6 +4,9 @@ from common.http import request
 
 
 class CoinDar:
+    # self.events_list = self.coindar.get_news_data()
+    # self.test2 = self.coindar.api_news1_coin_events("btc")
+    # self.test3 = self.coindar.api_news1_custom_date(2018,1,1)
     def __init__(self):
         self.req = request.MyRequest()
 

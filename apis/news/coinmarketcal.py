@@ -2,6 +2,9 @@ from common.http import request
 
 
 class CoinMarketCal:
+    # self.test4 = self.coinmarketcal.api_news2_get_access_token()
+    # self.test5 = self.coinmarketcal.api_news2_get_list_of_coins()
+    # self.test6 = self.coinmarketcal.api_news2_get_categories()
     def __init__(self):
         self.client_id = '603_4xuth8ds5u8ss484gcg04wc884c4k8kowc4kko8cccoow44kwo'
         self.client_secret = 'd672epocs1s08kks8swsskg8kgw444coogwssw4ko0okws08w'
@@ -28,7 +31,7 @@ class CoinMarketCal:
                              date_range_end=None, coins=None,
                              categories=None, sort_by=None,
                              show_only=None, show_metadata=None,
-                             page=1, max=16):
+                             page=1, max=50):
         # page (page_number
         # max (max value is 150
         # dates (dd/MM/YYYY

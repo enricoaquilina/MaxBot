@@ -22,6 +22,8 @@ class EventHunter:
         self.coindar = CoinDar()
         self.coinmarketcal = CoinMarketCal()
         self.cmc = CoinMarketCap()
+        self.events_list = []
+        self.processed_events = []
 
     def clean_slate(self):
         self.news_events.clear()
@@ -92,16 +94,34 @@ class EventHunter:
         return date
 
     def create_model(self, event):
-        ticker = event['coin_symbol']
-        token = event['coin_name']
-        news = event['caption']
         proof = event['proof']
-        end_date = self.extract_date_from_string(event, 'end_date')
-        start_date = self.extract_date_from_string(event, 'start_date')
-        public_date = self.extract_date_from_string(event, 'public_date')
-        # category = ??
 
-        return NewsEvent(start_date, public_date, end_date, ticker, token, news, proof=proof)
+        if 'coin_symbol' in event:
+            ticker = event['coin_symbol']
+            token = event['coin_name']
+            event_title = event['caption']
+            start_date = self.extract_date_from_string(event, 'start_date')
+            public_date = self.extract_date_from_string(event, 'public_date')
+            end_date = self.extract_date_from_string(event, 'end_date')
+            return NewsEvent(start_date=start_date, public_date=public_date, end_date=end_date,
+                             event_title=event_title, ticker=ticker, token=token, proof=proof)
+        elif 'coins' in event:
+            event_title = event['title']
+            event_description = event['description']
+            category = event['categories'][0]['name']
+            ticker = event['coins'][0]['symbol']
+            token = event['coins'][0]['name']
+            start_date = self.extract_date_from_string(event, 'date_event')
+            public_date = self.extract_date_from_string(event, 'created_date')
+            vote_count = event['vote_count']
+            pos_vote_count = event['positive_vote_count']
+            percent = event['percentage']
+            source = event['source']
+            return NewsEvent(event_title=event_title, event_description=event_description, category=category,
+                             ticker=ticker, token=token,
+                             start_date=start_date, public_date=public_date,
+                             vote_count=vote_count, pos_vote_count=pos_vote_count, percent=percent,
+                             proof=proof, source=source)
 
     def cluster_events(self, start_date, event):
         if len(self.events) == 0:
@@ -124,19 +144,13 @@ class EventHunter:
         self.db.write()
 
     def run(self):
-        # self.events_list = self.coindar.get_news_data()
         self.events_list = self.coindar.api_news1_last_events()
-        # self.test2 = self.coindar.api_news1_coin_events("btc")
-        # self.test3 = self.coindar.api_news1_custom_date(2018,1,1)
-
         self.events_list = sorted(self.events_list, key=lambda k: k['start_date'])
+        self.events_list.extend(self.coinmarketcal.api_news2_get_events())
 
-
-        # Coinmarketcal API
-        # self.test4 = self.coinmarketcal.api_news2_get_access_token()
-        # self.test5 = self.coinmarketcal.api_news2_get_list_of_coins()
-        # self.test6 = self.coinmarketcal.api_news2_get_categories()
-        # self.test7 = self.coinmarketcal.api_news2_get_events()
+        # Process events
+        for idx, event in enumerate(self.events_list):
+            self.processed_events.append(self.create_model(event))
 
         # print('Starting news hunter job (' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
         self.events = {}
