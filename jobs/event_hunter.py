@@ -18,11 +18,6 @@ from common.database import sqlite
 
 class EventHunter:
     def __init__(self):
-        self.news_events = set()
-        self.events = []
-        self.count = 1
-        self.daily_events = set()
-
         # APIs needed
         self.helper = Helper()
 
