@@ -113,8 +113,8 @@ class NewsScraper:
                     price_usd, price_btc, change_24h, change_7d = self.cmc.get_asset_prices(token, ticker)
 
                     if not exists:
-                        event = NewsEvent(event_date, time.strftime("%d/%m/%Y %H:%M:%S", time.gmtime()), '',
-                                          ticker=ticker, token=token, event=news, category=category,
+                        event = NewsEvent(start_date=event_date, public_date=time.strftime("%d/%m/%Y %H:%M:%S", time.gmtime()),
+                                          ticker=ticker, token=token, event_description=news, category=category,
                                           price_usd=price_usd, price_btc=price_btc,
                                           change_24h=change_24h, change_7d=change_7d)
                         self.events.append(event)

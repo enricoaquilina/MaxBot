@@ -1,17 +1,20 @@
 #!/usr/bin/python3
+# import sys
+# sys.path.insert(0, '/home/pi/Desktop/')
+import datetime
+from dateutil.parser import parse
 
 from apis.news.coindar import *
 from apis.news.coinmarketcal import *
 from apis.prices.cmc import CoinMarketCap
+
 from common.models.event_hunter.NewsEvent import NewsEvent
-
-
+from common.utilities.helper import Helper
 from common.database import sqlite
-import datetime
-# from datetime import datetime
-from dateutil.parser import parse
+
 
 # -*- coding: utf-8 -*-
+
 
 class EventHunter:
     def __init__(self):
@@ -19,25 +22,19 @@ class EventHunter:
         self.events = []
         self.count = 1
         self.daily_events = set()
+
+        # APIs needed
+        self.helper = Helper()
+
+        self.cmc = CoinMarketCap()
         self.coindar = CoinDar()
         self.coinmarketcal = CoinMarketCal()
-        self.cmc = CoinMarketCap()
+
+        # data structures needed
+        self.events = {}
         self.events_list = []
         self.processed_events = []
-
-    def clean_slate(self):
-        self.news_events.clear()
-        self.exists = False
-
-    def write_to_csv(self):
-        self.db = sqlite.DB()
-        print('News events discovered: %s, News events to be stored: %s,' % (len(self.events_list), len(self.events)))
-
-        for event_id, news_event in enumerate(self.events):
-            self.db.insert_entry(news_event)
-
-        self.db.write()
-        self.db.close()
+        self.dailies_updated = []
 
     def update_dailies(self):
         self.db = sqlite.DB('news_events')
@@ -59,7 +56,6 @@ class EventHunter:
         elif timestamp > fourth_run:
             time_of_day = 4
 
-        self.dailies_updated = []
         for event in daily_events:
 
             price_usd, price_btc, change_24h, change_7d = self.cmc.get_asset_prices(event[4], event[3])
@@ -76,67 +72,6 @@ class EventHunter:
                                      event.change_24h, event.change_7d)
                 self.db.write()
 
-    def extract_date_from_string(self, event, type):
-        date = event[type]
-        if date:
-            date = parse(date).strftime('%Y-%m-%d %H:%M:%f')
-
-        if len(date.split('-')) > 2:
-            day = date.split('-')[2]
-            if len(day.split(' ')) == 2:
-                date = event[type].split('-')[0]+'-'+event[type].split('-')[1]+'-'+day.split()[0]
-
-        # this is to get padded month and days which are less than 10
-        if date != '':
-            if len(date.split('-')) > 2:
-                date = str(datetime.datetime.strptime(date, '%Y-%m-%d')).split(' ')[0]
-            elif len(date.split('-')) == 2:
-                # date = str(datetime.datetime.strptime(date, '%Y-%m')).split(' ')[0]
-                return date
-        return date
-
-    def create_model(self, event):
-        proof = event['proof']
-
-        if 'coin_symbol' in event:
-            ticker = event['coin_symbol']
-            token = event['coin_name']
-            event_title = event['caption']
-            start_date = self.extract_date_from_string(event, 'start_date')
-            public_date = self.extract_date_from_string(event, 'public_date')
-            end_date = self.extract_date_from_string(event, 'end_date')
-            return NewsEvent(start_date=start_date, public_date=public_date, end_date=end_date,
-                             event_title=event_title, ticker=ticker, token=token, proof=proof)
-        elif 'coins' in event:
-            event_title = event['title']
-            event_description = event['description']
-            category = event['categories'][0]['name']
-            if len(event['coins']) == 2:
-                ticker = event['coins'][1]['symbol']
-                token = event['coins'][1]['name']
-            else:
-                ticker = event['coins'][0]['symbol']
-                token = event['coins'][0]['name']
-            start_date = self.extract_date_from_string(event, 'date_event')
-            public_date = self.extract_date_from_string(event, 'created_date')
-            vote_count = event['vote_count']
-            pos_vote_count = event['positive_vote_count']
-            percent = event['percentage']
-            source = event['source']
-            return NewsEvent(event_title=event_title, event_description=event_description, category=category,
-                             ticker=ticker, token=token,
-                             start_date=start_date, public_date=public_date,
-                             vote_count=vote_count, pos_vote_count=pos_vote_count, percent=percent,
-                             proof=proof, source=source)
-
-    def cluster_events(self, start_date, event):
-        if len(self.events) == 0:
-            self.events[start_date] = [event]
-        elif start_date not in self.events:
-            self.events[start_date] = [event]
-        else:
-            self.events[start_date].append(event)
-
     def insert_upcoming(self):
         self.db = sqlite.DB('news_events')
 
@@ -146,44 +81,62 @@ class EventHunter:
             else:
                 for e in event:
                     self.db.check_or_insert(e)
-
         self.db.write()
 
-    def run(self):
-        self.events_list = self.coindar.api_news1_last_events()
-        self.events_list = sorted(self.events_list, key=lambda k: k['start_date'])
-        self.events_list.extend(self.coinmarketcal.api_news2_get_events())
+    def create_cluster(self, start_date, event):
+        if len(self.events) == 0:
+            self.events[start_date] = [event]
+        elif start_date not in self.events:
+            self.events[start_date] = [event]
+        else:
+            self.events[start_date].append(event)
 
-        # Process events
-        for idx, event in enumerate(self.events_list):
-            self.processed_events.append(self.create_model(event))
-
-        print('Starting news hunter job (' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
-        self.events = {}
+    def group_events(self):
         start_date = ''
 
         for idx, event in enumerate(self.processed_events):
             if parse(event.start_date).date() >= datetime.date.today():
-                # event = self.create_model(raw_event)
 
                 if start_date != event.start_date:
                     start_date = event.start_date
 
-                self.cluster_events(start_date, event)
+                # cluster events by date
+                self.create_cluster(start_date, event)
 
-        # now we need to check if events exist or not
-        # if they do -> do nothing
-        # if not -> save them!
+    def create_model(self, event):
+        if 'coin_symbol' in event:
+            return self.coindar.build_model(event)
+        elif 'coins' in event:
+            return self.coinmarketcal.build_model(event)
+
+    def process_events(self):
+        for idx, event in enumerate(self.events_list):
+            self.processed_events.append(self.create_model(event))
+
+    def gather_raw_event_data(self):
+        self.events_list = self.coindar.api_news1_last_events()
+        self.events_list = sorted(self.events_list, key=lambda k: k['start_date'])
+
+        other_news = self.coinmarketcal.api_news2_get_events()
+        self.events_list.extend(sorted(other_news, key=lambda k: k['date_event']))
+
+    def run(self):
+        # get events from APIs
+        self.gather_raw_event_data()
+
+        # process events and 'clean' them
+        self.process_events()
+
+        self.helper.options['START']()
+
+        self.group_events()
 
         self.insert_upcoming()
         self.update_dailies()
 
-
-        # self.write_to_csv()
-        self.events.clear()
-        self.events_list.clear()
-        print('Finished news hunter job (' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
-        print('________________________________________________________________________')
+        self.helper.options['FINISH']([self.events, self.events_list,
+                                      self.dailies_updated, self.processed_events,
+                                      self.dailies_updated])
 
 
 test = EventHunter()

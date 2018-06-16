@@ -1,5 +1,6 @@
 from common.http import request
-
+from common.models.event_hunter.NewsEvent import NewsEvent
+from common.utilities.helper import Helper
 
 class CoinMarketCal:
     # self.test4 = self.coinmarketcal.api_news2_get_access_token()
@@ -10,6 +11,7 @@ class CoinMarketCal:
         self.client_secret = 'd672epocs1s08kks8swsskg8kgw444coogwssw4ko0okws08w'
 
         self.req = request.MyRequest()
+        self.helper = Helper()
         self.access_token = self.api_news2_get_access_token()['access_token']
 
     def api_news2_get_access_token(self):
@@ -51,3 +53,27 @@ class CoinMarketCal:
     # '&categories=9%2C8%2C7' \
     # '&sortBy=created_desc' \
     # '&showMetadata=true'
+
+    def build_model(self, event):
+        event_title = event['title']
+        event_description = event['description']
+        category = event['categories'][0]['name']
+        if len(event['coins']) == 2:
+            ticker = event['coins'][1]['symbol']
+            token = event['coins'][1]['name']
+        else:
+            ticker = event['coins'][0]['symbol']
+            token = event['coins'][0]['name']
+        start_date = self.helper.process_date(event, 'date_event')
+        public_date = self.helper.process_date(event, 'created_date')
+        vote_count = event['vote_count']
+        pos_vote_count = event['positive_vote_count']
+        percent = event['percentage']
+        source = event['source']
+        proof = event['proof']
+
+        return NewsEvent(event_title=event_title, event_description=event_description, category=category,
+                         ticker=ticker, token=token,
+                         start_date=start_date, public_date=public_date,
+                         vote_count=vote_count, pos_vote_count=pos_vote_count, percent=percent,
+                         proof=proof, source=source)

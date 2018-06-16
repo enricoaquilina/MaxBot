@@ -1,7 +1,8 @@
 import bs4
 from urllib.request import urlopen
 from common.http import request
-
+from common.models.event_hunter.NewsEvent import NewsEvent
+from common.utilities.helper import Helper
 
 class CoinDar:
     # self.events_list = self.coindar.get_news_data()
@@ -9,6 +10,7 @@ class CoinDar:
     # self.test3 = self.coindar.api_news1_custom_date(2018,1,1)
     def __init__(self):
         self.req = request.MyRequest()
+        self.helper = Helper()
 
     def get_news_data(self):
         url = "http://www.coindar.org"
@@ -27,3 +29,15 @@ class CoinDar:
     def api_news1_custom_date(self, year, month, day):
         url = "https://coindar.org/api/v1/events?year="+str(year)+"&month="+str(month)+"&day="+str(day)
         return self.req.get_data(url)
+
+    def build_model(self, event):
+        ticker = event['coin_symbol']
+        token = event['coin_name']
+        event_title = event['caption']
+        start_date = self.helper.process_date(event, 'start_date')
+        public_date = self.helper.process_date(event, 'public_date')
+        end_date = self.helper.process_date(event, 'end_date')
+        proof = event['proof']
+
+        return NewsEvent(start_date=start_date, public_date=public_date, end_date=end_date,
+                         event_title=event_title, ticker=ticker, token=token, proof=proof)
