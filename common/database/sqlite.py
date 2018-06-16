@@ -47,13 +47,19 @@ class DB:
         self.cursor = self.db.cursor()
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS news_events(
-            caption   TEXT,
-            proof     TEXT,
-            public_date     DATETIME,
+            event_title   TEXT,
+            event_description   TEXT,
+            category   TEXT,
+            ticker     TEXT,
+            token     TEXT,
             start_date      DATETIME,
+            public_date      DATETIME,
             end_date  DATETIME,
-            coin_name TEXT,
-            coin_symbol TEXT,
+            vote_count DECIMAL(10,5),
+            pos_vote_count DECIMAL(10,5),
+            percent DECIMAL(10,5),
+            proof TEXT,
+            source TEXT,
             price_usd DECIMAL(10,5),
             price_usd2 DECIMAL(10,5),
             price_usd3 DECIMAL(10,5),
@@ -70,8 +76,8 @@ class DB:
             change_7d2 DECIMAL(10,5),
             change_7d3 DECIMAL(10,5),
             change_7d4 DECIMAL(10,5),
-            UNIQUE(start_date, public_date, coin_symbol)
-            PRIMARY KEY(start_date, public_date, coin_symbol))
+            UNIQUE(start_date, public_date, ticker)
+            PRIMARY KEY(start_date, public_date, ticker))
         ''')
         self.write()
 
@@ -104,26 +110,29 @@ class DB:
     def update_entry2(self, time_of_day, start_date, ticker, token, price_usd, price_btc, change_24h, change_7d):
         self.cursor.execute('''UPDATE news_events
               SET 
-                price_usd''' + str(time_of_day) + '''="'''+price_usd+'''",
-                price_btc''' + str(time_of_day) + '''="'''+price_btc+'''",
-                change_24h''' + str(time_of_day) + '''="'''+change_24h+'''",
-                change_7d''' + str(time_of_day) + '''="'''+change_7d+'''"
+                price_usd''' + str(time_of_day) + '''="'''+str(price_usd)+'''",
+                price_btc''' + str(time_of_day) + '''="'''+str(price_btc)+'''",
+                change_24h''' + str(time_of_day) + '''="'''+str(change_24h)+'''",
+                change_7d''' + str(time_of_day) + '''="'''+str(change_7d)+'''"
                 WHERE
                     start_date = "'''+str(start_date)+'''" AND
-                    coin_name = "'''+str(token)+'''" AND 
-                    coin_symbol = "'''+str(ticker)+'"')
+                    token = "'''+str(token)+'''" AND 
+                    ticker = "'''+str(ticker)+'"')
         self.write()
 
     def check_or_insert(self, event):
         self.cursor.execute('''INSERT OR IGNORE INTO news_events
-                (caption, proof, public_date, start_date, end_date, coin_name, coin_symbol,
-                 price_usd, price_usd2, price_usd3, price_usd4, price_btc, price_btc2,
-                 price_btc3, price_btc4, change_24h, change_24h2, change_24h3, change_24h4, 
-                 change_7d,change_7d2,change_7d3,change_7d4)
-                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
-                            (event.event, event.proof, event.public_date, event.start_date,
-                             event.end_date, event.token, event.ticker, 0,
-                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                (event_title, event_description, category, ticker, token, 
+                 start_date, public_date, end_date, vote_count, pos_vote_count, percent, proof, source,
+                 price_usd, price_usd2, price_usd3, price_usd4, 
+                 price_btc, price_btc2, price_btc3, price_btc4, 
+                 change_24h, change_24h2, change_24h3, change_24h4, 
+                 change_7d, change_7d2, change_7d3, change_7d4)
+                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+                            (event.event_title, event.event_description, event.category,
+                             event.ticker, event.token, event.start_date, event.public_date,
+                             event.end_date, event.vote_count, event.pos_vote_count, event.percent,
+                             event.proof, event.source, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
 
     def get_events_for_today(self):
         self.cursor = self.db.cursor()

@@ -62,10 +62,10 @@ class EventHunter:
         self.dailies_updated = []
         for event in daily_events:
 
-            price_usd, price_btc, change_24h, change_7d = self.cmc.get_asset_prices(event[5], event[6])
-            event = NewsEvent(start_date=event[3], public_date=event[2], end_date=[4],
-                              ticker=event[6], token=event[5], event=event[0],
-                              price_usd=price_usd, price_btc=price_btc, change_24h=change_24h, change_7d=change_7d)
+            price_usd, price_btc, change_24h, change_7d = self.cmc.get_asset_prices(event[4], event[3])
+            event = NewsEvent(start_date=event[5], public_date=event[6], end_date=event[7],
+                              ticker=event[3], token=event[4], price_usd=price_usd, price_btc=price_btc,
+                              change_24h=change_24h, change_7d=change_7d)
             self.dailies_updated.append(event)
 
         if time_of_day > 0:
@@ -78,6 +78,8 @@ class EventHunter:
 
     def extract_date_from_string(self, event, type):
         date = event[type]
+        if date:
+            date = parse(date).strftime('%Y-%m-%d %H:%M:%f')
 
         if len(date.split('-')) > 2:
             day = date.split('-')[2]
@@ -109,8 +111,12 @@ class EventHunter:
             event_title = event['title']
             event_description = event['description']
             category = event['categories'][0]['name']
-            ticker = event['coins'][0]['symbol']
-            token = event['coins'][0]['name']
+            if len(event['coins']) == 2:
+                ticker = event['coins'][1]['symbol']
+                token = event['coins'][1]['name']
+            else:
+                ticker = event['coins'][0]['symbol']
+                token = event['coins'][0]['name']
             start_date = self.extract_date_from_string(event, 'date_event')
             public_date = self.extract_date_from_string(event, 'created_date')
             vote_count = event['vote_count']
@@ -152,17 +158,16 @@ class EventHunter:
         for idx, event in enumerate(self.events_list):
             self.processed_events.append(self.create_model(event))
 
-        # print('Starting news hunter job (' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
+        print('Starting news hunter job (' + datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
         self.events = {}
         start_date = ''
 
-        for idx, raw_event in enumerate(self.events_list):
-            if parse(raw_event['start_date']).date() >= datetime.date.today():
-                event = self.create_model(raw_event)
+        for idx, event in enumerate(self.processed_events):
+            if parse(event.start_date).date() >= datetime.date.today():
+                # event = self.create_model(raw_event)
 
-                # process and cluster start_date(remove time)
-                if start_date != raw_event['start_date']:
-                    start_date = self.extract_date_from_string(raw_event, 'start_date')
+                if start_date != event.start_date:
+                    start_date = event.start_date
 
                 self.cluster_events(start_date, event)
 

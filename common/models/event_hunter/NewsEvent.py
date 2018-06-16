@@ -36,8 +36,8 @@ class NewsEvent(object):
     change_7d3 = 0
     change_7d4 = 0
 
-    def __init__(self, start_date, public_date, end_date,
-                 ticker, token, event_title, event_description='', proof='', source='',
+    def __init__(self, start_date='', public_date='',
+                 ticker='', token='', event_title='', end_date='', event_description='', proof='', source='',
                  category='', vote_count=0, pos_vote_count=0, percent=0,
                  price_usd=0, price_btc=0, change_24h=0, change_7d=0):
 
