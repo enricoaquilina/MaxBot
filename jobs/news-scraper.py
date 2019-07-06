@@ -4,7 +4,7 @@ from apis.news.coindar import *
 from apis.news.coinmarketcal import *
 from apis.prices.cmc import CoinMarketCap
 from common.models.event_hunter.NewsEvent import NewsEvent
-from common.database import sqlite
+from common.database import mongo
 
 
 import time
@@ -30,7 +30,7 @@ class NewsScraper:
         self.exists = False
 
     def write_to_csv(self):
-        self.db = sqlite.DB('events')
+        self.db = mongo.DB('events')
         print('News events discovered: %s, News events to be stored: %s,' % (len(self.events_list), len(self.events)))
 
         for event_id, news_event in enumerate(self.events):
@@ -40,7 +40,7 @@ class NewsScraper:
         self.db.close()
 
     def update_dailies(self, daily_events):
-        self.db = sqlite.DB('events')
+        self.db = mongo.DB('events')
 
         timestamp = datetime.datetime.now().time()
 

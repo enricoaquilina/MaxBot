@@ -1,26 +1,22 @@
-import sqlite3
 import datetime
 import pymongo
 
 
 class DB:
     def __init__(self, db_name):
-        self.col_newsevents = None
-        self.db = self.connect(db_name)
 
-    def connect(self, db_name):
-        # self.db = sqlite3.connect('../holy_grail/data/'+db_name+'.db')
-        mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
-        self.db = mongo_client['MaxBotDB']
+        if not hasattr(self, 'db'):
+            self.db = self.connect(db_name)
 
-        if db_name == 'news_events':
-            # self.create_table2()
-            self.col_newsevents = self.db['news_events']
-        else:
-            # self.create_table()
-            self.events = self.db['events']
+    def connect(self, db_name, hostname='localhost', port=27017):
+        client = pymongo.MongoClient(f'mongodb://{hostname}:{port}/')
+        return client[db_name]
 
-        return self.db
+    def insert(self, collection, event):
+        self.db[collection].insert_one(event)
+
+    def get_events_for_today(self, collection):
+        return self.db[collection].find({'event_date': str(datetime.date.today())})
 
     def create_table(self):
         self.cursor = self.db.cursor()
@@ -90,9 +86,6 @@ class DB:
         ''')
         self.write()
 
-    def write(self):
-        self.db.commit()
-
     def insert_entry(self, news_event):
         self.cursor.execute('''INSERT OR IGNORE INTO events
         (start_date, public_date, ticker, token, event, category, price_usd, price_usd2,price_usd3,price_usd4, 
@@ -129,24 +122,4 @@ class DB:
                     ticker = "'''+str(ticker)+'"')
         self.write()
 
-    def check_or_insert(self, event):
-        self.col_newsevents.insert_one(event)
-        # self.cursor.execute('''INSERT OR IGNORE INTO news_events
-        #         (event_title, category,
-        #          event_date, proof, source)
-        #          VALUES(?,?,?,?,?)''',
-        #                     [event.event_title['en'], event.category,
-        #                      event.event_date,
-        #                      event.proof, event.source])
-
-    def get_events_for_today(self):
-        self.cursor = self.db.cursor()
-        self.cursor.execute('''
-            SELECT * FROM news_events 
-            WHERE
-                event_date = "'''+str(datetime.date.today())+'''"''')
-        return self.cursor.fetchall()
-
-    def close(self):
-        self.db.close()
 

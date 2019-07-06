@@ -10,7 +10,8 @@ from apis.prices.cmc import CoinMarketCap
 
 from common.models.event_hunter.NewsEvent import NewsEvent
 from common.utilities.helper import Helper
-from common.database import sqlite
+from common.database import mongo
+
 
 
 # -*- coding: utf-8 -*-
@@ -31,10 +32,13 @@ class EventHunter:
         self.processed_events = []
         self.dailies_updated = []
 
-    def update_dailies(self):
-        self.db = sqlite.DB('news_events')
+        self.news_collection = 'news_events'
+        self.events_collection = 'events'
 
-        daily_events = self.db.get_events_for_today()
+        self.db = mongo.DB('MaxBotDB')
+
+    def update_dailies(self):
+        daily_events = self.db.get_events_for_today(self.news_collection)
 
         second_run = datetime.time(hour=6, minute=0)
         third_run = datetime.time(hour=12, minute=0)
@@ -62,21 +66,15 @@ class EventHunter:
         if time_of_day > 0:
             for event in self.dailies_updated:
                 self.db.update_entry2(time_of_day, event.start_date,
-                                     event.ticker, event.token,
-                                     event.price_usd, event.price_btc,
-                                     event.change_24h, event.change_7d)
+                                      event.ticker, event.token,
+                                      event.price_usd, event.price_btc,
+                                      event.change_24h, event.change_7d)
                 self.db.write()
 
     def insert_upcoming(self):
-        self.db = sqlite.DB('news_events')
-
         for date, event in self.events.items():
-            if len(event) == 1:
-                self.db.check_or_insert(event[0])
-            else:
-                for e in event:
-                    self.db.check_or_insert(e)
-        self.db.write()
+            for e in event:
+                self.db.insert(self.news_collection, e)
 
     def create_cluster(self, start_date, event):
         if len(self.events) == 0:
@@ -130,8 +128,8 @@ class EventHunter:
         self.update_dailies()
 
         self.helper.options['FINISH']([self.events, self.events_list,
-                                      self.dailies_updated, self.processed_events,
-                                      self.dailies_updated])
+                                       self.dailies_updated, self.processed_events,
+                                       self.dailies_updated])
 
 
 test = EventHunter()
