@@ -36,25 +36,17 @@ class NewsEvent(object):
     change_7d3 = 0
     change_7d4 = 0
 
-    def __init__(self, start_date='', public_date='',
-                 ticker='', token='', event_title='', end_date='', event_description='', proof='', source='',
-                 category='', vote_count=0, pos_vote_count=0, percent=0,
+    def __init__(self, event_title='', category='', event_date='',
+                 coins='', proof='', source='',
                  price_usd=0, price_btc=0, change_24h=0, change_7d=0):
 
         self.event_title = event_title
-        self.event_description = event_description
         self.category = category
 
-        self.ticker = ticker
-        self.token = token
+        self.coins = coins
 
-        self.start_date = start_date
-        self.public_date = public_date
-        self.end_date = end_date
+        self.event_date = event_date
 
-        self.vote_count = vote_count
-        self.pos_vote_count = pos_vote_count
-        self.percent = percent
         self.proof = proof
         self.source = source
 

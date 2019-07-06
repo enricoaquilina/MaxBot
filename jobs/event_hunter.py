@@ -21,9 +21,9 @@ class EventHunter:
         # APIs needed
         self.helper = Helper()
 
-        self.cmc = CoinMarketCap()
-        self.coindar = CoinDar()
-        self.coinmarketcal = CoinMarketCal()
+        self.cm_cap = CoinMarketCap()
+        self.cm_cal = CoinMarketCal()
+        # self.coindar = CoinDar()
 
         # data structures needed
         self.events = {}
@@ -53,7 +53,7 @@ class EventHunter:
 
         for event in daily_events:
 
-            price_usd, price_btc, change_24h, change_7d = self.cmc.get_asset_prices(event[4], event[3])
+            price_usd, price_btc, change_24h, change_7d = self.cm_cap.get_asset_prices(event[4], event[3])
             event = NewsEvent(start_date=event[5], public_date=event[6], end_date=event[7],
                               ticker=event[3], token=event[4], price_usd=price_usd, price_btc=price_btc,
                               change_24h=change_24h, change_7d=change_7d)
@@ -87,33 +87,33 @@ class EventHunter:
             self.events[start_date].append(event)
 
     def group_events(self):
-        start_date = ''
+        event_date = ''
 
         for idx, event in enumerate(self.processed_events):
-            if parse(event.start_date).date() >= datetime.date.today():
+            if parse(event['event_date']).date() >= datetime.date.today():
 
-                if start_date != event.start_date:
-                    start_date = event.start_date
+                if event_date != event['event_date']:
+                    event_date = event['event_date']
 
                 # cluster events by date
-                self.create_cluster(start_date, event)
+                self.create_cluster(event_date, event)
 
     def create_model(self, event):
         if 'coin_symbol' in event:
             return self.coindar.build_model(event)
         elif 'coins' in event:
-            return self.coinmarketcal.build_model(event)
+            return self.cm_cal.build_model(event)
 
     def process_events(self):
         for idx, event in enumerate(self.events_list):
             self.processed_events.append(self.create_model(event))
 
     def gather_raw_event_data(self):
-        self.events_list = self.coindar.api_news1_last_events()
-        self.events_list = sorted(self.events_list, key=lambda k: k['start_date'])
+        # if self.coindar:
+        #     self.events_list = sorted(self.coindar.api_news1_last_events(), key=lambda k: k['start_date'])
 
-        other_news = self.coinmarketcal.api_news2_get_events()
-        self.events_list.extend(sorted(other_news, key=lambda k: k['date_event']))
+        if self.cm_cal:
+            self.events_list.extend(sorted(self.cm_cal.get_events(), key=lambda k: k['date_event']))
 
     def run(self):
         # get events from APIs

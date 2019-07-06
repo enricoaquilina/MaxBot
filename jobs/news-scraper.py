@@ -22,7 +22,7 @@ class NewsScraper:
         self.count = 1
         self.daily_events = set()
         self.coindar = CoinDar()
-        self.coinmarketcal = CoinMarketCal()
+        # self.coinmarketcal = CoinMarketCal()
         self.cmc = CoinMarketCap()
 
     def clean_slate(self):

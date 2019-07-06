@@ -15,10 +15,10 @@ class CoinDar:
     def get_news_data(self):
         url = "http://www.coindar.org"
         soup = bs4.BeautifulSoup(urlopen(url), 'lxml')
-        return soup.find_all('div', {'class': 'calendar'})[0]
+        return soup.find_all('div', {'class': 'event'})
 
     def api_news1_last_events(self, limit=50):
-        url = "https://coindar.org/api/v1/lastEvents?limit="+str(limit)
+        url = "https://coindar.org/api/v2/events?limit="+str(limit)
         return self.req.get_data(url)
 
     def api_news1_coin_events(self, name):

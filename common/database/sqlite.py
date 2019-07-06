@@ -1,16 +1,25 @@
 import sqlite3
 import datetime
+import pymongo
+
 
 class DB:
     def __init__(self, db_name):
+        self.col_newsevents = None
         self.db = self.connect(db_name)
 
     def connect(self, db_name):
-        self.db = sqlite3.connect('../holy_grail/data/'+db_name+'.db')
+        # self.db = sqlite3.connect('../holy_grail/data/'+db_name+'.db')
+        mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
+        self.db = mongo_client['MaxBotDB']
+
         if db_name == 'news_events':
-            self.create_table2()
+            # self.create_table2()
+            self.col_newsevents = self.db['news_events']
         else:
-            self.create_table()
+            # self.create_table()
+            self.events = self.db['events']
+
         return self.db
 
     def create_table(self):
@@ -52,7 +61,7 @@ class DB:
             category   TEXT,
             ticker     TEXT,
             token     TEXT,
-            start_date      DATETIME,
+            event_date      DATETIME,
             public_date      DATETIME,
             end_date  DATETIME,
             vote_count DECIMAL(10,5),
@@ -76,8 +85,8 @@ class DB:
             change_7d2 DECIMAL(10,5),
             change_7d3 DECIMAL(10,5),
             change_7d4 DECIMAL(10,5),
-            UNIQUE(start_date, public_date, ticker)
-            PRIMARY KEY(start_date, public_date, ticker))
+            UNIQUE(event_date, ticker)
+            PRIMARY KEY(event_date, ticker))
         ''')
         self.write()
 
@@ -121,25 +130,21 @@ class DB:
         self.write()
 
     def check_or_insert(self, event):
-        self.cursor.execute('''INSERT OR IGNORE INTO news_events
-                (event_title, event_description, category, ticker, token, 
-                 start_date, public_date, end_date, vote_count, pos_vote_count, percent, proof, source,
-                 price_usd, price_usd2, price_usd3, price_usd4, 
-                 price_btc, price_btc2, price_btc3, price_btc4, 
-                 change_24h, change_24h2, change_24h3, change_24h4, 
-                 change_7d, change_7d2, change_7d3, change_7d4)
-                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''',
-                            (event.event_title, event.event_description, event.category,
-                             event.ticker, event.token, event.start_date, event.public_date,
-                             event.end_date, event.vote_count, event.pos_vote_count, event.percent,
-                             event.proof, event.source, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+        self.col_newsevents.insert_one(event)
+        # self.cursor.execute('''INSERT OR IGNORE INTO news_events
+        #         (event_title, category,
+        #          event_date, proof, source)
+        #          VALUES(?,?,?,?,?)''',
+        #                     [event.event_title['en'], event.category,
+        #                      event.event_date,
+        #                      event.proof, event.source])
 
     def get_events_for_today(self):
         self.cursor = self.db.cursor()
         self.cursor.execute('''
             SELECT * FROM news_events 
             WHERE
-                start_date = "'''+str(datetime.date.today())+'''"''')
+                event_date = "'''+str(datetime.date.today())+'''"''')
         return self.cursor.fetchall()
 
     def close(self):
