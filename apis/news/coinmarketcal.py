@@ -48,13 +48,12 @@ class CoinMarketCal:
 
     def build_model(self, event):
         coins = {}
-        if len(event['coins']) == 2:
-            coins[event['coins'][1]['symbol']] = event['coins'][1]['name']
-        elif len(event['coins']) > 2:
-            for coin in event['coins'][1:]:
-                coins[coin['symbol']] = coin['name']
-        else:
-            coins[event['coins'][0]['symbol']] = event['coins'][0]['name']
+
+        for coin in event['coins']:
+            coins[coin['symbol']] = coin['name']
+
+        if event['categories'] is None:
+            event['categories'] = [{'id': 0, 'name': 'N/A'}]
 
         event = {
             'event_title': event['title'],

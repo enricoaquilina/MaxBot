@@ -3,19 +3,32 @@ from urllib.request import urlopen
 from common.http import request
 from common.models.event_hunter.NewsEvent import NewsEvent
 from common.utilities.helper import Helper
+import requests
 
 class CoinDar:
     # self.events_list = self.coindar.get_news_data()
     # self.test2 = self.coindar.api_news1_coin_events("btc")
     # self.test3 = self.coindar.api_news1_custom_date(2018,1,1)
+    #
+
     def __init__(self):
         self.req = request.MyRequest()
         self.helper = Helper()
+        self.get_news_data()
 
     def get_news_data(self):
-        url = "http://www.coindar.org"
-        soup = bs4.BeautifulSoup(urlopen(url), 'lxml')
-        return soup.find_all('div', {'class': 'event'})
+        # url = "http://www.coindar.org"
+        # soup = bs4.BeautifulSoup(urlopen(url), 'lxml')
+
+        access_token = '37949:XvvzaWNeECQuCXyJLZa'
+        url = f"https://coindar.org/api/v2/coins?access_token={access_token}"
+        querystring = {}
+        payload = ""
+
+        response = requests.request("GET", url, data=payload, params=querystring)
+        return response.json()
+
+        # return soup.find_all('div', {'class': 'event'})
 
     def api_news1_last_events(self, limit=50):
         url = "https://coindar.org/api/v2/events?limit="+str(limit)

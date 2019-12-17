@@ -22,7 +22,7 @@ class EventHunter:
         # APIs needed
         self.helper = Helper()
 
-        self.cm_cap = CoinMarketCap()
+        self.coinmarketcap = CoinMarketCap()
         self.cm_cal = CoinMarketCal()
         # self.coindar = CoinDar()
 
@@ -36,6 +36,8 @@ class EventHunter:
         self.events_collection = 'events'
 
         self.db = mongo.DB('MaxBotDB')
+
+
 
     def update_dailies(self):
         daily_events = self.db.get_events_for_today(self.news_collection)
@@ -55,12 +57,22 @@ class EventHunter:
         elif timestamp > fourth_run:
             time_of_day = 4
 
-        for event in daily_events:
 
-            price_usd, price_btc, change_24h, change_7d = self.cm_cap.get_asset_prices(event[4], event[3])
+        for event in daily_events:
+            price_usd, price_btc, \
+            volume_usd_24h, volume_btc_24h, \
+            change_usd_1h, change_btc_1h, \
+            change_usd_24h, change_btc_24h,\
+            change_usd_7d, change_btc_7d,\
+            marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(event)
+
             event = NewsEvent(start_date=event[5], public_date=event[6], end_date=event[7],
-                              ticker=event[3], token=event[4], price_usd=price_usd, price_btc=price_btc,
-                              change_24h=change_24h, change_7d=change_7d)
+                              ticker=event[3], token=event[4],
+                              price_usd=price_usd, price_btc=price_btc,
+                              volume_usd_24h=volume_usd_24h, volume_btc_24h=volume_btc_24h,
+                              change_usd_1h=change_usd_1h, change_btc_1h=change_btc_1h,
+                              change_usd_24h=change_usd_24h, change_btc_24h=change_btc_24h,
+                              change_usd_7d=change_usd_7d, change_btc_7d=change_btc_7d)
             self.dailies_updated.append(event)
 
         if time_of_day > 0:
