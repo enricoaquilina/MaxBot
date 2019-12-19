@@ -47,13 +47,13 @@ class EventHunter:
         timestamp = dt.datetime.now().time()
 
         if timestamp < second_run:
-            time_of_day = 0
-        elif timestamp >= second_run and timestamp < third_run:
             time_of_day = 1
-        elif timestamp >= third_run and timestamp < fourth_run:
+        elif timestamp >= second_run and timestamp < third_run:
             time_of_day = 2
-        elif timestamp > fourth_run:
+        elif timestamp >= third_run and timestamp < fourth_run:
             time_of_day = 3
+        elif timestamp > fourth_run:
+            time_of_day = 4
 
 
         for event_to_update in daily_events:
@@ -66,8 +66,8 @@ class EventHunter:
                 change_usd_7d, change_btc_7d, \
                 marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(event_to_update)
 
-                new_financial_info = {
-                    f'run_{time_of_day+1}': {
+                new_info = {
+                    f'run_{time_of_day}': {
                         'USD': {
                             'price': price_usd,
                             'volume_24h': volume_usd_24h,
@@ -87,7 +87,7 @@ class EventHunter:
                         'created_date': dt.datetime.now()
                     }
                 }
-                self.db.add_financial_event(self.news_collection, event_to_update, token_to_update, new_financial_info)
+                self.db.add_financial_event(self.news_collection, event_to_update, token_to_update, new_info)
 
         # self.dailies_updated.append(event)
 

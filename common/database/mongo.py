@@ -28,18 +28,18 @@ class DB:
     def get_events_for_today(self, collection):
         return self.db[collection].find({'event_date': str(datetime.date.today())})
 
-    def add_financial_event(self, collection, event_to_update, token_to_update, new_financial_info):
+    def add_financial_event(self, collection, event_to_update, token_to_update, new_info):
         return self.db[collection].update(
             {'_id': event_to_update['_id']},
             {
+                '$set':
+                {
+                    f'financials.{token_to_update}': new_info
+                },
                 '$currentDate':
                 {
                     'modified_date': True
                 },
-                '$set':
-                {
-                    f'financials.{token_to_update}': new_financial_info
-                }
             },
             upsert=True
         )
