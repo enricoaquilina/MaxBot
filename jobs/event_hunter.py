@@ -37,8 +37,6 @@ class EventHunter:
 
         self.db = mongo.DB('MaxBotDB')
 
-
-
     def update_dailies(self):
         daily_events = self.db.get_events_for_today(self.news_collection)
 
@@ -51,37 +49,54 @@ class EventHunter:
         if timestamp < second_run:
             time_of_day = 0
         elif timestamp >= second_run and timestamp < third_run:
-            time_of_day = 2
+            time_of_day = 1
         elif timestamp >= third_run and timestamp < fourth_run:
-            time_of_day = 3
+            time_of_day = 2
         elif timestamp > fourth_run:
-            time_of_day = 4
+            time_of_day = 3
 
 
         for event in daily_events:
             price_usd, price_btc, \
             volume_usd_24h, volume_btc_24h, \
             change_usd_1h, change_btc_1h, \
-            change_usd_24h, change_btc_24h,\
-            change_usd_7d, change_btc_7d,\
+            change_usd_24h, change_btc_24h, \
+            change_usd_7d, change_btc_7d, \
             marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(event)
 
-            event = NewsEvent(start_date=event[5], public_date=event[6], end_date=event[7],
-                              ticker=event[3], token=event[4],
-                              price_usd=price_usd, price_btc=price_btc,
-                              volume_usd_24h=volume_usd_24h, volume_btc_24h=volume_btc_24h,
-                              change_usd_1h=change_usd_1h, change_btc_1h=change_btc_1h,
-                              change_usd_24h=change_usd_24h, change_btc_24h=change_btc_24h,
-                              change_usd_7d=change_usd_7d, change_btc_7d=change_btc_7d)
-            self.dailies_updated.append(event)
+            financial_info = {
+                'financials': {
+                    f'run_{time_of_day+1}': {
+                        'USD': {
+                            'price': price_usd,
+                            'volume_24h': volume_usd_24h,
+                            'change_1h': change_usd_1h,
+                            'change_24h': change_usd_24h,
+                            'change_7d': change_usd_7d,
+                            'marketcap': marketcap_usd,
+                        },
+                        # 'BTC': {
+                        #     'price': price_btc,
+                        #     'volume_24h': volume_btc_24h,
+                        #     'change_1h': change_btc_1h,
+                        #     'change_24h': change_btc_24h,
+                        #     'change_7d': change_btc_7d,
+                        #     'marketcap': marketcap_btc,
+                        # }
+                    }
+                }
+            }
+            self.db.find_and_update(self.news_collection, str(event['_id']), 'financials', financial_info)
 
-        if time_of_day > 0:
-            for event in self.dailies_updated:
-                self.db.update_entry2(time_of_day, event.start_date,
-                                      event.ticker, event.token,
-                                      event.price_usd, event.price_btc,
-                                      event.change_24h, event.change_7d)
-                self.db.write()
+        # self.dailies_updated.append(event)
+
+        # if time_of_day > 0:
+        # for event in self.dailies_updated:
+        #     self.db.update_entry2(time_of_day, event.start_date,
+        #                           event.ticker, event.token,
+        #                           event.price_usd, event.price_btc,
+        #                           event.change_24h, event.change_7d)
+        #     self.db.write()
 
     def insert_upcoming(self):
         for date, event in self.events.items():

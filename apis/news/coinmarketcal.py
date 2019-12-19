@@ -47,21 +47,35 @@ class CoinMarketCal:
         return response.json()['body']
 
     def build_model(self, event):
-        coins = {}
+        financials = {}
 
         for coin in event['coins']:
-            coins[coin['symbol']] = coin['name']
+            financials[coin['symbol']] = []
 
         if event['categories'] is None:
             event['categories'] = [{'id': 0, 'name': 'N/A'}]
+
+        tokens = []
+
+        for coin in event['coins']:
+            tokens.append(
+                {
+                    'id': coin['id'],
+                    'name': coin['name'],
+                    'symbol': coin['symbol'],
+                    'full_name': coin['fullname'],
+                }
+            )
 
         event = {
             'event_title': event['title'],
             'category': event['categories'][0]['name'],
             'event_date': self.helper.process_date(event, 'date_event'),
             'source': event['source'],
+            'can_occur_before': event['can_occur_before'],
             'proof': event['proof'],
-            'coins': coins
+            'tokens': tokens,
+            'financials': financials
         }
 
         # event_description = event['description']

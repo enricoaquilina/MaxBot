@@ -18,6 +18,9 @@ class DB:
     def get_events_for_today(self, collection):
         return self.db[collection].find({'event_date': str(datetime.date.today())})
 
+    def find_and_update(self, collection, object_id, field_to_update, new_value):
+        return self.db[collection].find_one_and_update({'_id': object_id}, {'$set': {field_to_update: new_value}})
+
     def create_table(self):
         self.cursor = self.db.cursor()
         self.cursor.execute('''
