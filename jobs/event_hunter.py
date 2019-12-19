@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # import sys
 # sys.path.insert(0, '/home/pi/Desktop/')
-import datetime
+import datetime as dt
 from dateutil.parser import parse
 
 from apis.news.coindar import *
@@ -40,11 +40,11 @@ class EventHunter:
     def update_dailies(self):
         daily_events = self.db.get_events_for_today(self.news_collection)
 
-        second_run = datetime.time(hour=6, minute=0)
-        third_run = datetime.time(hour=12, minute=0)
-        fourth_run = datetime.time(hour=18, minute=0)
+        second_run = dt.time(hour=6, minute=0)
+        third_run = dt.time(hour=12, minute=0)
+        fourth_run = dt.time(hour=18, minute=0)
 
-        timestamp = datetime.datetime.now().time()
+        timestamp = dt.datetime.now().time()
 
         if timestamp < second_run:
             time_of_day = 0
@@ -83,7 +83,8 @@ class EventHunter:
                             'change_24h': change_btc_24h,
                             'change_7d': change_btc_7d,
                             'marketcap': marketcap_btc,
-                        }
+                        },
+                        'created_date': dt.datetime.now()
                     }
                 }
                 self.db.add_financial_event(self.news_collection, event_to_update, token_to_update, new_financial_info)
@@ -115,7 +116,7 @@ class EventHunter:
         event_date = ''
 
         for idx, event in enumerate(self.processed_events):
-            if parse(event['event_date']).date() >= datetime.date.today():
+            if parse(event['event_date']).date() >= dt.date.today():
 
                 if event_date != event['event_date']:
                     event_date = event['event_date']

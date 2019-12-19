@@ -3,7 +3,6 @@ from common.models.event_hunter.NewsEvent import NewsEvent
 from common.utilities.helper import Helper
 import requests
 
-
 class CoinMarketCal:
 
     def __init__(self):
@@ -72,7 +71,7 @@ class CoinMarketCal:
             'source': event['source'],
             'can_occur_before': event['can_occur_before'],
             'proof': event['proof'],
-            'tokens': tokens,
+            'token_details': tokens,
             'financials': financials
         }
 

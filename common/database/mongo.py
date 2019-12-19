@@ -15,7 +15,13 @@ class DB:
     def insert_event(self, collection, event):
         self.db[collection].update_one(
             filter={'category': event['category'], 'event_date': event['event_date'], 'source': event['source']},
-            update={'$set': event},
+            update={
+                '$set': event,
+                '$currentDate':
+                    {
+                        'created_date': {'$type': 'date'}
+                    }
+            },
             upsert=True
         )
 
@@ -23,14 +29,19 @@ class DB:
         return self.db[collection].find({'event_date': str(datetime.date.today())})
 
     def add_financial_event(self, collection, event_to_update, token_to_update, new_financial_info):
-        return self.db[collection].find_one_and_update(
+        return self.db[collection].update(
             {'_id': event_to_update['_id']},
             {
+                '$currentDate':
+                {
+                    'modified_date': True
+                },
                 '$set':
                 {
                     f'financials.{token_to_update}': new_financial_info
                 }
-            }
+            },
+            upsert=True
         )
 
     def create_table(self):
