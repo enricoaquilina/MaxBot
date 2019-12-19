@@ -13,21 +13,24 @@ class DB:
         return client[db_name]
 
     def insert(self, collection, event):
-        self.db[collection].insert_one(event)
+        self.db[collection].update_one(
+            {'category': event['category'], 'event_date': event['event_date'], 'source': event['source']},
+            {'$setOnInsert': event},
+            {'upsert': true}
+        )
 
     def get_events_for_today(self, collection):
         return self.db[collection].find({'event_date': str(datetime.date.today())})
 
-    def add_financial_event(self, collection, event_to_update, field_to_update, new_financial_info):
+    def add_financial_event(self, collection, event_to_update, token_to_update, new_financial_info):
         return self.db[collection].find_one_and_update(
             {'_id': event_to_update['_id']},
             {
-                '$push':
-                    {
-                        f'financials[{field_to_update}]': new_financial_info
-                    }
+                '$set':
+                {
+                    f'financials.{token_to_update}': new_financial_info
+                }
             }
-
         )
 
     def create_table(self):

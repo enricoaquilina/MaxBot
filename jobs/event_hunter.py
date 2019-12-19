@@ -58,7 +58,7 @@ class EventHunter:
 
         for event_to_update in daily_events:
 
-            for symbol, financials in event_to_update['financials'].items():
+            for token_to_update, financials in event_to_update['financials'].items():
                 price_usd, price_btc, \
                 volume_usd_24h, volume_btc_24h, \
                 change_usd_1h, change_btc_1h, \
@@ -76,17 +76,17 @@ class EventHunter:
                             'change_7d': change_usd_7d,
                             'marketcap': marketcap_usd,
                         },
-                        # 'BTC': {
-                        #     'price': price_btc,
-                        #     'volume_24h': volume_btc_24h,
-                        #     'change_1h': change_btc_1h,
-                        #     'change_24h': change_btc_24h,
-                        #     'change_7d': change_btc_7d,
-                        #     'marketcap': marketcap_btc,
-                        # }
+                        'BTC': {
+                            'price': price_btc,
+                            'volume_24h': volume_btc_24h,
+                            'change_1h': change_btc_1h,
+                            'change_24h': change_btc_24h,
+                            'change_7d': change_btc_7d,
+                            'marketcap': marketcap_btc,
+                        }
                     }
                 }
-                self.db.add_financial_event(self.news_collection, event_to_update, symbol, new_financial_info)
+                self.db.add_financial_event(self.news_collection, event_to_update, token_to_update, new_financial_info)
 
         # self.dailies_updated.append(event)
 

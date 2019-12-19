@@ -68,14 +68,14 @@ class CoinMarketCap:
                             'percent_change_7d':    asset['quote']['USD']['percent_change_7d'],
                             'market_cap':           asset['quote']['USD']['market_cap'],
                         },
-                        # 'BTC': {
-                        #     'price':                assetsBTC[idx]['quote']['BTC']['price'],
-                        #     'volume_24h':           assetsBTC[idx]['quote']['BTC']['volume_24h'],
-                        #     'percent_change_1h':    assetsBTC[idx]['quote']['BTC']['percent_change_1h'],
-                        #     'percent_change_24h':   assetsBTC[idx]['quote']['BTC']['percent_change_24h'],
-                        #     'percent_change_7d':    assetsBTC[idx]['quote']['BTC']['percent_change_7d'],
-                        #     'market_cap':           assetsBTC[idx]['quote']['BTC']['market_cap'],
-                        # }
+                        'BTC': {
+                            'price':                assetsBTC[idx]['quote']['BTC']['price'],
+                            'volume_24h':           assetsBTC[idx]['quote']['BTC']['volume_24h'],
+                            'percent_change_1h':    assetsBTC[idx]['quote']['BTC']['percent_change_1h'],
+                            'percent_change_24h':   assetsBTC[idx]['quote']['BTC']['percent_change_24h'],
+                            'percent_change_7d':    assetsBTC[idx]['quote']['BTC']['percent_change_7d'],
+                            'market_cap':           assetsBTC[idx]['quote']['BTC']['market_cap'],
+                        }
                     },
                 }
             )
@@ -116,49 +116,49 @@ class CoinMarketCap:
 
         if asset:
             if 'price' in asset[0]['financials']['USD']:
-                price_usd = asset[0]['financials']['USD']
-            # if 'price' in asset[0]['financials']['BTC']:
-            #     price_btc = asset[0]['financials']['BTC']
+                price_usd = asset[0]['financials']['USD']['price']
+            if 'price' in asset[0]['financials']['BTC']:
+                price_btc = asset[0]['financials']['BTC']['price']
 
             if 'volume_24h' in asset[0]['financials']['USD']:
                 if asset[0]['financials']['USD']['volume_24h'] is not None:
                     volume_usd_24h = asset[0]['financials']['USD']['volume_24h']
 
-            # if 'volume_24h' in asset[0]['financials']['BTC']:
-            #     if asset[0]['financials']['BTC']['volume_24h'] is not None:
-            #         volume_btc_24h = asset[0]['financials']['BTC']['volume_24h']
+            if 'volume_24h' in asset[0]['financials']['BTC']:
+                if asset[0]['financials']['BTC']['volume_24h'] is not None:
+                    volume_btc_24h = asset[0]['financials']['BTC']['volume_24h']
 
             if 'percent_change_1h' in asset[0]['financials']['USD']:
                 if asset[0]['financials']['USD']['percent_change_1h'] is not None:
                     change_usd_1h = asset[0]['financials']['USD']['percent_change_1h']
 
-            # if 'percent_change_1h' in asset[0]['prices']['BTC']:
-            #     if asset[0]['prices']['BTC']['percent_change_24h'] is not None:
-            #         change_btc_1h = asset[0]['prices']['BTC']['percent_change_1h']
+            if 'percent_change_1h' in asset[0]['financials']['BTC']:
+                if asset[0]['financials']['BTC']['percent_change_24h'] is not None:
+                    change_btc_1h = asset[0]['financials']['BTC']['percent_change_1h']
 
             if 'percent_change_24h' in asset[0]['financials']['USD']:
                 if asset[0]['financials']['USD']['percent_change_24h'] is not None:
                     change_usd_24h = asset[0]['financials']['USD']['percent_change_24h']
 
-            # if 'percent_change_24h' in asset[0]['financials']['BTC']:
-            #     if asset[0]['financials']['BTC']['percent_change_24h'] is not None:
-            #         change_btc_24h = asset[0]['financials']['BTC']['percent_change_24h']
+            if 'percent_change_24h' in asset[0]['financials']['BTC']:
+                if asset[0]['financials']['BTC']['percent_change_24h'] is not None:
+                    change_btc_24h = asset[0]['financials']['BTC']['percent_change_24h']
 
             if 'percent_change_7d' in asset[0]['financials']['USD']:
                 if asset[0]['financials']['USD']['percent_change_7d'] is not None:
                     change_usd_7d = asset[0]['financials']['USD']['percent_change_7d']
 
-            # if 'percent_change_7d' in asset[0]['financials']['BTC']:
-            #     if asset[0]['financials']['BTC']['percent_change_7d'] is not None:
-            #         change_btc_7d = asset[0]['financials']['BTC']['percent_change_7d']
+            if 'percent_change_7d' in asset[0]['financials']['BTC']:
+                if asset[0]['financials']['BTC']['percent_change_7d'] is not None:
+                    change_btc_7d = asset[0]['financials']['BTC']['percent_change_7d']
 
             if 'market_cap' in asset[0]['financials']['USD']:
                 if asset[0]['financials']['USD']['market_cap'] is not None:
                     marketcap_usd = asset[0]['financials']['USD']['market_cap']
 
-            # if 'market_cap' in asset[0]['financials']['BTC']:
-            #     if asset[0]['financials']['BTC']['market_cap'] is not None:
-            #         marketcap_btc = asset[0]['financials']['BTC']['market_cap']
+            if 'market_cap' in asset[0]['financials']['BTC']:
+                if asset[0]['financials']['BTC']['market_cap'] is not None:
+                    marketcap_btc = asset[0]['financials']['BTC']['market_cap']
 
         return price_usd, price_btc, \
                volume_usd_24h, volume_btc_24h, \

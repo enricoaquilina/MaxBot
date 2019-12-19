@@ -50,7 +50,7 @@ class CoinMarketCal:
         financials = {}
 
         for coin in event['coins']:
-            financials[coin['symbol']] = []
+            financials[coin['symbol']] = {}
 
         if event['categories'] is None:
             event['categories'] = [{'id': 0, 'name': 'N/A'}]
