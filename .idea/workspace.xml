@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc51d902-9740-4812-a559-99df56ff5856" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/apis/news/coinmarketcal.py" afterPath="$PROJECT_DIR$/apis/news/coinmarketcal.py" />
-      <change beforePath="$PROJECT_DIR$/apis/prices/cmc.py" afterPath="$PROJECT_DIR$/apis/prices/cmc.py" />
       <change beforePath="$PROJECT_DIR$/common/database/mongo.py" afterPath="$PROJECT_DIR$/common/database/mongo.py" />
       <change beforePath="$PROJECT_DIR$/jobs/event_hunter.py" afterPath="$PROJECT_DIR$/jobs/event_hunter.py" />
     </list>
@@ -15,19 +13,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.36913145">
+    <splitter split-orientation="horizontal" split-proportion="0.38086855">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="event_hunter.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/jobs/event_hunter.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="587">
-                  <caret line="158" column="0" lean-forward="false" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+                <state relative-caret-position="294">
+                  <caret line="130" column="0" lean-forward="true" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
                   <folding>
                     <element signature="e#74#89#0" expanded="true" />
-                    <element signature="e#3683#3908#0" expanded="false" />
-                    <element signature="e#3946#4302#0" expanded="false" />
-                    <element signature="e#4347#4505#0" expanded="false" />
+                    <element signature="e#3689#3914#0" expanded="false" />
+                    <element signature="e#3952#4308#0" expanded="false" />
+                    <element signature="e#4353#4511#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -77,13 +75,13 @@
           <file leaf-file-name="mongo.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/common/database/mongo.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="230">
-                  <caret line="15" column="38" lean-forward="false" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+                <state relative-caret-position="378">
+                  <caret line="18" column="23" lean-forward="true" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
                   <folding>
                     <element signature="e#0#15#0" expanded="true" />
-                    <element signature="e#1133#2118#0" expanded="false" />
-                    <element signature="e#2157#3426#0" expanded="false" />
-                    <element signature="e#3476#4145#0" expanded="false" />
+                    <element signature="e#1140#2125#0" expanded="false" />
+                    <element signature="e#2164#3433#0" expanded="false" />
+                    <element signature="e#3483#4152#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -186,8 +184,8 @@
         <option value="$PROJECT_DIR$/apis/news/coindar.py" />
         <option value="$PROJECT_DIR$/common/models/event_hunter/NewsEvent.py" />
         <option value="$PROJECT_DIR$/apis/news/coinmarketcal.py" />
-        <option value="$PROJECT_DIR$/jobs/event_hunter.py" />
         <option value="$PROJECT_DIR$/apis/prices/cmc.py" />
+        <option value="$PROJECT_DIR$/jobs/event_hunter.py" />
         <option value="$PROJECT_DIR$/common/database/mongo.py" />
       </list>
     </option>
@@ -491,12 +489,12 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20360552" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4931071" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36373276" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22057264" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28313893" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28313893" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -556,11 +554,6 @@
           <line>3</line>
           <option name="timeStamp" value="292" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/common/database/mongo.py</url>
-          <line>15</line>
-          <option name="timeStamp" value="348" />
-        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -583,6 +576,33 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>self.db[collection].update_one(
+            filter={'category': event['category'], 'event_date': event['event_date'], 'source': event['source']},
+            update={'$setOnInsert': event},
+            upsert=True
+        )</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>self.db[collection].update(
+            {'category': event['category'], 'event_date': event['event_date'], 'source': event['source']},
+            {'$setOnInsert': event},
+            {'upsert':True}
+        )</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>self.db[collection].update(
+            {'category': event['category'], 'event_date': event['event_date'], 'source': event['source']},
+            {'$setOnInsert': event},
+            {'upsert'=True}
+        )</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>self.db[collection].update(
             {'category': event['category'], 'event_date': event['event_date'], 'source': event['source']},
@@ -638,22 +658,6 @@
         <expression-string>self.db[collection].find({'_id': object_id['_id']}).count()
 
 # object_id['_id']</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string># self.db[collection].find({'_id': str(object_id['_id'])}).count()
-
-object_id['_id']</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string># self.db[collection].find({'_id': str(object_id['_id'])}).count()
-
-# object_id['_id']
-           
-collection</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -1042,26 +1046,26 @@ collection</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/jobs/event_hunter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="158" column="0" lean-forward="false" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+        <state relative-caret-position="294">
+          <caret line="130" column="0" lean-forward="true" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
           <folding>
             <element signature="e#74#89#0" expanded="true" />
-            <element signature="e#3683#3908#0" expanded="false" />
-            <element signature="e#3946#4302#0" expanded="false" />
-            <element signature="e#4347#4505#0" expanded="false" />
+            <element signature="e#3689#3914#0" expanded="false" />
+            <element signature="e#3952#4308#0" expanded="false" />
+            <element signature="e#4353#4511#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/common/database/mongo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="15" column="38" lean-forward="false" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+        <state relative-caret-position="378">
+          <caret line="18" column="23" lean-forward="true" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <element signature="e#1133#2118#0" expanded="false" />
-            <element signature="e#2157#3426#0" expanded="false" />
-            <element signature="e#3476#4145#0" expanded="false" />
+            <element signature="e#1140#2125#0" expanded="false" />
+            <element signature="e#2164#3433#0" expanded="false" />
+            <element signature="e#3483#4152#0" expanded="false" />
           </folding>
         </state>
       </provider>

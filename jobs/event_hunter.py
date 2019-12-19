@@ -101,7 +101,7 @@ class EventHunter:
     def insert_upcoming(self):
         for date, event in self.events.items():
             for e in event:
-                self.db.insert(self.news_collection, e)
+                self.db.insert_event(self.news_collection, e)
 
     def create_cluster(self, start_date, event):
         if len(self.events) == 0:

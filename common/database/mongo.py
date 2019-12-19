@@ -12,11 +12,11 @@ class DB:
         client = pymongo.MongoClient(f'mongodb://{hostname}:{port}/')
         return client[db_name]
 
-    def insert(self, collection, event):
+    def insert_event(self, collection, event):
         self.db[collection].update_one(
-            {'category': event['category'], 'event_date': event['event_date'], 'source': event['source']},
-            {'$setOnInsert': event},
-            {'upsert': true}
+            filter={'category': event['category'], 'event_date': event['event_date'], 'source': event['source']},
+            update={'$set': event},
+            upsert=True
         )
 
     def get_events_for_today(self, collection):
