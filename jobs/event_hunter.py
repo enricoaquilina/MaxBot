@@ -56,16 +56,17 @@ class EventHunter:
             time_of_day = 3
 
 
-        for event in daily_events:
-            price_usd, price_btc, \
-            volume_usd_24h, volume_btc_24h, \
-            change_usd_1h, change_btc_1h, \
-            change_usd_24h, change_btc_24h, \
-            change_usd_7d, change_btc_7d, \
-            marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(event)
+        for event_to_update in daily_events:
 
-            financial_info = {
-                'financials': {
+            for symbol, financials in event_to_update['financials'].items():
+                price_usd, price_btc, \
+                volume_usd_24h, volume_btc_24h, \
+                change_usd_1h, change_btc_1h, \
+                change_usd_24h, change_btc_24h, \
+                change_usd_7d, change_btc_7d, \
+                marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(event_to_update)
+
+                new_financial_info = {
                     f'run_{time_of_day+1}': {
                         'USD': {
                             'price': price_usd,
@@ -85,8 +86,7 @@ class EventHunter:
                         # }
                     }
                 }
-            }
-            self.db.find_and_update(self.news_collection, str(event['_id']), 'financials', financial_info)
+                self.db.add_financial_event(self.news_collection, event_to_update, symbol, new_financial_info)
 
         # self.dailies_updated.append(event)
 

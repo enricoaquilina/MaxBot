@@ -55,17 +55,15 @@ class CoinMarketCal:
         if event['categories'] is None:
             event['categories'] = [{'id': 0, 'name': 'N/A'}]
 
-        tokens = []
+        tokens = {}
 
         for coin in event['coins']:
-            tokens.append(
-                {
-                    'id': coin['id'],
-                    'name': coin['name'],
-                    'symbol': coin['symbol'],
-                    'full_name': coin['fullname'],
-                }
-            )
+            tokens[coin['symbol']] = {
+                'id': coin['id'],
+                'name': coin['name'],
+                'symbol': coin['symbol'],
+                'full_name': coin['fullname'],
+            }
 
         event = {
             'event_title': event['title'],
