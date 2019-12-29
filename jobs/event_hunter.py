@@ -64,7 +64,7 @@ class EventHunter:
                 change_usd_1h, change_btc_1h, \
                 change_usd_24h, change_btc_24h, \
                 change_usd_7d, change_btc_7d, \
-                marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(event_to_update)
+                marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(token_to_update)
 
                 new_info = {
                     f'run_{time_of_day}': {

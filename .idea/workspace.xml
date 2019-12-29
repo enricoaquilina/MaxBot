@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc51d902-9740-4812-a559-99df56ff5856" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/common/database/mongo.py" afterPath="$PROJECT_DIR$/common/database/mongo.py" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/apis/prices/cmc.py" afterPath="$PROJECT_DIR$/apis/prices/cmc.py" />
       <change beforePath="$PROJECT_DIR$/jobs/event_hunter.py" afterPath="$PROJECT_DIR$/jobs/event_hunter.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,14 +14,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.43720657">
+    <splitter split-orientation="horizontal" split-proportion="0.6825397">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="event_hunter.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="event_hunter.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/jobs/event_hunter.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="147">
-                  <caret line="69" column="38" lean-forward="false" selection-start-line="69" selection-start-column="38" selection-end-line="69" selection-end-column="38" />
+                <state relative-caret-position="187">
+                  <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
                   <folding>
                     <element signature="e#74#95#0" expanded="true" />
                     <element signature="e#3708#3933#0" expanded="false" />
@@ -30,11 +31,21 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
+            <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="189">
+                  <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="helper.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/common/utilities/helper.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="336">
-                  <caret line="16" column="36" lean-forward="true" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+                <state relative-caret-position="294">
+                  <caret line="16" column="36" lean-forward="false" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
                   <folding>
                     <element signature="e#0#15#0" expanded="true" />
                     <element signature="e#948#1045#0" expanded="false" />
@@ -43,11 +54,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="cmc.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="cmc.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/apis/prices/cmc.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3150">
-                  <caret line="150" column="68" lean-forward="true" selection-start-line="150" selection-start-column="68" selection-end-line="150" selection-end-column="68" />
+                <state relative-caret-position="355">
+                  <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#15#0" expanded="true" />
                   </folding>
@@ -58,12 +69,12 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="coinmarketcal.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/apis/news/coinmarketcal.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="57">
-                  <caret line="64" column="13" lean-forward="true" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
+                <state relative-caret-position="1281">
+                  <caret line="64" column="13" lean-forward="false" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -74,8 +85,8 @@
           <file leaf-file-name="mongo.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/common/database/mongo.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="429">
-                  <caret line="42" column="14" lean-forward="true" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
+                <state relative-caret-position="171">
+                  <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#15#0" expanded="true" />
                     <element signature="e#1409#2394#0" expanded="false" />
@@ -182,10 +193,10 @@
         <option value="$PROJECT_DIR$/common/database/sqlite.py" />
         <option value="$PROJECT_DIR$/apis/news/coindar.py" />
         <option value="$PROJECT_DIR$/common/models/event_hunter/NewsEvent.py" />
-        <option value="$PROJECT_DIR$/apis/prices/cmc.py" />
         <option value="$PROJECT_DIR$/apis/news/coinmarketcal.py" />
-        <option value="$PROJECT_DIR$/jobs/event_hunter.py" />
         <option value="$PROJECT_DIR$/common/database/mongo.py" />
+        <option value="$PROJECT_DIR$/jobs/event_hunter.py" />
+        <option value="$PROJECT_DIR$/apis/prices/cmc.py" />
       </list>
     </option>
   </component>
@@ -211,8 +222,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -281,6 +290,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -482,24 +493,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.056770835" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25026512" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20360552" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25026512" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35418877" sideWeight="0.50416666" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25026512" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22057264" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28313893" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35418877" sideWeight="0.49583334" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20360552" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -561,7 +571,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="349" />
+      <option name="time" value="355" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -575,6 +585,11 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>daily_events.count()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>self.db[collection].update_one(
             filter={'category': event['category'], 'event_date': event['event_date'], 'source': event['source']},
@@ -636,27 +651,6 @@
       </expression>
       <expression>
         <expression-string>symbol</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>self.db[collection].find_one_and_update(
-            {'_id': object_id['_id']},
-            {
-                '$push':
-                    {
-                        f'financials[{field_to_update}]': new_financial_info
-                    }
-            }
-
-        )</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>self.db[collection].find({'_id': object_id['_id']}).count()
-
-# object_id['_id']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -900,7 +894,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7413">
           <caret line="386" column="0" lean-forward="false" selection-start-line="386" selection-start-column="0" selection-end-line="386" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -953,7 +946,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="643" column="15" lean-forward="false" selection-start-line="643" selection-start-column="15" selection-end-line="643" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -961,7 +953,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="3601" column="8" lean-forward="false" selection-start-line="3601" selection-start-column="8" selection-end-line="3601" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -969,7 +960,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="725">
           <caret line="161" column="30" lean-forward="true" selection-start-line="153" selection-start-column="23" selection-end-line="161" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -987,38 +977,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apis/prices/cmc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3150">
-          <caret line="150" column="68" lean-forward="true" selection-start-line="150" selection-start-column="68" selection-end-line="150" selection-end-column="68" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apis/news/coindar.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
           <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/common/utilities/helper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="36" lean-forward="true" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+        <state relative-caret-position="294">
+          <caret line="16" column="36" lean-forward="false" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <element signature="e#948#1045#0" expanded="false" />
@@ -1030,24 +999,44 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="488">
           <caret line="154" column="0" lean-forward="false" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apis/news/coinmarketcal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="64" column="13" lean-forward="true" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
+        <state relative-caret-position="1281">
+          <caret line="64" column="13" lean-forward="false" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/common/database/mongo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#1409#2394#0" expanded="false" />
+            <element signature="e#2433#3702#0" expanded="false" />
+            <element signature="e#3752#4421#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/jobs/event_hunter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="69" column="38" lean-forward="false" selection-start-line="69" selection-start-column="38" selection-end-line="69" selection-end-column="38" />
+        <state relative-caret-position="187">
+          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
           <folding>
             <element signature="e#74#95#0" expanded="true" />
             <element signature="e#3708#3933#0" expanded="false" />
@@ -1056,15 +1045,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/database/mongo.py">
+    <entry file="file://$PROJECT_DIR$/apis/prices/cmc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="42" column="14" lean-forward="true" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
+        <state relative-caret-position="355">
+          <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <element signature="e#1409#2394#0" expanded="false" />
-            <element signature="e#2433#3702#0" expanded="false" />
-            <element signature="e#3752#4421#0" expanded="false" />
           </folding>
         </state>
       </provider>
