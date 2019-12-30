@@ -67,7 +67,7 @@ class EventHunter:
                 change_usd_7d, change_btc_7d, \
                 marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(token_to_update)
 
-                time = f'run{time_of_day}'
+                new_field = f'financials.{token_to_update}.run{time_of_day}'
 
                 new_info = {
                     'USD': {
@@ -88,7 +88,7 @@ class EventHunter:
                     },
                     'created_date': dt.datetime.now()
                 }
-                self.db.add_financial_event(self.news_collection, event_to_update, f'{token_to_update}.{time}', new_info)
+                self.db.add_financial_event(self.news_collection, event_to_update, new_field, new_info)
 
         # self.dailies_updated.append(event)
 

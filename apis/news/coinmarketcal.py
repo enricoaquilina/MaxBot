@@ -2,6 +2,7 @@ from common.http import request
 from common.models.event_hunter.NewsEvent import NewsEvent
 from common.utilities.helper import Helper
 import requests
+import datetime as dt
 
 class CoinMarketCal:
 
@@ -72,7 +73,8 @@ class CoinMarketCal:
             'can_occur_before': event['can_occur_before'],
             'proof': event['proof'],
             'token_details': tokens,
-            'financials': financials
+            'financials': financials,
+            'created_date': dt.datetime.now()
         }
 
         # event_description = event['description']
