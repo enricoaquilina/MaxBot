@@ -1,10 +1,11 @@
 #!/usr/bin/python3
-# import sys
-# sys.path.insert(0, '/home/pi/Desktop/')
+import sys
+sys.path.insert(0, '/home/p3rditus/Desktop/MaxBot')
+
 import datetime as dt
 from dateutil.parser import parse
 
-from apis.news.coindar import *
+#from apis.news.coindar import *
 from apis.news.coinmarketcal import *
 from apis.prices.cmc import CoinMarketCap
 
