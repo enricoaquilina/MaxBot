@@ -36,7 +36,7 @@ class EventHunter:
         self.news_collection = 'news_events'
         self.events_collection = 'events'
 
-        self.db = mongo.DB('MaxBotDB')
+        self.db = mongo.DB('maxbot')
 
     def update_dailies(self):
         daily_events = self.db.get_events_for_today(self.news_collection)
