@@ -66,28 +66,28 @@ class EventHunter:
                 change_usd_7d, change_btc_7d, \
                 marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(token_to_update)
 
+                time = f'run{time_of_day}'
+
                 new_info = {
-                    f'run_{time_of_day}': {
-                        'USD': {
-                            'price': price_usd,
-                            'volume_24h': volume_usd_24h,
-                            'change_1h': change_usd_1h,
-                            'change_24h': change_usd_24h,
-                            'change_7d': change_usd_7d,
-                            'marketcap': marketcap_usd,
-                        },
-                        'BTC': {
-                            'price': price_btc,
-                            'volume_24h': volume_btc_24h,
-                            'change_1h': change_btc_1h,
-                            'change_24h': change_btc_24h,
-                            'change_7d': change_btc_7d,
-                            'marketcap': marketcap_btc,
-                        },
-                        'created_date': dt.datetime.now()
-                    }
+                    'USD': {
+                        'price': price_usd,
+                        'volume_24h': volume_usd_24h,
+                        'change_1h': change_usd_1h,
+                        'change_24h': change_usd_24h,
+                        'change_7d': change_usd_7d,
+                        'marketcap': marketcap_usd,
+                    },
+                    'BTC': {
+                        'price': price_btc,
+                        'volume_24h': volume_btc_24h,
+                        'change_1h': change_btc_1h,
+                        'change_24h': change_btc_24h,
+                        'change_7d': change_btc_7d,
+                        'marketcap': marketcap_btc,
+                    },
+                    'created_date': dt.datetime.now()
                 }
-                self.db.add_financial_event(self.news_collection, event_to_update, token_to_update, new_info)
+                self.db.add_financial_event(self.news_collection, event_to_update, f'{token_to_update}.{time}', new_info)
 
         # self.dailies_updated.append(event)
 
