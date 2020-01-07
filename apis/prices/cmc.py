@@ -85,12 +85,13 @@ class CoinMarketCap:
     def get_asset(self, token_to_update):
         # assets = []
 
-        coin_info = self.assets[
-            self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_to_update.lower(), self.assets))[0])]
+        if list(filter(lambda n: n.get('symbol').lower() == token_to_update.lower(), self.assets)):
+            return self.assets[
+                self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_to_update.lower(), self.assets))[0])]
 
         # assets.append(coin_info)
 
-        return coin_info
+        # return coin_info
 
     def get_asset_financials(self, token_to_update):
         asset = self.get_asset(token_to_update)
