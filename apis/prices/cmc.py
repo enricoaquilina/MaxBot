@@ -2,7 +2,8 @@ import requests
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
-
+import urllib
+from urllib.request import urlopen, Request
 
 class CoinMarketCap:
     def __init__(self):
@@ -22,6 +23,10 @@ class CoinMarketCap:
             'convert': 'BTC'
         }
 
+        defaultHeaders = requests.utils.default_headers()
+        defaultHeaders['User-Agent'] = \
+            'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5'
+
         # tappiera00
         # headers = {
         #     'Accepts': 'application/json',
@@ -35,7 +40,7 @@ class CoinMarketCap:
         }
 
         session = Session()
-        session.headers.update(headers)
+        session.headers.update({**headers, **defaultHeaders})
 
         try:
             response = session.get(url, params=parameters)
