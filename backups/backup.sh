@@ -7,8 +7,7 @@ FILENAME=dump_`date "+%F__%H.%M.%N"`.gz
 DESTINATION=/media/p3rditus/$DRIVE
 DATABASE=maxbot
 
-#check if backups folder exists 
-
+#Check if backups folder exists 
 if [ ! -d $DESTINATION/$DATABASE'_backups' ]; then
     mkdir $DESTINATION/$DATABASE'_backups'/
 fi
