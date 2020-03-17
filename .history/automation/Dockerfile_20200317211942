@@ -1,14 +1,16 @@
 # syntax = docker/dockerfile:experimental
 
 # Some housekeeping to get the app locally in the container
-FROM alpine
+FROM alpine as start
 RUN apk add --no-cache openssh-client git
 RUN mkdir -p -m 0700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 #RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-WORKDIR /WORKDIR /media/p3rditus/maxbot_1
+# VOLUME ["/test/db"]
+# WORKDIR /test
+# WORKDIR /WORKDIR /media/p3rditus/maxbot_1
 
-RUN --mount=type=ssh git clone git@github.com:enricoaquilina/MaxBot.git MaxBot
+#RUN --mount=type=ssh git clone git@github.com:enricoaquilina/MaxBot.git MaxBot
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
@@ -20,7 +22,7 @@ RUN --mount=type=ssh git clone git@github.com:enricoaquilina/MaxBot.git MaxBot
 FROM ubuntu as mongoinstaller
 
 MAINTAINER perieratutopia@gmail.com
-ENV DEBIAN_FRONTEND=noninteractive
+#ENV DEBIAN_FRONTEND=noninteractive
 
 RUN \
   apt-get update && apt-get install -y gnupg2 && \
@@ -37,8 +39,10 @@ RUN \
 #  pip install markupsafe dopy boto linode-python pyrax
 
 
+
 VOLUME ["/data/db"]
 WORKDIR /data
+
 
 EXPOSE 27017
 CMD ["mongod"]
@@ -46,5 +50,4 @@ CMD ["mongod"]
 #ENV HOME /media/p3rditus/maxbot_1
 #ENV HOME /root
 #RUN ssh-keygen -f /root/.ssh/id_rsa -q -N ""
-
 
