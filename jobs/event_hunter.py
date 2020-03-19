@@ -9,7 +9,7 @@ from dateutil.parser import parse
 
 from apis.news.coindar import *
 from apis.news.coinmarketcal import *
-from apis.prices.cmc import CoinMarketCap
+from apis.prices.coinmarketcap import CoinMarketCap
 
 from common.models.event_hunter.NewsEvent import NewsEvent
 from common.utilities.helper import Helper
@@ -30,7 +30,6 @@ class EventHunter:
         self.cm_cal = CoinMarketCal()
         # self.coindar = CoinDar()
 
-
     def set_local_vars(self):
         self.events = {}
         self.events_list = []
@@ -44,52 +43,24 @@ class EventHunter:
         
         self.db = mongo.DB('maxbot')
 
+    def get_financials(self, token):
+        return self.coinmarketcap.get_financials(token)
 
-    def get_token_financials(self, token):
-        price_usd, price_btc, \
-        volume_usd_24h, volume_btc_24h, \
-        change_usd_1h, change_btc_1h, \
-        change_usd_24h, change_btc_24h, \
-        change_usd_7d, change_btc_7d, \
-        marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(token)
-                
-        token_financials = {
-            'USD': {
-                'price': price_usd,
-                'volume_24h': volume_usd_24h,
-                'change_1h': change_usd_1h,
-                'change_24h': change_usd_24h,
-                'change_7d': change_usd_7d,
-                'marketcap': marketcap_usd,
-            },
-            'BTC': {
-                'price': price_btc,
-                'volume_24h': volume_btc_24h,
-                'change_1h': change_btc_1h,
-                'change_24h': change_btc_24h,
-                'change_7d': change_btc_7d,
-                'marketcap': marketcap_btc,
-            },
-            'created_date': dt.datetime.now()
-        }
-    
-        return token_financials
+    def update_event(self, event):
+        for asset in event['financials'].keys():
+            new_field = f'financials.{asset}.run{self.run_id}'
+            new_info = self.get_financials(asset)
+
+            self.db.add_financial_event(self.news_collection, event, new_field, new_info)
 
     def update_dailies(self):
         dailies = self.db.get_events_for_today(self.news_collection)
 
         for event in dailies:
-
-            for token_to_update, financials in event['financials'].items():
-                
-                # Set the information to update
-                new_field = f'financials.{token_to_update}.run{self.run_id}'
-                new_info = self.get_token_financials(token_to_update)
-
-                self.db.add_financial_event(self.news_collection, event, new_field, new_info)
+            self.update_event(event)
 
     def insert_upcoming(self):
-        for date, event in self.events.items():
+        for event in self.events.values():
             for e in event:
                 self.db.insert_event(self.news_collection, e)
 
@@ -120,7 +91,7 @@ class EventHunter:
             return self.cm_cal.build_model(event)
 
     def process_events(self):
-        for idx, event in enumerate(self.events_list):
+        for event in self.events_list:
             self.processed_events.append(self.create_model(event))
 
     def gather_raw_event_data(self):
@@ -143,7 +114,7 @@ class EventHunter:
         self.group_events()
         self.insert_upcoming()
         self.update_dailies()
-
+        
         self.helper.options['FINISH']([self.events, self.events_list,
                                        self.dailies_updated, self.processed_events,
                                        self.dailies_updated])

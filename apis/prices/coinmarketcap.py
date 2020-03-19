@@ -4,6 +4,7 @@ from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import urllib
 from urllib.request import urlopen, Request
+import datetime as dt
 
 class CoinMarketCap:
     def __init__(self):
@@ -98,7 +99,7 @@ class CoinMarketCap:
 
         # return coin_info
 
-    def get_asset_financials(self, token_to_update):
+    def get_financials(self, token_to_update):
         asset = self.get_asset(token_to_update)
 
         price_usd = 0
@@ -165,9 +166,24 @@ class CoinMarketCap:
                 if asset['financials']['BTC']['market_cap'] is not None:
                     marketcap_btc = asset['financials']['BTC']['market_cap']
 
-        return price_usd, price_btc, \
-               volume_usd_24h, volume_btc_24h, \
-               change_usd_1h, change_btc_1h, \
-               change_usd_24h, change_btc_24h, \
-               change_usd_7d, change_btc_7d, \
-               marketcap_usd, marketcap_btc
+        financials = {
+            'USD': {
+                'price': price_usd,
+                'volume_24h': volume_usd_24h,
+                'change_1h': change_usd_1h,
+                'change_24h': change_usd_24h,
+                'change_7d': change_usd_7d,
+                'marketcap': marketcap_usd,
+            },
+            'BTC': {
+                'price': price_btc,
+                'volume_24h': volume_btc_24h,
+                'change_1h': change_btc_1h,
+                'change_24h': change_btc_24h,
+                'change_7d': change_btc_7d,
+                'marketcap': marketcap_btc,
+            },
+            'created_date': dt.datetime.now()
+        }
+
+        return financials
