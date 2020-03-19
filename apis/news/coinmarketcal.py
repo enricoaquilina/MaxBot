@@ -7,44 +7,23 @@ import datetime as dt
 class CoinMarketCal:
 
     def __init__(self):
-
         self.req = request.MyRequest()
         self.helper = Helper()
-        self.headers = {
-            'x-api-key': "iFQY61z1SD4PanhjChc8E4RMo4KdUHdT5AXCx8Y8",
-            'Accept-Encoding': "deflate, gzip",
-            'Accept': "application/json"
+
+        self.urls = {
+            'COINMARKETCAL_DAILY_EVENTS':   'https://developers.coinmarketcal.com/v1/events',
+            'COINMARKETCAL_COIN_LIST':      'https://developers.coinmarketcal.com/v1/coins',
+            'COINMARKETCAL_CATEGORY_LIST':  'https://developers.coinmarketcal.com/v1/categories',
         }
-
+    
     def get_coins(self):
-        url = "https://developers.coinmarketcal.com/v1/coins"
-        # querystring = {"max": "10", "coins": "bitcoin"}
-        querystring = {}
-        payload = ""
-
-        response = requests.request("GET", url, data=payload, headers=self.headers, params=querystring)
-        # return self.req.get_data(url)
-        return response.json()
+        return self.req.get_data(self.urls['COINMARKETCAL_COIN_LIST'])
 
     def get_categories(self):
-        url = "https://developers.coinmarketcal.com/v1/categories"
-        # querystring = {"max": "10", "coins": "bitcoin"}
-        querystring = {}
-        payload = ""
-
-        response = requests.request("GET", url, data=payload, headers=self.headers, params=querystring)
-        # return self.req.get_data(url)
-        return response.json()
+        return self.req.get_data(self.urls['COINMARKETCAL_CATEGORY_LIST'])
 
     def get_events(self):
-        url = "https://developers.coinmarketcal.com/v1/events"
-        # querystring = {"max": "10", "coins": "bitcoin"}
-        querystring = {}
-        payload = ""
-
-        response = requests.request("GET", url, headers=self.headers, params=querystring)
-        # return self.req.get_data(url)
-        return response.json()['body']
+        return self.req.get_data(self.urls['COINMARKETCAL_DAILY_EVENTS'])
 
     def build_model(self, event):
         financials = {}

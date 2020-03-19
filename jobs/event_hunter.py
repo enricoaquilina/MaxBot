@@ -27,7 +27,7 @@ class EventHunter:
 
         # APIs needed
         self.coinmarketcap = CoinMarketCap()
-        self.cm_cal = CoinMarketCal()
+        self.coinmarketcal = CoinMarketCal()
         # self.coindar = CoinDar()
 
     def set_local_vars(self):
@@ -48,6 +48,7 @@ class EventHunter:
 
     def update_event(self, event):
         for asset in event['financials'].keys():
+
             new_field = f'financials.{asset}.run{self.run_id}'
             new_info = self.get_financials(asset)
 
@@ -75,20 +76,18 @@ class EventHunter:
     def group_events(self):
         event_date = ''
 
-        for idx, event in enumerate(self.processed_events):
+        for event in self.processed_events:
             if parse(event['event_date']).date() >= dt.date.today():
-
-                if event_date != event['event_date']:
-                    event_date = event['event_date']
-
+                
                 # cluster events by date
+                event_date = event['event_date'] if event_date != event['event_date'] else ''
                 self.create_cluster(event_date, event)
 
     def create_model(self, event):
         if 'coin_symbol' in event:
             return self.coindar.build_model(event)
         elif 'coins' in event:
-            return self.cm_cal.build_model(event)
+            return self.coinmarketcal.build_model(event)
 
     def process_events(self):
         for event in self.events_list:
@@ -98,8 +97,8 @@ class EventHunter:
         # if self.coindar:
         #     self.events_list = sorted(self.coindar.api_news1_last_events(), key=lambda k: k['start_date'])
 
-        if self.cm_cal:
-            self.events_list.extend(sorted(self.cm_cal.get_events(), key=lambda k: k['date_event']))
+        if self.coinmarketcal:
+            self.events_list.extend(sorted(self.coinmarketcal.get_events(), key=lambda k: k['date_event']))
 
     def run(self):
         self.helper.options['START']()

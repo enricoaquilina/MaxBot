@@ -1,16 +1,20 @@
-import urllib.request as urlreq
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
 import json
-
 
 class MyRequest:
     def __init__(self):
-        pass
+        self.headers = {
+            'x-api-key':        "iFQY61z1SD4PanhjChc8E4RMo4KdUHdT5AXCx8Y8",
+            'Accept-Encoding':  "deflate, gzip",
+            'Accept':           "application/json",
+            'User-Agent':       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
+                                Chrome/60.0.3112.113 Safari/537.36'
+        }
 
     def get_data(self, url):
-        req = urlreq.Request(url)
-        req.add_header('User-Agent',
-                       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
-                       Chrome/60.0.3112.113 Safari/537.36')
-        response = urlreq.urlopen(req).read()
-        json_data = json.loads(response.decode('utf-8'))
-        return json_data
+        try:
+            req = Request(url, headers=self.headers)
+            return json.loads(urlopen(req).read().decode('UTF-8'))['body']
+        except (URLError, HTTPError) as e:
+            print(e.reason)
