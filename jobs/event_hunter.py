@@ -19,7 +19,6 @@ from common.database import mongo
 
 # -*- coding: utf-8 -*-
 
-
 class EventHunter:
     def __init__(self):
         self.set_local_vars()
