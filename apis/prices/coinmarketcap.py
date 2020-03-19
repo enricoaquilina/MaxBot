@@ -123,6 +123,8 @@ class CoinMarketCap:
         if asset:
             if 'price' in asset['financials']['USD']:
                 price_usd = asset['financials']['USD']['price']
+                # price_usd = asset['financials']['USD']['price'] if 'price' in asset['financials']['USD'] else 0
+
             if 'price' in asset['financials']['BTC']:
                 price_btc = asset['financials']['BTC']['price']
 
