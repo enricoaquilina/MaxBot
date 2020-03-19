@@ -5,7 +5,6 @@ import sys
 import os 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import datetime as dt
 from dateutil.parser import parse
 
 from apis.news.coindar import *
@@ -23,14 +22,16 @@ from common.database import mongo
 
 class EventHunter:
     def __init__(self):
-        # APIs needed
         self.helper = Helper()
+        self.set_local_vars()
 
+        # APIs needed
         self.coinmarketcap = CoinMarketCap()
         self.cm_cal = CoinMarketCal()
         # self.coindar = CoinDar()
 
-        # data structures needed
+
+    def set_local_vars(self):
         self.events = {}
         self.events_list = []
         self.processed_events = []
@@ -39,27 +40,10 @@ class EventHunter:
         self.news_collection = 'news_events'
         self.events_collection = 'events'
 
+        self.run_id = self.helper.options['GET_RUN']()
+        
         self.db = mongo.DB('maxbot')
 
-        self.get_current_run()
-
-    def get_current_run(self):
-        timestamp = dt.datetime.now().time()
-
-        second_run = dt.time(hour=6, minute=0)
-        third_run = dt.time(hour=12, minute=0)
-        fourth_run = dt.time(hour=18, minute=0)
-
-        timestamp = dt.datetime.now().time()
-
-        if timestamp < second_run:
-            self.run_id = 1
-        elif timestamp >= second_run and timestamp < third_run:
-            self.run_id = 2
-        elif timestamp >= third_run and timestamp < fourth_run:
-            self.run_id = 3
-        elif timestamp > fourth_run:
-            self.run_id = 4
 
     def get_token_financials(self, token):
         price_usd, price_btc, \
@@ -92,17 +76,17 @@ class EventHunter:
         return token_financials
 
     def update_dailies(self):
-        daily_events = self.db.get_events_for_today(self.news_collection)
+        dailies = self.db.get_events_for_today(self.news_collection)
 
-        for event_to_update in daily_events:
+        for event in dailies:
 
-            for token_to_update, financials in event_to_update['financials'].items():
+            for token_to_update, financials in event['financials'].items():
                 
+                # Set the information to update
+                new_field = f'financials.{token_to_update}.run{self.run_id}'
                 new_info = self.get_token_financials(token_to_update)
 
-                new_field = f'financials.{token_to_update}.run{self.run_id}'
-
-                self.db.add_financial_event(self.news_collection, event_to_update, new_field, new_info)
+                self.db.add_financial_event(self.news_collection, event, new_field, new_info)
 
     def insert_upcoming(self):
         for date, event in self.events.items():
@@ -147,16 +131,16 @@ class EventHunter:
             self.events_list.extend(sorted(self.cm_cal.get_events(), key=lambda k: k['date_event']))
 
     def run(self):
+        self.helper.options['START']()
+
         # get events from APIs
         self.gather_raw_event_data()
 
         # process events and 'clean' them
         self.process_events()
 
-        self.helper.options['START']()
-
+        # group them and touch the database
         self.group_events()
-
         self.insert_upcoming()
         self.update_dailies()
 
