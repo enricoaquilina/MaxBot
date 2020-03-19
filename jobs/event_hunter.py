@@ -22,15 +22,14 @@ from common.database import mongo
 
 class EventHunter:
     def __init__(self):
-        self.helper = Helper()
         self.set_local_vars()
 
-        # APIs needed
+    def set_local_vars(self):
+        self.helper = Helper()
         self.coinmarketcap = CoinMarketCap()
         self.coinmarketcal = CoinMarketCal()
         # self.coindar = CoinDar()
 
-    def set_local_vars(self):
         self.events = {}
         self.events_list = []
         self.processed_events = []
@@ -38,7 +37,6 @@ class EventHunter:
 
         self.news_collection = 'news_events'
         self.events_collection = 'events'
-
         self.run_id = self.helper.options['GET_RUN']()
         
         self.db = mongo.DB('maxbot')
