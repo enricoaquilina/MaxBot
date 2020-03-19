@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 import sys
-# sys.path.insert(0, '/home/p3rditus/Desktop/MaxBot')
-
 import os 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# sys.path.insert(0, '/home/p3rditus/Desktop/MaxBot')
 
 import datetime as dt
 from dateutil.parser import parse

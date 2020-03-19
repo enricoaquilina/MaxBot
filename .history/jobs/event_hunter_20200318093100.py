@@ -1,20 +1,17 @@
 #!/usr/bin/python3
 import sys
-# sys.path.insert(0, '/home/p3rditus/Desktop/MaxBot')
-
-import os 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, '/home/p3rditus/Desktop/MaxBot')
 
 import datetime as dt
 from dateutil.parser import parse
 
-from apis.news.coindar import *
-from apis.news.coinmarketcal import *
-from apis.prices.cmc import CoinMarketCap
+from ..apis.news.coindar import *
+from ..apis.news.coinmarketcal import *
+from ..apis.prices.cmc import CoinMarketCap
 
-from common.models.event_hunter.NewsEvent import NewsEvent
-from common.utilities.helper import Helper
-from common.database import mongo
+from ..common.models.event_hunter.NewsEvent import NewsEvent
+from ..common.utilities.helper import Helper
+from ..common.database import mongo
 
 
 
@@ -41,10 +38,8 @@ class EventHunter:
 
         self.db = mongo.DB('maxbot')
 
-        self.get_current_run()
-
-    def get_current_run(self):
-        timestamp = dt.datetime.now().time()
+    def update_dailies(self):
+        daily_events = self.db.get_events_for_today(self.news_collection)
 
         second_run = dt.time(hour=6, minute=0)
         third_run = dt.time(hour=12, minute=0)
@@ -53,55 +48,46 @@ class EventHunter:
         timestamp = dt.datetime.now().time()
 
         if timestamp < second_run:
-            self.run_id = 1
+            time_of_day = 1
         elif timestamp >= second_run and timestamp < third_run:
-            self.run_id = 2
+            time_of_day = 2
         elif timestamp >= third_run and timestamp < fourth_run:
-            self.run_id = 3
+            time_of_day = 3
         elif timestamp > fourth_run:
-            self.run_id = 4
+            time_of_day = 4
 
-    def get_token_financials(self, token):
-        price_usd, price_btc, \
-        volume_usd_24h, volume_btc_24h, \
-        change_usd_1h, change_btc_1h, \
-        change_usd_24h, change_btc_24h, \
-        change_usd_7d, change_btc_7d, \
-        marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(token)
-                
-        token_financials = {
-            'USD': {
-                'price': price_usd,
-                'volume_24h': volume_usd_24h,
-                'change_1h': change_usd_1h,
-                'change_24h': change_usd_24h,
-                'change_7d': change_usd_7d,
-                'marketcap': marketcap_usd,
-            },
-            'BTC': {
-                'price': price_btc,
-                'volume_24h': volume_btc_24h,
-                'change_1h': change_btc_1h,
-                'change_24h': change_btc_24h,
-                'change_7d': change_btc_7d,
-                'marketcap': marketcap_btc,
-            },
-            'created_date': dt.datetime.now()
-        }
-    
-        return token_financials
-
-    def update_dailies(self):
-        daily_events = self.db.get_events_for_today(self.news_collection)
 
         for event_to_update in daily_events:
 
             for token_to_update, financials in event_to_update['financials'].items():
-                
-                new_info = self.get_token_financials(token_to_update)
+                price_usd, price_btc, \
+                volume_usd_24h, volume_btc_24h, \
+                change_usd_1h, change_btc_1h, \
+                change_usd_24h, change_btc_24h, \
+                change_usd_7d, change_btc_7d, \
+                marketcap_usd, marketcap_btc = self.coinmarketcap.get_asset_financials(token_to_update)
 
-                new_field = f'financials.{token_to_update}.run{self.run_id}'
+                new_field = f'financials.{token_to_update}.run{time_of_day}'
 
+                new_info = {
+                    'USD': {
+                        'price': price_usd,
+                        'volume_24h': volume_usd_24h,
+                        'change_1h': change_usd_1h,
+                        'change_24h': change_usd_24h,
+                        'change_7d': change_usd_7d,
+                        'marketcap': marketcap_usd,
+                    },
+                    'BTC': {
+                        'price': price_btc,
+                        'volume_24h': volume_btc_24h,
+                        'change_1h': change_btc_1h,
+                        'change_24h': change_btc_24h,
+                        'change_7d': change_btc_7d,
+                        'marketcap': marketcap_btc,
+                    },
+                    'created_date': dt.datetime.now()
+                }
                 self.db.add_financial_event(self.news_collection, event_to_update, new_field, new_info)
 
     def insert_upcoming(self):
@@ -165,5 +151,5 @@ class EventHunter:
                                        self.dailies_updated])
 
 
-hunter = EventHunter()
-hunter.run()
+test = EventHunter()
+test.run()
