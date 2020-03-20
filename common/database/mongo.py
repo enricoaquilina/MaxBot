@@ -3,8 +3,8 @@ import pymongo
 
 
 class DB:
+    
     def __init__(self, db_name):
-
         if not hasattr(self, 'db'):
             self.db = self.connect(db_name)
 
@@ -14,9 +14,9 @@ class DB:
 
     def insert_event(self, collection, event):
         self.db[collection].update(
-            {'category': event['category'], 'event_date': event['event_date'], 'source': event['source']},
+            {'category': event.category, 'event_date': event.event_date, 'source': event.source},
             {
-                '$setOnInsert': event,
+                '$setOnInsert': vars(event),
             },
             upsert=True
         )

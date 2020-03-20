@@ -9,6 +9,8 @@ class CoinMarketCal:
     def __init__(self):
         self.req = request.MyRequest()
         self.helper = Helper()
+        self.financials = {}
+        self.tokens = {}
 
         self.urls = {
             'COINMARKETCAL_DAILY_EVENTS':   'https://developers.coinmarketcal.com/v1/events',
@@ -26,42 +28,10 @@ class CoinMarketCal:
         return self.req.get_data(self.urls['COINMARKETCAL_DAILY_EVENTS'])
 
     def build_model(self, event):
-        financials = {}
+        
+        event['category']       = ['N/A'] if event['categories'] is None else event['categories'][0]['name']
+        event['event_date']     = self.helper.process_date(event, 'date_event')
+        event['created_date']   = dt.datetime.now()
 
-        for coin in event['coins']:
-            financials[coin['symbol']] = {}
+        return NewsEvent(event)
 
-        if event['categories'] is None:
-            event['categories'] = [{'id': 0, 'name': 'N/A'}]
-
-        tokens = {}
-
-        for coin in event['coins']:
-            tokens[coin['symbol']] = {
-                'id': coin['id'],
-                'name': coin['name'],
-                'symbol': coin['symbol'],
-                'full_name': coin['fullname'],
-            }
-
-        event = {
-            'event_title': event['title'],
-            'category': event['categories'][0]['name'],
-            'event_date': self.helper.process_date(event, 'date_event'),
-            'source': event['source'],
-            'can_occur_before': event['can_occur_before'],
-            'proof': event['proof'],
-            'token_details': tokens,
-            'financials': financials,
-            'created_date': dt.datetime.now()
-        }
-
-        # event_description = event['description']
-        # public_date = self.helper.process_date(event, 'created_date')
-        # vote_count = event['vote_count']
-        # pos_vote_count = event['positive_vote_count']
-        # percent = event['percentage']
-
-        return event
-        # return NewsEvent(event_title=event_title, category=category,
-        #                  coins=coins, event_date=event_date, proof=proof, source=source)

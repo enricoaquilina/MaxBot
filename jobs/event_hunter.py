@@ -20,6 +20,7 @@ from common.database import mongo
 # -*- coding: utf-8 -*-
 
 class EventHunter:
+
     def __init__(self):
         self.set_local_vars()
 
@@ -62,28 +63,21 @@ class EventHunter:
             for e in event:
                 self.db.insert_event(self.news_collection, e)
 
-    def create_cluster(self, start_date, event):
-        if len(self.events) == 0:
-            self.events[start_date] = [event]
-        elif start_date not in self.events:
-            self.events[start_date] = [event]
-        else:
-            self.events[start_date].append(event)
+    def create_cluster(self, event):
+        if event.event_date not in self.events:
+            self.events[event.event_date] = []
+        
+        self.events[event.event_date].append(event)
 
     def group_events(self):
-        event_date = ''
-
         for event in self.processed_events:
-            if parse(event['event_date']).date() >= dt.date.today():
-                
-                # cluster events by date
-                event_date = event['event_date'] if event_date != event['event_date'] else ''
-                self.create_cluster(event_date, event)
+            if parse(event.event_date).date() >= dt.date.today():
+                self.create_cluster(event)
 
     def create_model(self, event):
-        if 'coin_symbol' in event:
-            return self.coindar.build_model(event)
-        elif 'coins' in event:
+        # if 'coin_symbol' in event:
+        #     return self.coindar.build_model(event)
+        if 'coins' in event:
             return self.coinmarketcal.build_model(event)
 
     def process_events(self):
