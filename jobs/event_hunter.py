@@ -50,7 +50,7 @@ class EventHunter:
             new_field = f'financials.{asset}.run{self.run_id}'
             new_info = self.get_financials(asset)
 
-            self.db.add_financial_event(self.news_collection, event, new_field, new_info)
+            self.db.create_financial_event(self.news_collection, event, new_field, new_info)
 
     def update_dailies(self):
         dailies = self.db.get_events_for_today(self.news_collection)
@@ -84,7 +84,7 @@ class EventHunter:
         for event in self.events_list:
             self.processed_events.append(self.create_model(event))
 
-    def gather_raw_event_data(self):
+    def get_raw_data(self):
         # if self.coindar:
         #     self.events_list = sorted(self.coindar.api_news1_last_events(), key=lambda k: k['start_date'])
 
@@ -95,7 +95,7 @@ class EventHunter:
         self.helper.options['START']()
 
         # get events from APIs
-        self.gather_raw_event_data()
+        self.get_raw_data()
 
         # process events and 'clean' them
         self.process_events()
@@ -108,7 +108,6 @@ class EventHunter:
         self.helper.options['FINISH']([self.events, self.events_list,
                                        self.dailies_updated, self.processed_events,
                                        self.dailies_updated])
-
 
 hunter = EventHunter()
 hunter.run()

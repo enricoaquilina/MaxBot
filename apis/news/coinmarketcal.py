@@ -3,6 +3,8 @@ from common.models.event_hunter.NewsEvent import NewsEvent
 from common.utilities.helper import Helper
 import requests
 import datetime as dt
+import common.config as cfg
+
 
 class CoinMarketCal:
 
@@ -11,21 +13,15 @@ class CoinMarketCal:
         self.helper = Helper()
         self.financials = {}
         self.tokens = {}
-
-        self.urls = {
-            'COINMARKETCAL_DAILY_EVENTS':   'https://developers.coinmarketcal.com/v1/events',
-            'COINMARKETCAL_COIN_LIST':      'https://developers.coinmarketcal.com/v1/coins',
-            'COINMARKETCAL_CATEGORY_LIST':  'https://developers.coinmarketcal.com/v1/categories',
-        }
     
     def get_coins(self):
-        return self.req.get_data(self.urls['COINMARKETCAL_COIN_LIST'])
+        return self.req.get_data(cfg.settings['COINMARKETCAL_COIN_LIST'])
 
     def get_categories(self):
-        return self.req.get_data(self.urls['COINMARKETCAL_CATEGORY_LIST'])
+        return self.req.get_data(cfg.settings['COINMARKETCAL_CATEGORY_LIST'])
 
     def get_events(self):
-        return self.req.get_data(self.urls['COINMARKETCAL_DAILY_EVENTS'])
+        return self.req.get_data(cfg.settings['COINMARKETCAL_DAILY_EVENTS'])
 
     def build_model(self, event):
         

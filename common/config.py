@@ -1,4 +1,5 @@
-{
+#!/usr/bin/env python
+settings = {
     'hostname':                     '127.0.0.1',
     'port':                         '27017',
     'db_name':                      'maxbot',
@@ -10,16 +11,12 @@
     'COINMARKETCAL_CATEGORY_LIST':  'https://developers.coinmarketcal.com/v1/categories',
     'x-api-key':                    'iFQY61z1SD4PanhjChc8E4RMo4KdUHdT5AXCx8Y8',
 
-
-    'X-CMC_PRO_API_KEY':            'c3876b59-a8d3-4a8f-bf51-e2aad4ca9a5c',
-    'COINMARKETCAL_CATEGORY_LIST':  'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
-
+    'X-CMC_PRO_API_KEY':            'c3876b59-a8d3-4a8f-bf51-e2aad4ca9a5c', #joedimech75
+    'X-CMC_PRO_API_KEY':            'b77602e7-a160-4384-aedd-2d4f4f4a308e', #tappiera
+    'COINMARKETCAP_LISTINGS':  'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
 
     'COINDAR_1':                    'https://coindar.org/api/v2/coins?access_token=',
     'COINDAR_2':                    'https://coindar.org/api/v2/events?limit=',
     'COINDAR_3':                    'https://coindar.org/api/v1/coinEvents?name=',
-    'COINDAR_4':                    'https://coindar.org/api/v1/events?year=',
-
-        
-
+    'COINDAR_4':                    'https://coindar.org/api/v1/events?year='
 }

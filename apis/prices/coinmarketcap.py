@@ -5,15 +5,17 @@ import json
 import urllib
 from urllib.request import urlopen, Request
 import datetime as dt
+import common.config as cfg
 
 class CoinMarketCap:
     def __init__(self):
         self.assets = self.get_assets()
 
+
     def get_assets(self):
         assets = []
 
-        url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+        url = cfg.settings['COINMARKETCAP_LISTINGS']
 
         parameters = {
             'limit': '5000',
@@ -29,15 +31,9 @@ class CoinMarketCap:
             'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5'
 
         # tappiera00
-        # headers = {
-        #     'Accepts': 'application/json',
-        #     'X-CMC_PRO_API_KEY': 'b77602e7-a160-4384-aedd-2d4f4f4a308e',
-        # }
-
-        # joedimech75
         headers = {
             'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': 'c3876b59-a8d3-4a8f-bf51-e2aad4ca9a5c',
+            'X-CMC_PRO_API_KEY': 'b77602e7-a160-4384-aedd-2d4f4f4a308e',
         }
 
         session = Session()

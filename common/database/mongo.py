@@ -24,7 +24,7 @@ class DB:
     def get_events_for_today(self, collection):
         return self.db[collection].find({'event_date': str(datetime.date.today())})
 
-    def add_financial_event(self, collection, event_to_update, new_field, new_info):
+    def create_financial_event(self, collection, event_to_update, new_field, new_info):
         return self.db[collection].update_one(
             {'_id': event_to_update['_id']},
             {
