@@ -7,11 +7,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from dateutil.parser import parse
 
-from apis.news.coindar import *
+# from apis.news.coindar import *
 from apis.news.coinmarketcal import *
 from apis.prices.coinmarketcap import CoinMarketCap
 
-from common.models.event_hunter.NewsEvent import NewsEvent
 from common.utilities.helper import Helper
 from common.database import mongo
 

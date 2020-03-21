@@ -9,7 +9,6 @@ class NewsEvent(object):
     financials = {}
     created_date = None
 
-
     # event_description
     # start_date = ''
     # public_date = ''
@@ -19,9 +18,17 @@ class NewsEvent(object):
     # percent = 0
     # event_description = ''
 
-   
-
     def __init__(self, raw_event):
+        self.event_title         = next(iter(raw_event['title'].values()))
+        self.category            = raw_event['categories'][0]['name']
+        self.event_date          = raw_event['event_date']
+        self.source              = raw_event['source']
+        self.can_occur_before    = raw_event['can_occur_before']
+        self.proof               = raw_event['proof']
+        self.created_date        = raw_event['created_date']
+        
+        self.financials = {}
+        self.token_details = {}
         for coin in raw_event['coins']:
             self.financials[coin['symbol']] = {}
             self.token_details[coin['symbol']] = {
@@ -31,10 +38,9 @@ class NewsEvent(object):
                 'full_name': coin['fullname'],
             }
 
-        self.event_title         = next(iter(raw_event['title'].values()))
-        self.category            = raw_event['categories'][0]['name']
-        self.event_date          = raw_event['date_event']
-        self.source              = raw_event['source']
-        self.can_occur_before    = raw_event['can_occur_before']
-        self.proof               = raw_event['proof']
-        self.created_date        = raw_event['created_date']
+        
+
+    def __iter__(self):
+        for attr, value in self.__dict__.items():
+            yield attr, value
+

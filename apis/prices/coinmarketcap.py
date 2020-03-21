@@ -6,48 +6,30 @@ import urllib
 from urllib.request import urlopen, Request
 import datetime as dt
 import common.config as cfg
+from common.http import request
 
 class CoinMarketCap:
     def __init__(self):
+        self.req = request.MyRequest()
+        self.headers = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY']}
         self.assets = self.get_assets()
 
+        self.params = {
+            'USD': {
+                'limit': '5000',
+                'convert': 'USD'
+            },
+            'BTC': {
+                'limit': '5000',
+                'convert': 'BTC'
+            }
+        }
 
     def get_assets(self):
         assets = []
 
-        url = cfg.settings['COINMARKETCAP_LISTINGS']
-
-        parameters = {
-            'limit': '5000',
-            'convert': 'USD'
-        }
-        parameters2 = {
-            'limit': '5000',
-            'convert': 'BTC'
-        }
-
-        defaultHeaders = requests.utils.default_headers()
-        defaultHeaders['User-Agent'] = \
-            'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5'
-
-        # tappiera00
-        headers = {
-            'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': 'b77602e7-a160-4384-aedd-2d4f4f4a308e',
-        }
-
-        session = Session()
-        session.headers.update({**headers, **defaultHeaders})
-
-        try:
-            response = session.get(url, params=parameters)
-            assetsUSD = json.loads(response.text)['data']
-
-            response = session.get(url, params=parameters2)
-            assetsBTC = json.loads(response.text)['data']
-
-        except (ConnectionError, Timeout, TooManyRedirects) as e:
-            print(e)
+        assetsUSD = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, parameters)
+        assetsBTC = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, parameters2)
 
         for idx, asset in enumerate(assetsUSD):
             assets.append(
