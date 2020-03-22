@@ -20,7 +20,7 @@ class NewsEvent(object):
 
     def __init__(self, raw_event):
         self.event_title         = next(iter(raw_event['title'].values()))
-        self.category            = raw_event['categories'][0]['name']
+        self.category            = raw_event['category']
         self.event_date          = raw_event['event_date']
         self.source              = raw_event['source']
         self.can_occur_before    = raw_event['can_occur_before']
