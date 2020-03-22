@@ -14,24 +14,14 @@ class CoinMarketCap:
         self.headers = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY']}
         self.assets = self.get_assets()
 
-        self.params = {
-            'USD': {
-                'limit': '5000',
-                'convert': 'USD'
-            },
-            'BTC': {
-                'limit': '5000',
-                'convert': 'BTC'
-            }
-        }
-
     def get_assets(self):
         assets = []
 
-        assetsUSD = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, parameters)
-        assetsBTC = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, parameters2)
+        assetsUSD = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, cfg.settings['params']['USD'])
+        assetsBTC = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, cfg.settings['params']['BTC'])
 
         for idx, asset in enumerate(assetsUSD):
+            
             assets.append(
                 {
                     'id':                   asset['id'],
