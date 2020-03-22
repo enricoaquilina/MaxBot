@@ -11,18 +11,15 @@ from common.http import request
 class CoinMarketCap:
     def __init__(self):
         self.req = request.MyRequest()
-        self.headers = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY']}
-        self.assets = self.get_assets()
+        self.headers = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY1']}
+        self.headers2 = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY2']}
+        self.compute_financials()
 
-    def get_assets(self):
-        assets = []
-
-        assetsUSD = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, cfg.settings['params']['USD'])
-        assetsBTC = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, cfg.settings['params']['BTC'])
+    def build_model(self, assetsUSD, assetsBTC):
+        self.assets = []
 
         for idx, asset in enumerate(assetsUSD):
-
-            assets.append(
+            self.assets.append(
                 {
                     'name':                 asset['name'],
                     'symbol':               asset['symbol'],
@@ -48,15 +45,18 @@ class CoinMarketCap:
                 }
             )
 
-        return assets
+    def compute_financials(self):
+        assetsUSD = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, cfg.settings['params']['USD'])
+        assetsBTC = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers2, cfg.settings['params']['BTC'])
+
+        self.build_model(assetsUSD, assetsBTC)
+
 
     def get_asset(self, token_to_update):
         if list(filter(lambda n: n.get('symbol').lower() == token_to_update.lower(), self.assets)):
             return self.assets[
                 self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_to_update.lower(), self.assets))[0])]
 
-    def get_financials(self, token_to_update):
-        asset = self.get_asset(token_to_update)
-
-        if asset:
-            return asset['financials']
+    def get_financials(self, token):
+        asset_financials = self.get_asset(token)
+        return asset_financials if asset_financials else None

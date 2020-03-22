@@ -11,8 +11,8 @@ settings = {
     'COINMARKETCAL_CATEGORY_LIST':  'https://developers.coinmarketcal.com/v1/categories',
     'x-api-key':                    'iFQY61z1SD4PanhjChc8E4RMo4KdUHdT5AXCx8Y8',
 
-    'X-CMC_PRO_API_KEY':            'c3876b59-a8d3-4a8f-bf51-e2aad4ca9a5c', #joedimech75
-    'X-CMC_PRO_API_KEY':            'b77602e7-a160-4384-aedd-2d4f4f4a308e', #tappiera
+    'X-CMC_PRO_API_KEY1':            'c3876b59-a8d3-4a8f-bf51-e2aad4ca9a5c', #joedimech75
+    'X-CMC_PRO_API_KEY2':            'b77602e7-a160-4384-aedd-2d4f4f4a308e', #tappiera
     'COINMARKETCAP_LISTINGS':       'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
     'params': {
                 'USD': {
