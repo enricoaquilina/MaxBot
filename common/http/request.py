@@ -20,8 +20,10 @@ class MyRequest:
 
             if 'body' in req:
                 return req['body']
-            if 'data' in req:
+            elif 'data' in req:
                 return req['data']
+            else:
+                return req
                 
         except (URLError, HTTPError) as e:
             print(e.reason)

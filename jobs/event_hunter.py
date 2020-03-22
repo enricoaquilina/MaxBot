@@ -7,9 +7,9 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from dateutil.parser import parse
 
-# from apis.news.coindar import *
 from apis.news.coinmarketcal import *
 from apis.prices.coinmarketcap import CoinMarketCap
+from apis.news.coindar import CoinDar
 
 from common.utilities.helper import Helper
 from common.database import mongo
@@ -27,7 +27,7 @@ class EventHunter:
         self.helper = Helper()
         self.coinmarketcap = CoinMarketCap()
         self.coinmarketcal = CoinMarketCal()
-        # self.coindar = CoinDar()
+        self.coindar = CoinDar()
 
         self.events = {}
         self.events_list = []
@@ -74,8 +74,8 @@ class EventHunter:
                 self.create_cluster(event)
 
     def create_model(self, event):
-        # if 'coin_symbol' in event:
-        #     return self.coindar.build_model(event)
+        if 'coin_symbol' in event:
+            return self.coindar.build_model(event)
         if 'coins' in event:
             return self.coinmarketcal.build_model(event)
 
@@ -85,7 +85,7 @@ class EventHunter:
 
     def get_raw_data(self):
         # if self.coindar:
-        #     self.events_list = sorted(self.coindar.api_news1_last_events(), key=lambda k: k['start_date'])
+        #     self.events_list = sorted(self.coindar.get_events(), key=lambda k: k['start_date'])
 
         if self.coinmarketcal:
             self.events_list.extend(sorted(self.coinmarketcal.get_events(), key=lambda k: k['date_event']))

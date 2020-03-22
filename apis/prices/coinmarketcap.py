@@ -51,11 +51,20 @@ class CoinMarketCap:
 
         self.build_model(assetsUSD, assetsBTC)
 
+    def trim_financials(self, token):
+        financials = dict(self.assets[
+                self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token.lower(), self.assets))[0])])
+        try:
+            del financials["name"]
+            del financials["symbol"]
+        except KeyError:
+            print("Key 'name'/'symbol' not found")
+        
+        return financials
 
-    def get_asset(self, token_to_update):
-        if list(filter(lambda n: n.get('symbol').lower() == token_to_update.lower(), self.assets)):
-            return self.assets[
-                self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_to_update.lower(), self.assets))[0])]
+    def get_asset(self, token):
+        if list(filter(lambda n: n.get('symbol').lower() == token.lower(), self.assets)):
+            return self.trim_financials(token)
 
     def get_financials(self, token):
         asset_financials = self.get_asset(token)
