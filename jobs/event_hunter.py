@@ -13,7 +13,7 @@ from apis.news.coindar import CoinDar
 
 from common.utilities.helper import Helper
 from common.database import mongo
-
+import common.config as cfg
 
 
 # -*- coding: utf-8 -*-
@@ -34,11 +34,10 @@ class EventHunter:
         self.processed_events = []
         self.dailies_updated = []
 
-        self.news_collection = 'news_events'
-        self.events_collection = 'events'
+        self.news_collection = cfg.settings['coll_news_events']
         self.run_id = self.helper.options['GET_RUN']()
         
-        self.db = mongo.DB('maxbot')
+        self.db = mongo.DB(cfg.settings['db_name'])
 
     def get_financials(self, token):
         return self.coinmarketcap.get_financials(token)
@@ -112,3 +111,13 @@ class EventHunter:
 
 hunter = EventHunter()
 hunter.run()
+
+
+# TODO
+# determine what to do with 2020-03 (start_date)
+# clean the None attributes from NewsEvent
+# clarify event source instead of relying on one single attribute (coin_id)
+# when grouping select the date only of the start_date not the time also
+
+# do the grouping and remove any duplicate events from multiple sources
+
