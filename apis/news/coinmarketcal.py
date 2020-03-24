@@ -1,7 +1,6 @@
 from common.http import request
 from common.models.event_hunter.model_event import NewsEvent 
 from common.utilities.helper import Helper
-import datetime as dt
 import common.config as cfg
 
 
@@ -25,7 +24,6 @@ class CoinMarketCal:
         event['origin']         = 'coinmarketcal'
         event['category']       = ['N/A'] if event['categories'] is None else event['categories'][0]['name']
         event['event_date']     = self.helper.process_date(event, 'date_event')
-        event['created_date']   = dt.datetime.now()
         event['event_title']    = next(iter(event['title'].values()))
 
         return NewsEvent(event)

@@ -1,18 +1,9 @@
-# import bs4
-# from urllib.request import urlopen
-# import requests
 from common.http import request
 from common.models.event_hunter.model_event import NewsEvent
 from common.utilities.helper import Helper
 import common.config as cfg
-import datetime as dt
 
 class CoinDar:
-    # self.events_list = self.coindar.get_news_data()
-    # self.test2 = self.coindar.api_news1_coin_events("btc")
-    # self.test3 = self.coindar.api_news1_custom_date(2018,1,1)
-    #
-
     def __init__(self):
         self.req = request.MyRequest()
         self.helper = Helper()
@@ -87,7 +78,6 @@ class CoinDar:
         self.event = dict(event)
         self.event['origin']         = 'coindar'
         self.event['category']       = list(filter(lambda d: d['id'] == event['tags'], self.tags))[0]['name']
-        self.event['created_date']   = dt.datetime.now()
 
         # start_date = self.helper.process_date(event, 'start_date')
         self.event['event_date']     = self.helper.process_date(event, 'date_start')
