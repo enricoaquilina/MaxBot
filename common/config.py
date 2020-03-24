@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from datetime import date
+
 settings = {
     'hostname':                     '127.0.0.1',
     'port':                         '27017',
@@ -17,7 +19,7 @@ settings = {
 
     'X-CMC_PRO_API_KEY1':            'c3876b59-a8d3-4a8f-bf51-e2aad4ca9a5c', #joedimech75
     'X-CMC_PRO_API_KEY2':            'b77602e7-a160-4384-aedd-2d4f4f4a308e', #tappiera
-    'COINMARKETCAP_LISTINGS':       'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
+    'COINMARKETCAP_LISTINGS':        'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
     'params': {
                 'USD': {
                     'limit': '5000',
@@ -28,16 +30,19 @@ settings = {
                     'convert': 'BTC'
                 }
     },
+    'COINDAR_EVENTS_URL':           'https://coindar.org/api/v2/events',
+    'COINDAR_TAGS_URL':             'https://coindar.org/api/v2/tags',
+    'COINDAR_COINS_URL':            'https://coindar.org/api/v2/coins',
+    'COINDAR_SOCIAL_URL':           'https://coindar.org/api/v2/social',
+    
 
-
-
-    'COINDAR_EVENTS':         'https://coindar.org/api/v2/events?limit=',
     'COINDAR_HEADER': {
     },
     'COINDAR_TOKEN': {
         'access_token': '37949:XvvzaWNeECQuCXyJLZa'
     },
-    'COINDAR_4':                    'https://coindar.org/api/v1/events?year=',
-    'COINDAR_1':                    'https://coindar.org/api/v2/coins?access_token=',
-    'COINDAR_3':                    'https://coindar.org/api/v1/coinEvents?name=',
+    'COINDAR_EVENTS_ARGS': {
+        'filter_date_start':    date.today(),
+        'page_size':            '100'
+    },
 }

@@ -74,7 +74,7 @@ class EventHunter:
                 self.create_cluster(event)
 
     def create_model(self, event):
-        if 'coin_symbol' in event:
+        if 'coin_id' in event:
             return self.coindar.build_model(event)
         if 'coins' in event:
             return self.coinmarketcal.build_model(event)
@@ -84,8 +84,10 @@ class EventHunter:
             self.processed_events.append(self.create_model(event))
 
     def get_raw_data(self):
-        # if self.coindar:
-        #     self.events_list = sorted(self.coindar.get_events(), key=lambda k: k['start_date'])
+        if self.coindar:
+            # t = self.coindar.get_events()
+            reliable_sources = list(filter(lambda d: d['source_reliable'] == 'true', self.coindar.get_events()))
+            self.events_list = sorted(reliable_sources, key=lambda k: k['date_start'])
 
         if self.coinmarketcal:
             self.events_list.extend(sorted(self.coinmarketcal.get_events(), key=lambda k: k['date_event']))

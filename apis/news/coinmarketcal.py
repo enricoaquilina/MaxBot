@@ -22,9 +22,11 @@ class CoinMarketCal:
         return self.req.get_data(cfg.settings['COINMARKETCAL_DAILY_EVENTS'], self.headers)
 
     def build_model(self, event):
+        event['origin']         = 'coinmarketcal'
         event['category']       = ['N/A'] if event['categories'] is None else event['categories'][0]['name']
         event['event_date']     = self.helper.process_date(event, 'date_event')
         event['created_date']   = dt.datetime.now()
+        event['event_title']    = next(iter(event['title'].values()))
 
         return NewsEvent(event)
         
