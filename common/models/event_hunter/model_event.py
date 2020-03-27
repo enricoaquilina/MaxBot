@@ -1,19 +1,6 @@
 import datetime as dt
 
-class NewsEvent(object):
-    event_title = None
-    category = None
-    event_date = None
-    source = None
-    proof = None
-    can_occur_before = None
-    token_details = {}
-    financials = {}
-    created_date = None
-
-    end_date = None
-    price_changes = None
-    important = None
+class NewsEvent:
     # source_reliable = None
 
     # vote_count = 0
@@ -25,21 +12,13 @@ class NewsEvent(object):
         self.category      = raw_event['category']
         self.event_date    = raw_event['event_date']
         self.source        = raw_event['source']
-        self.created_date  = raw_event['created_date']
         self.event_title   = raw_event['event_title']
         self.created_date  = dt.datetime.now()
 
-        if 'proof' in raw_event:
-            self.proof = raw_event['proof']
+        if 'proof' in raw_event and raw_event['proof'] != '':
+             self.proof = raw_event['proof']
 
         self.determine_source(raw_event)
-        
-        # clean None
-
-
-    def clean_model(self):
-        pass
-
             
     def determine_source(self, raw_event):
         if raw_event['origin'] == 'coindar':
@@ -51,12 +30,15 @@ class NewsEvent(object):
     def process_coindar(self, raw_event):
         self.important      = raw_event['important']
         self.price_changes  = raw_event['coin_price_changes']
-        self.end_date       = raw_event['end_date']
         self.token_details  = raw_event['token_details']
         self.financials     = raw_event['financials']
+        self.socials     = raw_event['socials']
+        
+        if 'end_date' in raw_event:
+            self.end_date = raw_event['end_date']
         
     def process_coinmarketcal(self, raw_event):
-        self.can_occur_before    = raw_event['can_occur_before']
+        self.can_occur_before  = raw_event['can_occur_before']
             
         self.financials = {}
         self.token_details = {}

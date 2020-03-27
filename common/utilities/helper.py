@@ -16,22 +16,15 @@ class Helper:
 
     def process_date(self, event, date_type):
         date = event[date_type]
-        if date:
-            date = parse(date).strftime('%Y-%m-%d %H:%M:%f')
+        if date == '':
+            return None
 
-        if len(date.split('-')) > 2:
-            day = date.split('-')[2]
-            if len(day.split(' ')) == 2:
-                date = event[date_type].split('-')[0] + '-' + event[date_type].split('-')[1] + '-' + day.split()[0]
-
-        # this is to get padded month and days which are less than 10
-        if date != '':
-            if len(date.split('-')) > 2:
-                date = str(dt.datetime.strptime(date, '%Y-%m-%d')).split(' ')[0]
-            elif len(date.split('-')) == 2:
-                return date
+        if len(date.split(' '))  == 2:
+            date = parse(date).strftime('%Y-%m-%d %H:%M')
+        else:
+            date = parse(date).strftime('%Y-%m-%d')
         return date
-
+        
     def start(self):
         print('Starting news hunter job (' + dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
 

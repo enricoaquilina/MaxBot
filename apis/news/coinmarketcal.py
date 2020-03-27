@@ -18,7 +18,8 @@ class CoinMarketCal:
         return self.req.get_data(cfg.settings['COINMARKETCAL_CATEGORY_LIST'], self.headers)
 
     def get_events(self):
-        return self.req.get_data(cfg.settings['COINMARKETCAL_DAILY_EVENTS'], self.headers)
+        events = self.req.get_data(cfg.settings['COINMARKETCAL_DAILY_EVENTS'], self.headers)
+        return sorted(events, key=lambda k: k['date_event'])
 
     def build_model(self, event):
         event['origin']         = 'coinmarketcal'

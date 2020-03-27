@@ -14,14 +14,19 @@ class CoinDar:
         self.coins = self.get_coins()
         self.socials = self.get_socials()
         self.event = {}
+
+    def filter_events(self, events):
+        reliable_sources = list(filter(lambda d: d['source_reliable'] == 'true' and len(d['date_start'].split('-')) == 3, events))
+        return sorted(reliable_sources, key=lambda k: k['date_start'])
         
-    def get_events(self, limit=50):
-        # url = "https://coindar.org/api/v2/events?limit="+str(limit)
-        return self.req.get_data(
+    def get_events(self):
+        events = self.req.get_data(
             cfg.settings['COINDAR_EVENTS_URL'], 
             cfg.settings['COINDAR_HEADER'], 
             { **cfg.settings['COINDAR_TOKEN'], **cfg.settings['COINDAR_EVENTS_ARGS'] }
         )
+        return self.filter_events(events)
+
 
     def get_tags(self):
         return self.req.get_data(
@@ -79,9 +84,10 @@ class CoinDar:
         self.event['origin']         = 'coindar'
         self.event['category']       = list(filter(lambda d: d['id'] == event['tags'], self.tags))[0]['name']
 
-        # start_date = self.helper.process_date(event, 'start_date')
         self.event['event_date']     = self.helper.process_date(event, 'date_start')
-        self.event['end_date']       = self.helper.process_date(event, 'date_end')
+        
+        if self.helper.process_date(event, 'date_end') is not None:
+            self.event['end_date'] = self.helper.process_date(event, 'date_end')
 
         self.event['event_title']    = event.pop('caption')
 

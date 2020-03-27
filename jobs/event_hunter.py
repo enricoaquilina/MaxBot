@@ -15,6 +15,7 @@ from common.utilities.helper import Helper
 from common.database import mongo
 import common.config as cfg
 
+import datetime as dt
 
 # -*- coding: utf-8 -*-
 
@@ -84,12 +85,10 @@ class EventHunter:
 
     def get_raw_data(self):
         if self.coindar:
-            # t = self.coindar.get_events()
-            reliable_sources = list(filter(lambda d: d['source_reliable'] == 'true', self.coindar.get_events()))
-            self.events_list = sorted(reliable_sources, key=lambda k: k['date_start'])
+            self.events_list = self.coindar.get_events()
 
         if self.coinmarketcal:
-            self.events_list.extend(sorted(self.coinmarketcal.get_events(), key=lambda k: k['date_event']))
+            self.events_list.extend(self.coinmarketcal.get_events())
 
     def run(self):
         self.helper.options['START']()
@@ -114,10 +113,10 @@ hunter.run()
 
 
 # TODO
-# determine what to do with 2020-03 (start_date)
-# clean the None attributes from NewsEvent
-# clarify event source instead of relying on one single attribute (coin_id)
 # when grouping select the date only of the start_date not the time also
-
 # do the grouping and remove any duplicate events from multiple sources
+# check for repeated events in 2nd API
+
+# remove social counts which are 0 and sites which are empty
+# clarify event source instead of relying on one single attribute (coin_id)
 
