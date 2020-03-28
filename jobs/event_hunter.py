@@ -134,3 +134,4 @@ hunter.run()
 # move token details, financials to coinmarketcal, make them common across
 # join information from both APIs after check for duplicates
 # add coingecko as primary source and coinmarketcap as fallback (DEXERGI, DEXR)
+# once using coingecko, add developer activity and social sentiment

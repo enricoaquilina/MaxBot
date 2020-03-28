@@ -60,7 +60,7 @@ class CoinMarketCap:
         except KeyError:
             print("Key 'name'/'symbol' not found")
         
-        return financials
+        return financials['financials']
 
     def get_asset(self, token):
         if list(filter(lambda n: n.get('symbol').lower() == token.lower(), self.assets)):
@@ -68,4 +68,4 @@ class CoinMarketCap:
 
     def get_financials(self, token):
         asset_financials = self.get_asset(token)
-        return asset_financials['financials'] if asset_financials else None
+        return asset_financials if asset_financials else None
