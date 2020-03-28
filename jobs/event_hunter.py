@@ -131,4 +131,6 @@ hunter.run()
 
 # remove social counts which are 0 and sites which are empty
 # clarify event source instead of relying on one single attribute (coin_id)
-# move token details, financials to coinmarketcal
+# move token details, financials to coinmarketcal, make them common across
+# join information from both APIs after check for duplicates
+# add coingecko as primary source and coinmarketcap as fallback (DEXERGI, DEXR)

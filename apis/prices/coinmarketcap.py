@@ -68,4 +68,4 @@ class CoinMarketCap:
 
     def get_financials(self, token):
         asset_financials = self.get_asset(token)
-        return asset_financials if asset_financials else None
+        return asset_financials['financials'] if asset_financials else None
