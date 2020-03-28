@@ -43,6 +43,6 @@ settings = {
     },
     'COINDAR_EVENTS_ARGS': {
         'filter_date_start':    date.today(),
-        'page_size':            '100'
+        'page_size':            '15'
     },
 }

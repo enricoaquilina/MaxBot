@@ -63,10 +63,22 @@ class EventHunter:
                 self.db.insert_event(self.news_collection, e)
 
     def create_cluster(self, event):
-        if event.event_date not in self.events:
-            self.events[event.event_date] = []
+        date = parse(event.event_date).date()
+        if str(date) not in self.events:
+            self.events[str(date)] = []
         
-        self.events[event.event_date].append(event)
+        # if event does not exist, insert
+        events_to_compare = self.events[str(date)]
+
+        found = False
+        for e in events_to_compare:
+            # check both events and if they're not similar, insert
+            # otherwise pass
+            if e.event_date == str(date) and next(iter(e.financials.keys())) == next(iter(event.financials.keys())):
+                found = True
+            
+        if not found:
+            self.events[str(date)].append(event)
 
     def group_events(self):
         for event in self.processed_events:
@@ -82,6 +94,7 @@ class EventHunter:
     def process_events(self):
         for event in self.events_list:
             self.processed_events.append(self.create_model(event))
+        self.processed_events = sorted(self.processed_events, key=lambda k: parse(k.event_date).date())
 
     def get_raw_data(self):
         if self.coindar:
@@ -113,10 +126,9 @@ hunter.run()
 
 
 # TODO
-# when grouping select the date only of the start_date not the time also
-# do the grouping and remove any duplicate events from multiple sources
 # check for repeated events in 2nd API
+# dont update events' same prices more than once
 
 # remove social counts which are 0 and sites which are empty
 # clarify event source instead of relying on one single attribute (coin_id)
-
+# move token details, financials to coinmarketcal
