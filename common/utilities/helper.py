@@ -20,9 +20,11 @@ class Helper:
             return None
 
         if len(date.split(' '))  == 2:
-            date = parse(date).strftime('%Y-%m-%d %H:%M')
+            date = dt.datetime.strptime(date, '%Y-%m-%d %H:%M')
         else:
-            date = parse(date).strftime('%Y-%m-%d')
+            if 'T' in date:
+                date = date[:date.index('T')]
+            date = dt.datetime.strptime(date, '%Y-%m-%d')
         return date
         
     def start(self):

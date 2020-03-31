@@ -1,4 +1,6 @@
-import datetime
+from datetime import date 
+from datetime import datetime
+from datetime import timedelta
 import pymongo
 
 
@@ -22,7 +24,25 @@ class DB:
         )
 
     def get_events_for_today(self, collection):
-        return self.db[collection].find({'event_date': str(datetime.date.today())})
+        current_date = datetime.combine(date.today(), datetime.min.time())
+        next_date = current_date + timedelta(days=1)
+
+        return self.db[collection].find(
+        { '$and': [ 
+                {
+                    'event_date': {
+                        '$gte': current_date
+                    }
+                }, 
+                {
+                    "event_date": {
+                        '$lt': next_date
+                    }
+                } 
+            ] 
+        })
+
+        
 
     def create_financial_event(self, collection, event_to_update, new_field, new_info):
         return self.db[collection].update_one(

@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from dateutil.parser import parse
 
-from apis.news.coinmarketcal import *
+from apis.news.coinmarketcal import CoinMarketCal
 from apis.prices.coinmarketcap import CoinMarketCap
 from apis.news.coindar import CoinDar
 
@@ -63,7 +63,7 @@ class EventHunter:
                 self.db.insert_event(self.news_collection, e)
 
     def create_cluster(self, event):
-        date = parse(event.event_date).date()
+        date = event.event_date.date()
         if str(date) not in self.events:
             self.events[str(date)] = []
         
@@ -82,7 +82,7 @@ class EventHunter:
 
     def group_events(self):
         for event in self.processed_events:
-            if parse(event.event_date).date() >= dt.date.today():
+            if event.event_date.date() >= dt.datetime.today().date():
                 self.create_cluster(event)
 
     def create_model(self, event):
@@ -94,7 +94,7 @@ class EventHunter:
     def process_events(self):
         for event in self.events_list:
             self.processed_events.append(self.create_model(event))
-        self.processed_events = sorted(self.processed_events, key=lambda k: parse(k.event_date).date())
+        self.processed_events = sorted(self.processed_events, key=lambda k: dt.datetime.strftime(k.event_date, '%Y-%m-%d'))
 
     def get_raw_data(self):
         if self.coindar:
@@ -126,12 +126,13 @@ hunter.run()
 
 
 # TODO
-# check for repeated events in 2nd API
-# dont update events' same prices more than once
-
-# remove social counts which are 0 and sites which are empty
-# clarify event source instead of relying on one single attribute (coin_id)
 # move token details, financials to coinmarketcal, make them common across
 # join information from both APIs after check for duplicates
+
 # add coingecko as primary source and coinmarketcap as fallback (DEXERGI, DEXR)
 # once using coingecko, add developer activity and social sentiment
+
+# clarify event source instead of relying on one single attribute (coin_id)
+# dont update events' same prices more than once
+# check for repeated events in 2nd API
+

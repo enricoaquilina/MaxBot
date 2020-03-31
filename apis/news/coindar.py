@@ -49,38 +49,43 @@ class CoinDar:
             cfg.settings['COINDAR_TOKEN']
         )
 
-    def aggregate_details(self):
-        
-        token_details = list(filter(lambda d: d['id'] == self.event['coin_id'], self.coins))[0]
-        self.event['token_details'] = {
-            'name':     token_details['name'],
-            'symbol':    token_details['symbol']
-        }
+    def compute_financials(self):
         self.event['financials'] = {}
-        self.event['financials'][token_details['symbol']] = {
+        self.event['financials'][self.token_details['symbol']] = {
         }
+    
+    def compute_socials(self):
         socials = list(filter(lambda d: d['coin_id'] == self.event['coin_id'], self.socials))[0]
-        self.event['socials'] = {
-            'bitcointalk':  socials['bitcointalk'],
-            'facebook':     socials['facebook'],
-            'github':       socials['github'],
-            'reddit':       socials['reddit'],
-            'telegram':     socials['telegram'],
-            'youtube':      socials['youtube'],
-            'twitter':      socials['twitter'],
-            'explorer':     socials['explorer'],
-            'website':     socials['website'],
-            'counts': {
-                "facebook": socials['facebook_count'],
-                "telegram": socials['telegram_count'],
-                "twitter":  socials['twitter_count'],
-                "reddit":  socials['reddit_count'],
-            }
+        socials = { k: v for k, v in socials.items() if v != '' and v != '0' }
+
+        accounts = ['bitcointalk', 'facebook', 'github', 'reddit', 'telegram', 'youtube', 'twitter', 'explorer', 'website']
+        counts = ['facebook_count', 'telegram_count', 'twitter_count', 'reddit_count']
+        
+        self.event['socials'] = {}
+        self.event['socials']['accounts'] = {}
+        self.event['socials']['counts'] = {}
+        
+        for attr in socials:
+            if attr in accounts:
+                self.event['socials']['accounts'][attr] = socials[attr] 
+            if attr in counts:
+                self.event['socials']['counts'][attr] = socials[attr]  
+
+    def aggregate_details(self):
+        self.event['token_details'] = {}
+        self.event['token_details'][self.token_details['symbol']] = {
+            'name': self.token_details['name'],
+            'symbol':  self.token_details['symbol']
         }
+
+        self.compute_financials()
+        self.compute_socials()      
 
 
     def build_model(self, event):
         self.event = dict(event)
+        self.token_details = list(filter(lambda d: d['id'] == self.event['coin_id'], self.coins))[0]
+
         self.event['origin']         = 'coindar'
         self.event['category']       = list(filter(lambda d: d['id'] == event['tags'], self.tags))[0]['name']
 
