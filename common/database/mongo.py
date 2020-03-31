@@ -42,8 +42,6 @@ class DB:
             ] 
         })
 
-        
-
     def create_financial_event(self, collection, event_to_update, new_field, new_info):
         return self.db[collection].update_one(
             {'_id': event_to_update['_id']},

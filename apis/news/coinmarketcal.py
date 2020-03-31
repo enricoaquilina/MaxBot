@@ -22,11 +22,23 @@ class CoinMarketCal:
         return sorted(events, key=lambda k: k['date_event'])
 
     def build_model(self, event):
-        event['origin']         = 'coinmarketcal'
-        event['category']       = ['N/A'] if event['categories'] is None else event['categories'][0]['name']
-        event['event_date']     = self.helper.process_date(event, 'date_event')
-        event['event_title']    = next(iter(event['title'].values()))
+        self.event = dict(event)
+        self.event['origin']         = 'coinmarketcal'
+        self.event['category']       = ['N/A'] if event['categories'] is None else event['categories'][0]['name']
+        self.event['event_date']     = self.helper.process_date(event, 'date_event')
+        self.event['event_title']    = next(iter(event['title'].values()))
 
-        return NewsEvent(event)
+        self.event['financials'] = {}
+        self.event['token_details'] = {}
+        for coin in event['coins']:
+            self.event['financials'][coin['symbol']] = {}
+            self.event['token_details'][coin['symbol']] = {
+                'id': coin['id'],
+                'name': coin['name'],
+                'symbol': coin['symbol'],
+                'full_name': coin['fullname'],
+            }
+
+        return NewsEvent(self.event)
         
  
