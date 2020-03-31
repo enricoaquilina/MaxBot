@@ -73,7 +73,6 @@ class EventHunter:
         found = False
         for e in events_to_compare:
             # check both events and if they're not similar, insert
-            # otherwise pass
             if e.event_date == str(date) and next(iter(e.financials.keys())) == next(iter(event.financials.keys())):
                 found = True
             
@@ -126,7 +125,6 @@ hunter.run()
 
 
 # TODO
-# move token details, financials to coinmarketcal, make them common across
 # join information from both APIs after check for duplicates
 
 # add coingecko as primary source and coinmarketcap as fallback (DEXERGI, DEXR)
@@ -134,5 +132,6 @@ hunter.run()
 
 # clarify event source instead of relying on one single attribute (coin_id)
 # dont update events' same prices more than once
+
 # check for repeated events in 2nd API
 
