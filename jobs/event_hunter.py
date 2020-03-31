@@ -132,6 +132,5 @@ hunter.run()
 
 # clarify event source instead of relying on one single attribute (coin_id)
 # dont update events' same prices more than once
-
 # check for repeated events in 2nd API
 
