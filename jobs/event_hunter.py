@@ -8,8 +8,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from dateutil.parser import parse
 
 from apis.news.coinmarketcal import CoinMarketCal
-from apis.prices.coinmarketcap import CoinMarketCap
 from apis.news.coindar import CoinDar
+
+from apis.prices.coinmarketcap import CoinMarketCap
+from apis.prices.coingecko import CoinGecko
 
 from common.utilities.helper import Helper
 from common.database import mongo
@@ -26,9 +28,11 @@ class EventHunter:
 
     def set_local_vars(self):
         self.helper = Helper()
-        self.coinmarketcap = CoinMarketCap()
+        # get APIs needed
         self.coinmarketcal = CoinMarketCal()
         self.coindar = CoinDar()
+        self.coinmarketcap = CoinMarketCap()
+        self.coingecko = CoinGecko()
 
         self.events = {}
         self.events_list = []
@@ -139,13 +143,13 @@ hunter.run()
 
 
 # TODO
-# join information from both APIs after check for duplicates
-
 # add coingecko as primary source and coinmarketcap as fallback (DEXERGI, DEXR)
 
-# dont update events' same prices more than once
+# clean config file
 
 # once using coingecko, add developer activity and social sentiment
+
+# dont update events' same prices more than once
 # clarify event source instead of relying on one single attribute (coin_id)
-# check for repeated events in 2nd API
+
 
