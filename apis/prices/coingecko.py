@@ -7,6 +7,7 @@ from urllib.request import urlopen, Request
 import datetime as dt
 import common.config as cfg
 from common.http import request
+import math
 
 class CoinGecko:
     def __init__(self):
@@ -48,16 +49,23 @@ class CoinGecko:
     def compute_financials(self):
 
         coins_list = self.req.get_data(cfg.settings['COINGECKO']['COINS_LIST_URL'], self.headers)
-            
+        coin_count = math.ceil(len(coins_list) / cfg.settings['COINGECKO']['params']['USD']['per_page']) 
         
-
-        # that 7000 needs to be the number of coins in the list peviously obtained
-        for i in range(len(coins_list)):
-            assetsUSD = self.req.get_data(cfg.settings['COINGECKO']['COINS_MARKETS_URL'], self.headers, cfg.settings['COINGECKO']['params']['USD'])
+        for i in range(coin_count):
+            assetsUSD = self.req.get_data(
+                cfg.settings['COINGECKO']['COINS_MARKETS_URL'], 
+                self.headers, 
+                [ 
+                    cfg.settings['COINGECKO']['params']['standard'], 
+                    cfg.settings['COINGECKO']['params']['USD'],
+                    
+                ],
+                pageable=true,
+                i+1 
+            )
             assetsBTC = self.req.get_data(cfg.settings['COINGECKO']['COINS_MARKETS_URL'], self.headers, cfg.settings['COINGECKO']['params']['BTC'])
 
             self.build_model(assetsUSD, assetsBTC)
-            pass
 
 
     def trim_financials(self, token):

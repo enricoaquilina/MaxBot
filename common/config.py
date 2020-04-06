@@ -50,12 +50,15 @@ settings = {
         'COINS_LIST_URL':                   'https://api.coingecko.com/api/v3/coins/list',
         'COINS_MARKETS_URL':                'https://api.coingecko.com/api/v3/coins/markets',
         'params': {
-            'USD': {
+            'standard': {
                 'per_page': 250,
+                'sparkline': 'true',
+                'page': '{0}'
+            },
+            'USD': {
                 'vs_currency': 'USD',
             },
             'BTC': {
-                'per_page': 250,
                 'vs_currency': 'BTC',
             }
         }
