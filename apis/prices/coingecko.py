@@ -58,10 +58,11 @@ class CoinGecko:
                 [ 
                     cfg.settings['COINGECKO']['params']['standard'], 
                     cfg.settings['COINGECKO']['params']['USD'],
-                    
+                    {
+                        'pageable': i+1
+                    }    
                 ],
-                pageable=true,
-                i+1 
+                
             )
             assetsBTC = self.req.get_data(cfg.settings['COINGECKO']['COINS_MARKETS_URL'], self.headers, cfg.settings['COINGECKO']['params']['BTC'])
 

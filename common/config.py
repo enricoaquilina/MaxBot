@@ -52,7 +52,7 @@ settings = {
         'params': {
             'standard': {
                 'per_page': 250,
-                'sparkline': 'true',
+                'sparkline': True,
                 'page': '{0}'
             },
             'USD': {

@@ -147,7 +147,7 @@ hunter.run()
 
 # clean config file
 
-# once using coingecko, add developer activity and social sentiment
+# once using coingecko, add extra fields (developer activity and social sentiment)
 
 # dont update events' same prices more than once
 # clarify event source instead of relying on one single attribute (coin_id)
