@@ -11,9 +11,8 @@ from common.http import request
 class CoinGecko:
     def __init__(self):
         self.req = request.MyRequest()
-        # self.headers = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY1']}
-        # self.headers2 = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY2']}
-        # self.compute_financials()
+        self.headers = {}
+        self.compute_financials()
 
     def build_model(self, assetsUSD, assetsBTC):
         pass
@@ -47,11 +46,19 @@ class CoinGecko:
         #     )
 
     def compute_financials(self):
-        pass
-        # assetsUSD = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, cfg.settings['params']['USD'])
-        # assetsBTC = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers2, cfg.settings['params']['BTC'])
 
-        # self.build_model(assetsUSD, assetsBTC)
+        coins_list = self.req.get_data(cfg.settings['COINGECKO']['COINS_LIST_URL'], self.headers)
+            
+        
+
+        # that 7000 needs to be the number of coins in the list peviously obtained
+        for i in range(len(coins_list)):
+            assetsUSD = self.req.get_data(cfg.settings['COINGECKO']['COINS_MARKETS_URL'], self.headers, cfg.settings['COINGECKO']['params']['USD'])
+            assetsBTC = self.req.get_data(cfg.settings['COINGECKO']['COINS_MARKETS_URL'], self.headers, cfg.settings['COINGECKO']['params']['BTC'])
+
+            self.build_model(assetsUSD, assetsBTC)
+            pass
+
 
     def trim_financials(self, token):
         pass
