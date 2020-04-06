@@ -62,8 +62,19 @@ class EventHunter:
             for e in event:
                 self.db.insert_event(self.news_collection, e)
 
-    def create_cluster(self, event):
-        date = event.event_date.date()
+    def update_existing(self, existing_event, new_event):
+        old_fields = set(vars(existing_event).keys())
+        new_fields = set(vars(new_event).keys())
+
+        for field in new_fields:
+            if field not in old_fields:
+                vars(existing_event)[field] = vars(new_event)[field]
+        
+        return existing_event
+
+    def create_cluster(self, new_event):
+        date = new_event.event_date.date()
+
         if str(date) not in self.events:
             self.events[str(date)] = []
         
@@ -71,13 +82,16 @@ class EventHunter:
         events_to_compare = self.events[str(date)]
 
         found = False
-        for e in events_to_compare:
-            # check both events and if they're not similar, insert
-            if e.event_date == str(date) and next(iter(e.financials.keys())) == next(iter(event.financials.keys())):
+        for existing_event in events_to_compare:
+            # check both events and if they're similar, update existing
+            if existing_event.event_date == str(date) and \
+                next(iter(existing_event.financials.keys())) == next(iter(new_event.financials.keys())):
+                existing_event = self.update_existing(existing_event, new_event)
                 found = True
-            
+        
+        # if we encounter new event, insert here
         if not found:
-            self.events[str(date)].append(event)
+            self.events[str(date)].append(new_event)
 
     def group_events(self):
         for event in self.processed_events:
@@ -128,9 +142,10 @@ hunter.run()
 # join information from both APIs after check for duplicates
 
 # add coingecko as primary source and coinmarketcap as fallback (DEXERGI, DEXR)
-# once using coingecko, add developer activity and social sentiment
 
-# clarify event source instead of relying on one single attribute (coin_id)
 # dont update events' same prices more than once
+
+# once using coingecko, add developer activity and social sentiment
+# clarify event source instead of relying on one single attribute (coin_id)
 # check for repeated events in 2nd API
 
