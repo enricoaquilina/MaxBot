@@ -146,6 +146,7 @@ hunter.run()
 # add coingecko as primary source and coinmarketcap as fallback (DEXERGI, DEXR)
 
 # clean config file
+# refactor, especially coindar and coingecko
 
 # once using coingecko, add extra fields (developer activity and social sentiment)
 

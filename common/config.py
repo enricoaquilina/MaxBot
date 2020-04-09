@@ -53,7 +53,7 @@ settings = {
             'standard': {
                 'per_page': 250,
                 'sparkline': True,
-                'page': '{0}'
+                'page': '{}'
             },
             'USD': {
                 'vs_currency': 'USD',

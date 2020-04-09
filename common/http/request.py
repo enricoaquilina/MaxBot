@@ -14,10 +14,21 @@ class MyRequest:
      # defaultHeaders = requests.utils.default_headers()
 
 
-    def get_data(self, url, headers=None, params=None):
+    def get_data(self, url, headers=None, params=None, dynamic=None):
         try:
+            if dynamic is not None:
+                # for k, v in params.items():
+                #     if v == '{}':
+                #         params[k] = dynamic[k] 
+
+
+                mydict = dict((k, dynamic[k]) for k, v in params.items() if v == '{}')
+
+
             req = requests.get(url, headers={**self.headers, **headers}, params=params).json()
 
+            # req['data'] = [{'originator': 'Coinmarketcap'}] + req['data']
+            
             if 'body' in req:
                 return req['body']
             elif 'data' in req:
