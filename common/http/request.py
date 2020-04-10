@@ -17,13 +17,9 @@ class MyRequest:
     def get_data(self, url, headers=None, params=None, dynamic=None):
         try:
             if dynamic is not None:
-                # for k, v in params.items():
-                #     if v == '{}':
-                #         params[k] = dynamic[k] 
-
-
-                mydict = dict((k, dynamic[k]) for k, v in params.items() if v == '{}')
-
+                for k, v in params.items():
+                    if v == '{}':
+                        params[k] = dynamic[k]
 
             req = requests.get(url, headers={**self.headers, **headers}, params=params).json()
 
