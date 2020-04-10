@@ -12,10 +12,13 @@ import random
 import time
 
 
+
+
 class CoinGecko:
     def __init__(self):
         self.req = request.MyRequest()
         self.headers = {}
+        self.get_coins_list()
         self.compute_financials()
 
     def build_model(self, assetsUSD, assetsBTC):
@@ -73,13 +76,27 @@ class CoinGecko:
                 }
             )
 
-    def get_coin_financials(self):
+    def get_coin_financials(self, coin_id):
+        if list(filter(lambda n: n.get('id').lower() == coin_id, self.coins_list)):
+            self.coin_financials = self.req.get_data(cfg.settings['COINGECKO']['COIN_FINANCIALS_URL'], self.headers, coin_id)
+
+        # USD
+        # EUR
+        # GBP
+        # JPY
+        # CAD
+        # SGD (singapore
+        # NOK (norway
+        # CNY (china
+        # AUD 
+        # CHF (swiss franc
+        # NZD (new zealand
+        # INR (india
+
         pass
 
     def compute_financials(self):
-
-        coins_list = self.req.get_data(cfg.settings['COINGECKO']['COINS_LIST_URL'], self.headers)
-        coin_count = math.ceil(len(coins_list) / cfg.settings['COINGECKO']['params']['standard']['per_page']) 
+        coin_count = math.ceil(len(self.coins_list) / cfg.settings['COINGECKO']['params']['standard']['per_page']) 
         
         assetsUSD = []
         assetsBTC = []
@@ -105,6 +122,10 @@ class CoinGecko:
             ))
 
         self.build_model(assetsUSD, assetsBTC)
+
+    def get_coins_list(self):
+        self.coins_list = self.req.get_data(cfg.settings['COINGECKO']['COINS_LIST_URL'], self.headers)
+
 
     def trim_financials(self, token):
         pass

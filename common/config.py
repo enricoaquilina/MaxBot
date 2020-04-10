@@ -49,6 +49,7 @@ settings = {
     'COINGECKO': {
         'COINS_LIST_URL':                   'https://api.coingecko.com/api/v3/coins/list',
         'COINS_MARKETS_URL':                'https://api.coingecko.com/api/v3/coins/markets',
+        'COIN_FINANCIALS_URL':              'https://api.coingecko.com/api/v3/coins/',
         'params': {
             'standard': {
                 'per_page': 250,
