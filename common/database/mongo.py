@@ -15,13 +15,14 @@ class DB:
         return client[db_name]
 
     def insert_event(self, collection, event):
-        self.db[collection].update(
+        result = self.db[collection].update(
             {'category': event.category, 'event_date': event.event_date, 'source': event.source},
             {
                 '$setOnInsert': vars(event),
             },
             upsert=True
         )
+        return result
 
     def get_events_for_today(self, collection):
         current_date = datetime.combine(date.today(), datetime.min.time())
@@ -43,7 +44,7 @@ class DB:
         })
 
     def create_financial_event(self, collection, event_to_update, new_field, new_info):
-        return self.db[collection].update_one(
+        result = self.db[collection].update_one(
             {'_id': event_to_update['_id']},
             {
                 '$set':
@@ -57,3 +58,5 @@ class DB:
             },
             upsert=True
         )
+
+        return result.raw_result
