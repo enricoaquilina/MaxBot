@@ -1,16 +1,13 @@
-import requests
-from requests import Request, Session
-from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
-import urllib
-from urllib.request import urlopen, Request
 import datetime as dt
 import common.config as cfg
 from common.http import request
+from common.utilities.helper import Helper
 
 class CoinMarketCap:
     def __init__(self):
         self.req = request.MyRequest()
+        self.helper = Helper()
         self.headers = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY1']}
         self.headers2 = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY2']}
         self.compute_financials()
@@ -52,9 +49,26 @@ class CoinMarketCap:
         self.build_model(assetsUSD, assetsBTC)
 
     def does_coin_exist(self, token_name, token_symbol):
+        self.coin = list(filter(lambda n: n.get('name').lower() == token_name.lower() and n.get('symbol').lower() == token_symbol.lower(), self.assets))
+
+        if len(self.coin) == 0:
+            self.coin = list(filter(lambda n: n.get('name').lower() == token_name.lower(), self.assets))
+            if len(self.coin) > 0:
+                self.helper.options['WARNING'](token_name, token_symbol, 2, 'coinmarketcap')
+            
+        if len(self.coin) == 0:
+            self.coin = list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))
+            if len(self.coin) > 0:
+                self.helper.options['WARNING'](token_name, token_symbol, 3, 'coinmarketcap')
+
         asset = dict(self.assets[
                 self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))[0])])
         
+        if len(self.coin) > 0:
+            self.coin = dict(self.assets[self.assets.index(self.coin[0])])
+        elif not any(self.coin):
+            print('Did not find token {}, {} from Coingecko!!!'.format(token_name, token_symbol))
+
         if not any(asset):
             print('Did not find token {}, {} from Coinmarketcap!!!'.format(token_name, token_symbol))
 
