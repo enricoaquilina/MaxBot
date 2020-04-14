@@ -13,7 +13,8 @@ class Helper:
             'FINISH': self.finish,
             'GET_RUN': self.get_run,
             'INSERT': self.event_insert,
-            'UPDATE': self.event_update
+            'UPDATE': self.event_update,
+            'WARNING': self.warning
         }
 
     def process_date(self, event, date_type):
@@ -30,20 +31,26 @@ class Helper:
         return date
         
     def start(self):
-        print('Starting news hunter job (' + dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
+        print('Starting news hunter job (' + dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')\n')
 
     def finish(self, data):
         print('Finished news hunter job (' + dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
-        print('________________________________________________________________________')
+        print('________________________________________________________________________________________________________________________________________________________________________')
 
         for datum in data:
             datum.clear()
 
     def event_insert(self, count):
-        print('Inserted {} events today!'.format(count))
+        print('Inserted {} events today!\n'.format(count))
     
     def event_update(self, count):
-        print('Updated {} events today!'.format(count))
+        print('Updated {} events today!\n'.format(count))
+
+    def warning(self, name, symbol, count, api):
+        if count == 2:
+            print('WARNING: Found event {}({}) using only Name(2nd try) from {}!\n************************************************************************************************************************************************************************\n************************************************************************************************************************************************************************\n'.format(name, symbol, api.upper()))
+        if count == 3:
+            print('WARNING: Found event {}({}) using only Symbol(3rd try) from {}!\n************************************************************************************************************************************************************************\n************************************************************************************************************************************************************************\n'.format(name, symbol, api.upper()))
 
     def get_run(self):
         timestamp = dt.datetime.now().time()
