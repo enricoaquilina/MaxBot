@@ -21,6 +21,8 @@ class MyRequest:
                     if v == '{}':
                         params[k] = dynamic[k]
 
+            headers = {} if headers is None else headers
+
             req = requests.get(url, headers={**self.headers, **headers}, params=params).json()
 
             # req['data'] = [{'originator': 'Coinmarketcap'}] + req['data']
@@ -32,5 +34,7 @@ class MyRequest:
             else:
                 return req
                 
-        except (URLError, HTTPError) as e:
-            print(e.reason)
+        except HTTPError as http_err:
+            print(f'HTTP error occurred: {http_err}') 
+        except URLError as url_err:
+            print(f'URL error occurred: {url_err}')
