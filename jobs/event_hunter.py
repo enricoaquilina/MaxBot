@@ -46,7 +46,7 @@ class EventHunter:
 
     def get_financials(self, token_name, token_symbol):
         financial_info = {}
-        
+
         if self.coingecko.does_coin_exist(token_name, token_symbol):
             financial_info['coingecko'] = self.coingecko.get_coin_financials()
 
@@ -160,8 +160,6 @@ hunter.run()
 
 
 # TODO
-# add coingecko as primary source and coinmarketcap as fallback (DEXERGI, DEXR)
-
 # clean config file
 # refactor, especially coindar and coingecko
 
