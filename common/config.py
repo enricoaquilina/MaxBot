@@ -47,22 +47,41 @@ settings = {
 
     # coingecko
     'COINGECKO': {
-        'COINS_LIST_URL':                   'https://api.coingecko.com/api/v3/coins/list',
-        'COINS_MARKETS_URL':                'https://api.coingecko.com/api/v3/coins/markets',
-        'COIN_FINANCIALS_URL':              'https://api.coingecko.com/api/v3/coins/',
-        'params': {
-            'standard': {
-                'per_page': 250,
-                'sparkline': True,
-                'page': '{}'
-            },
-            'USD': {
-                'vs_currency': 'USD',
-            },
-            'BTC': {
-                'vs_currency': 'BTC',
+        'COINS_LIST': {
+            'URL': 'https://api.coingecko.com/api/v3/coins/list',
+            'PARAMS': {
             }
-        }
+        },
+        'COINS_MARKETS': {
+            'URL': 'https://api.coingecko.com/api/v3/coins/markets',
+            'PARAMS': {
+                'STANDARD': {
+                    'per_page': 250,
+                    'sparkline': True,
+                    'page': '{}'
+                },
+                'USD': {
+                    'vs_currency': 'USD',
+                },
+                'BTC': {
+                    'vs_currency': 'BTC',
+                }
+            }
+        },
+        'COIN_FINANCIALS': {
+            'URL': 'https://api.coingecko.com/api/v3/coins/{0}',
+            'PARAMS': {
+                'STANDARD': {
+                    'tickers': 'true',
+                    'localization': 'false',
+                    'sparkline': 'true',
+                    'developer_data': 'true',
+                    'community_data': 'true',
+                    'market_data': 'true'
+                },
+            }
+        }             
+        
     }
 
 }
