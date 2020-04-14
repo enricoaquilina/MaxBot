@@ -32,6 +32,7 @@ class CoinMarketCal:
         self.event['token_details'] = {}
         for coin in event['coins']:
             self.event['financials'][coin['symbol']] = {}
+            
             self.event['token_details'][coin['symbol']] = {
                 'id': coin['id'],
                 'name': coin['name'],
