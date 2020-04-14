@@ -11,7 +11,9 @@ class Helper:
         self.options = {
             'START': self.start,
             'FINISH': self.finish,
-            'GET_RUN': self.get_run
+            'GET_RUN': self.get_run,
+            'INSERT': self.event_insert,
+            'UPDATE': self.event_update
         }
 
     def process_date(self, event, date_type):
@@ -36,6 +38,12 @@ class Helper:
 
         for datum in data:
             datum.clear()
+
+    def event_insert(self, count):
+        print('Inserted {} events today!'.format(count))
+    
+    def event_update(self, count):
+        print('Updated {} events today!'.format(count))
 
     def get_run(self):
         timestamp = dt.datetime.now().time()
