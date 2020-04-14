@@ -44,27 +44,44 @@ class EventHunter:
         
         self.db = mongo.DB(cfg.settings['db_name'])
 
-    def get_financials(self, token):
-        return self.coinmarketcap.get_financials(token)
+    def get_financials(self, token_name, token_symbol):
+        financial_info = {}
+        
+        if self.coingecko.does_coin_exist(token_name, token_symbol):
+            financial_info['coingecko'] = self.coingecko.get_coin_financials()
+
+        if self.coinmarketcap.does_coin_exist(token_name, token_symbol): 
+            financial_info['coinmarketcap'] = self.coinmarketcap.get_financials(token_symbol)
+        
+        return financial_info
 
     def update_event(self, event):
         for asset in event['financials'].keys():
 
             new_field = f'financials.{asset}.run{self.run_id}'
-            new_info = self.get_financials(asset)
+            new_info = self.get_financials(event['token_details'][asset]['name'], event['token_details'][asset]['symbol'])
 
-            self.db.create_financial_event(self.news_collection, event, new_field, new_info)
+            return self.db.create_financial_event(self.news_collection, event, new_field, new_info)
 
     def update_dailies(self):
+        count = 0
         dailies = self.db.get_events_for_today(self.news_collection)
 
         for event in dailies:
-            self.update_event(event)
+            result = self.update_event(event)
+            count += result['n']
+
+        self.helper.options['UPDATE'](count)
+
 
     def insert_upcoming(self):
+        count = 0
         for event in self.events.values():
             for e in event:
-                self.db.insert_event(self.news_collection, e)
+                result = self.db.insert_event(self.news_collection, e)
+                count += result['n']
+
+        self.helper.options['INSERT'](count)
 
     def update_existing(self, existing_event, new_event):
         old_fields = set(vars(existing_event).keys())
