@@ -22,8 +22,7 @@ class CoinDar:
     def get_events(self):
         events = self.req.get_data(
             cfg.settings['COINDAR_EVENTS_URL'], 
-            cfg.settings['COINDAR_HEADER'], 
-            { **cfg.settings['COINDAR_TOKEN'], **cfg.settings['COINDAR_EVENTS_ARGS'] }
+            params={ **cfg.settings['COINDAR_TOKEN'], **cfg.settings['COINDAR_EVENTS_ARGS'] }
         )
         return self.filter_events(events)
 
@@ -31,22 +30,19 @@ class CoinDar:
     def get_tags(self):
         return self.req.get_data(
             cfg.settings['COINDAR_TAGS_URL'], 
-            cfg.settings['COINDAR_HEADER'], 
-            cfg.settings['COINDAR_TOKEN']
+            params=cfg.settings['COINDAR_TOKEN']
         )
 
     def get_coins(self):
         return self.req.get_data(
             cfg.settings['COINDAR_COINS_URL'], 
-            cfg.settings['COINDAR_HEADER'], 
-            cfg.settings['COINDAR_TOKEN']
+            params=cfg.settings['COINDAR_TOKEN']
         )
 
     def get_socials(self):
         return self.req.get_data(
             cfg.settings['COINDAR_SOCIAL_URL'], 
-            cfg.settings['COINDAR_HEADER'], 
-            cfg.settings['COINDAR_TOKEN']
+            params=cfg.settings['COINDAR_TOKEN']
         )
 
     def compute_financials(self):
