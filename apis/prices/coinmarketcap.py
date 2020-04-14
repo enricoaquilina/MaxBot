@@ -51,6 +51,15 @@ class CoinMarketCap:
 
         self.build_model(assetsUSD, assetsBTC)
 
+    def does_coin_exist(self, token_name, token_symbol):
+        asset = dict(self.assets[
+                self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))[0])])
+        
+        if not any(asset):
+            print('Did not find token {}, {} from Coinmarketcap!!!'.format(token_name, token_symbol))
+
+        return any(asset)
+
     def trim_financials(self, token):
         financials = dict(self.assets[
                 self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token.lower(), self.assets))[0])])
