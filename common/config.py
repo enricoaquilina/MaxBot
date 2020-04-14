@@ -35,8 +35,6 @@ settings = {
     'COINDAR_TAGS_URL':             'https://coindar.org/api/v2/tags',
     'COINDAR_COINS_URL':            'https://coindar.org/api/v2/coins',
     'COINDAR_SOCIAL_URL':           'https://coindar.org/api/v2/social',
-    'COINDAR_HEADER': {
-    },
     'COINDAR_TOKEN': {
         'access_token': '37949:XvvzaWNeECQuCXyJLZa'
     },
