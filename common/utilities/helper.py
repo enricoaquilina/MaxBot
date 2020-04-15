@@ -43,14 +43,14 @@ class Helper:
     def event_insert(self, count):
         print('Inserted {} events today!\n'.format(count))
     
-    def event_update(self, count):
-        print('Updated {} events today!\n'.format(count))
+    def event_update(self, summary, count):
+        print('Summary:\n{}\n\nUpdated {} events today!\n'.format(summary, count))
 
     def warning(self, name, symbol, count, api):
         if count == 2:
-            print('WARNING: Found event {}({}) using only Name(2nd try) from {}!\n************************************************************************************************************************************************************************\n************************************************************************************************************************************************************************\n'.format(name, symbol, api.upper()))
+            print('WARNING: Found event {}({}) using only Name(2nd try) from {}!\n************************************************************************************************************************************************************************\n'.format(name, symbol, api.upper()))
         if count == 3:
-            print('WARNING: Found event {}({}) using only Symbol(3rd try) from {}!\n************************************************************************************************************************************************************************\n************************************************************************************************************************************************************************\n'.format(name, symbol, api.upper()))
+            print('WARNING: Found event {}({}) using only Symbol(3rd try) from {}!\n************************************************************************************************************************************************************************\n'.format(name, symbol, api.upper()))
 
     def get_run(self):
         timestamp = dt.datetime.now().time()
