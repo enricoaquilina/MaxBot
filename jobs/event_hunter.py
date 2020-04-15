@@ -108,7 +108,7 @@ class EventHunter:
         found = False
         for existing_event in events_to_compare:
             # check both events and if they're similar, update existing
-            if existing_event.event_date == str(date) and \
+            if str(existing_event.event_date.date()) == str(date) and existing_event.category == new_event.category and\
                 next(iter(existing_event.financials.keys())) == next(iter(new_event.financials.keys())):
                 existing_event = self.update_existing(existing_event, new_event)
                 found = True
@@ -173,4 +173,4 @@ hunter.run()
 
 
 # update multiple events not just first one
-# check if event already exists before inserting (coindar) by category, date, tokens
+# check if event already exists before inserting (coindar) by category, date, tokens''
