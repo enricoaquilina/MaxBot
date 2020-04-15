@@ -60,7 +60,8 @@ class CoinMarketCap:
             self.coin = list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))
             if len(self.coin) > 0:
                 self.helper.options['WARNING'](token_name, token_symbol, 3, 'coinmarketcap')
-
+            else:
+                return False
         asset = dict(self.assets[
                 self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))[0])])
         
