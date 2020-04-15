@@ -217,7 +217,6 @@ class CoinGecko:
             currency_financials[currency_formatted]['price']['change_24h'] =  self.coin_info['market_data']['price_change_24h_in_currency'][currency]
             
             currency_financials[currency_formatted]['price']['percent_change'] = {}
-            currency_financials[currency_formatted]['price']['percent_change']['1h'] = self.coin_info['market_data']['price_change_percentage_1h_in_currency'][currency]
             currency_financials[currency_formatted]['price']['percent_change']['24h'] =  self.coin_info['market_data']['price_change_percentage_24h_in_currency'][currency]
             currency_financials[currency_formatted]['price']['percent_change']['7d'] =  self.coin_info['market_data']['price_change_percentage_7d_in_currency'][currency]
             
@@ -241,6 +240,10 @@ class CoinGecko:
 
             if 'price_change_percentage_60d_in_currency' in self.coin_info and bool(self.coin_info['price_change_percentage_60d_in_currency']):
                 currency_financials[currency_formatted]['price']['percent_change']['60d'] =  self.coin_info['market_data']['price_change_percentage_60d_in_currency'][currency]
+
+            if 'price_change_percentage_1h_in_currency' in self.coin_info and bool(self.coin_info['price_change_percentage_1h_in_currency']):
+                currency_financials[currency_formatted]['price']['percent_change']['1h'] = self.coin_info['market_data']['price_change_percentage_1h_in_currency'][currency]
+
 
         currency_financials['created_date'] =  dt.datetime.now()
 
