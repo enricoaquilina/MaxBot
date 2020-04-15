@@ -56,22 +56,25 @@ class EventHunter:
         return financial_info
 
     def update_event(self, event):
+        token_events = 0
         for asset in event['financials'].keys():
-
             new_field = f'financials.{asset}.run{self.run_id}'
             new_info = self.get_financials(event['token_details'][asset]['name'], event['token_details'][asset]['symbol'])
 
-            return self.db.create_financial_event(self.news_collection, event, new_field, new_info)
+            result = self.db.create_financial_event(self.news_collection, event, new_field, new_info)
+            
+            token_events += 1 if result['ok'] == 1 else token_events
+
+        return '{}/{}\n'.format(token_events, len(event['financials'].keys()))
 
     def update_dailies(self):
-        count = 0
+        summary = ''
         dailies = self.db.get_events_for_today(self.news_collection)
 
-        for event in dailies:
-            result = self.update_event(event)
-            count += result['n']
+        for idx, event in enumerate(dailies):
+            summary += 'Event {}: '.format(idx+1) + self.update_event(event)
 
-        self.helper.options['UPDATE'](count)
+        self.helper.options['UPDATE'](summary, dailies.count())
 
 
     def insert_upcoming(self):
@@ -169,3 +172,5 @@ hunter.run()
 # clarify event source instead of relying on one single attribute (coin_id)
 
 
+# update multiple events not just first one
+# check if event already exists before inserting (coindar) by category, date, tokens
