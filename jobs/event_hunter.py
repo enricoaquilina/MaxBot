@@ -163,7 +163,7 @@ hunter.run()
 
 
 # TODO
-# clean config file
+# test and clean config file
 # refactor, especially coindar and coingecko
 
 # once using coingecko, add extra fields (developer activity and social sentiment)
