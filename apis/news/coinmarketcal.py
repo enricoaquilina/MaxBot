@@ -30,15 +30,17 @@ class CoinMarketCal:
 
         self.event['financials'] = {}
         self.event['token_details'] = {}
+        
         for coin in event['coins']:
-            self.event['financials'][coin['symbol']] = {}
-            
-            self.event['token_details'][coin['symbol']] = {
-                'id': coin['id'],
-                'name': coin['name'],
-                'symbol': coin['symbol'],
-                'full_name': coin['fullname'],
-            }
+            if coin['fullname'] != 'General Event (CRYPTO)' and coin['symbol'] != 'CRYPTO' and coin['name'] != 'General Event' and coin['id'] != 'cryptocurrencies':
+                self.event['financials'][coin['symbol']] = {}
+
+                self.event['token_details'][coin['symbol']] = {
+                    'id': coin['id'],
+                    'name': coin['name'],
+                    'symbol': coin['symbol'],
+                    'full_name': coin['fullname'],
+                }
 
         return NewsEvent(self.event)
         
