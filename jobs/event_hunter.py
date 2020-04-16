@@ -15,8 +15,8 @@ from apis.prices.coingecko import CoinGecko
 
 from common.utilities.helper import Helper
 from common.database import mongo
-import common.config as cfg
 
+import config.database as cfg
 import datetime as dt
 
 # -*- coding: utf-8 -*-
@@ -33,16 +33,15 @@ class EventHunter:
         self.coindar = CoinDar()
         self.coinmarketcap = CoinMarketCap()
         self.coingecko = CoinGecko()
-
         self.events = {}
         self.events_list = []
         self.processed_events = []
         self.dailies_updated = []
-
-        self.news_collection = cfg.settings['coll_news_events']
+        
+        self.news_collection = cfg.settings['DB']['coll_news_events']
         self.run_id = self.helper.options['GET_RUN']()
         
-        self.db = mongo.DB(cfg.settings['db_name'])
+        self.db = mongo.DB(cfg.settings['DB']['db_name'])
 
     def get_financials(self, token_name, token_symbol):
         financial_info = {}

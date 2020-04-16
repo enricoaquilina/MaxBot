@@ -1,7 +1,9 @@
-import datetime as dt
-import common.config as cfg
 from common.http import request
 from common.utilities.helper import Helper
+
+import datetime as dt
+import config.prices as cfg
+
 import math
 
 
@@ -95,8 +97,8 @@ class CoinGecko:
 
     def get_coin_financials(self):
         self.coin_info = self.req.get_data(
-            cfg.settings['COINGECKO']['COIN_FINANCIALS']['URL'].format(self.coin['id']),
-            params=cfg.settings['COINGECKO']['COIN_FINANCIALS']['PARAMS']['STANDARD'])
+            cfg.settings['COINGECKO']['URLs']['FINANCIALS']['LINK'].format(self.coin['id']),
+            params=cfg.settings['COINGECKO']['URLs']['FINANCIALS']['ARGS']['STANDARD'])
 
         return self.trim_info()
 
@@ -109,18 +111,18 @@ class CoinGecko:
         assetsBTC = []
         for i in range(coin_count):
             assetsUSD.extend(self.req.get_data(
-                cfg.settings['COINGECKO']['COINS_MARKETS']['URL'], 
+                cfg.settings['COINGECKO']['URLs']['MARKETS']['LINK'], 
                 params={
-                    **cfg.settings['COINGECKO']['COINS_MARKETS']['PARAMS']['USD'],
-                    **cfg.settings['COINGECKO']['COINS_MARKETS']['PARAMS']['STANDARD'] 
+                    **cfg.settings['COINGECKO']['URLs']['MARKETS']['ARGS']['USD'],
+                    **cfg.settings['COINGECKO']['URLs']['MARKETS']['ARGS']['STANDARD'] 
                 },
                 dynamic={ 'page': i+1 }
             ))
             assetsBTC.extend(self.req.get_data(
                 cfg.settings['COINGECKO']['COINS_MARKETS']['URL'], 
                 params={
-                    **cfg.settings['COINGECKO']['COINS_MARKETS']['PARAMS']['BTC'],
-                    **cfg.settings['COINGECKO']['COINS_MARKETS']['PARAMS']['STANDARD'] 
+                    **cfg.settings['COINGECKO']['URLs']['MARKETS']['ARGS']['BTC'],
+                    **cfg.settings['COINGECKO']['URLs']['MARKETS']['ARGS']['STANDARD'] 
                 },
                 dynamic={ 'page': i+1 }
             ))
@@ -129,7 +131,7 @@ class CoinGecko:
 
     # this gets a list of all coins and their IDs
     def get_coins_list(self):
-        self.coins_list = self.req.get_data(cfg.settings['COINGECKO']['COINS_LIST']['URL'])
+        self.coins_list = self.req.get_data(cfg.settings['COINGECKO']['URLs']['COINLIST']['LINK'])
 
     def get_social_activity(self):
          self.details = {

@@ -1,15 +1,17 @@
-import json
-import datetime as dt
-import common.config as cfg
 from common.http import request
 from common.utilities.helper import Helper
+
+import config.prices as cfg
+
+import json
+import datetime as dt
 
 class CoinMarketCap:
     def __init__(self):
         self.req = request.MyRequest()
         self.helper = Helper()
-        self.headers = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY1']}
-        self.headers2 = { 'X-CMC_PRO_API_KEY': cfg.settings['X-CMC_PRO_API_KEY2']}
+        self.headers = { 'X-CMC_PRO_API_KEY': cfg.settings['COINMARKETCAP']['AUTH']['X-CMC_PRO_API_KEY1']}
+        self.headers2 = { 'X-CMC_PRO_API_KEY': cfg.settings['COINMARKETCAP']['AUTH']['X-CMC_PRO_API_KEY2']}
         self.compute_financials()
 
     def build_model(self, assetsUSD, assetsBTC):
@@ -43,8 +45,11 @@ class CoinMarketCap:
             )
 
     def compute_financials(self):
-        assetsUSD = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers, cfg.settings['params']['USD'])
-        assetsBTC = self.req.get_data(cfg.settings['COINMARKETCAP_LISTINGS'], self.headers2, cfg.settings['params']['BTC'])
+        assetsUSD = self.req.get_data(cfg.settings['COINMARKETCAP']['URLs']['LISTINGS']['LINK'], 
+                    self.headers, cfg.settings['COINMARKETCAP']['URLs']['LISTINGS']['ARGS']['USD'])
+                    
+        assetsBTC = self.req.get_data(cfg.settings['COINMARKETCAP']['URLs']['LISTINGS']['LINK'], 
+                    self.headers2, cfg.settings['COINMARKETCAP']['URLs']['LISTINGS']['ARGS']['BTC'])
 
         self.build_model(assetsUSD, assetsBTC)
 

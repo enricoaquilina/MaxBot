@@ -1,7 +1,7 @@
 from common.http import request
 from common.models.event_hunter.model_event import NewsEvent
 from common.utilities.helper import Helper
-import common.config as cfg
+import config.news as cfg
 
 class CoinDar:
     def __init__(self):
@@ -21,28 +21,28 @@ class CoinDar:
         
     def get_events(self):
         events = self.req.get_data(
-            cfg.settings['COINDAR_EVENTS_URL'], 
-            params={ **cfg.settings['COINDAR_TOKEN'], **cfg.settings['COINDAR_EVENTS_ARGS'] }
+            cfg.settings['COINDAR']['URLs']['EVENTS']['LINK'], 
+            params={ **cfg.settings['COINDAR']['AUTH'], **cfg.settings['COINDAR']['URLs']['EVENTS']['ARGS'] }
         )
         return self.filter_events(events)
 
 
     def get_tags(self):
         return self.req.get_data(
-            cfg.settings['COINDAR_TAGS_URL'], 
-            params=cfg.settings['COINDAR_TOKEN']
+            cfg.settings['COINDAR']['URLs']['TAGS']['LINK'], 
+            params=cfg.settings['COINDAR']['AUTH']
         )
 
     def get_coins(self):
         return self.req.get_data(
-            cfg.settings['COINDAR_COINS_URL'], 
-            params=cfg.settings['COINDAR_TOKEN']
+            cfg.settings['COINDAR']['URLs']['COINS']['LINK'], 
+            params=cfg.settings['COINDAR']['AUTH']
         )
 
     def get_socials(self):
         return self.req.get_data(
-            cfg.settings['COINDAR_SOCIAL_URL'], 
-            params=cfg.settings['COINDAR_TOKEN']
+            cfg.settings['COINDAR']['URLs']['SOCIALS']['LINK'], 
+            params=cfg.settings['COINDAR']['AUTH']
         )
 
     def compute_financials(self):

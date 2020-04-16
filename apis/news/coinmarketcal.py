@@ -1,24 +1,23 @@
 from common.http import request
 from common.models.event_hunter.model_event import NewsEvent 
 from common.utilities.helper import Helper
-import common.config as cfg
-
+import config.news as cfg
 
 class CoinMarketCal:
 
     def __init__(self):
         self.req = request.MyRequest()
         self.helper = Helper()
-        self.headers = { 'x-api-key': cfg.settings['x-api-key']}
+        self.headers = { 'x-api-key': cfg.settings['COINMARKETCAL']['AUTH']['x-api-key']}
     
     def get_coins(self):
-        return self.req.get_data(cfg.settings['COINMARKETCAL_COIN_LIST'], self.headers)
+        return self.req.get_data(cfg.settings['COINMARKETCAL']['URLs']['COINS']['LINK'], self.headers)
 
     def get_categories(self):
-        return self.req.get_data(cfg.settings['COINMARKETCAL_CATEGORY_LIST'], self.headers)
+        return self.req.get_data(cfg.settings['COINMARKETCAL']['URLs']['CATEGORIES']['LINK'], self.headers)
 
     def get_events(self):
-        events = self.req.get_data(cfg.settings['COINMARKETCAL_DAILY_EVENTS'], self.headers)
+        events = self.req.get_data(cfg.settings['COINMARKETCAL']['URLs']['EVENTS']['LINK'], self.headers)
         return sorted(events, key=lambda k: k['date_event'])
 
     def build_model(self, event):
@@ -30,7 +29,7 @@ class CoinMarketCal:
 
         self.event['financials'] = {}
         self.event['token_details'] = {}
-        
+
         for coin in event['coins']:
             if coin['fullname'] != 'General Event (CRYPTO)' and coin['symbol'] != 'CRYPTO' and coin['name'] != 'General Event' and coin['id'] != 'cryptocurrencies':
                 self.event['financials'][coin['symbol']] = {}
