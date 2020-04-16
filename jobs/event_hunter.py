@@ -162,11 +162,9 @@ hunter.run()
 
 
 # TODO
-# test and clean config file
+# use additional fields from coingecko (developer activity and social sentiment)
 
-# once using coingecko, add extra fields (developer activity and social sentiment)
-
-# refactor, especially coindar and coingecko
+# refactor (coingecko, coinmarketcap, coindar) [in that order..] 
 
 # dont update events' same prices more than once
 # clarify event source instead of relying on one single attribute (coin_id)
