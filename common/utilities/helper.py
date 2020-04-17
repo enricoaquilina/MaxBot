@@ -45,9 +45,9 @@ class Helper:
 
     def warning(self, name, symbol, count, api):
         if count == 2:
-            print('WARNING: Found event {}({}) using only Name(2nd try) from {}!\n************************************************************************************************************************************************************************\n'.format(name, symbol, api.upper()))
+            print('\033[33mWARNING: Found event {}({}) using only Name(2nd try) from {}!\n************************************************************************************************************************************************************************\n\033[0m'.format(name, symbol, api.upper()))
         if count == 3:
-            print('WARNING: Found event {}({}) using only Symbol(3rd try) from {}!\n************************************************************************************************************************************************************************\n'.format(name, symbol, api.upper()))
+            print('\033[33mWARNING: Found event {}({}) using only Symbol(3rd try) from {}!\n************************************************************************************************************************************************************************\n\033[0m'.format(name, symbol, api.upper()))
 
     def get_run(self):
         timestamp = dt.datetime.now().time()

@@ -19,6 +19,8 @@ from common.database import mongo
 import config.database as cfg
 import datetime as dt
 
+os.system("")
+
 # -*- coding: utf-8 -*-
 
 class EventHunter:
