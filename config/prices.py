@@ -53,9 +53,5 @@ settings = {
                 }
             }
         },
-        'AUTH': {
-            'X-CMC_PRO_API_KEY1':            'c3876b59-a8d3-4a8f-bf51-e2aad4ca9a5c', #joedimech75
-            'X-CMC_PRO_API_KEY2':            'b77602e7-a160-4384-aedd-2d4f4f4a308e', #tappiera
-        }
     }
 }
