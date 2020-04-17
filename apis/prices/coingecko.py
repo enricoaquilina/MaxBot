@@ -90,7 +90,8 @@ class CoinGecko:
         if len(self.coin) > 0:
             self.coin = self.coin[0]
         elif not any(self.coin):
-            print('Did not find token {}, {} from Coingecko!!!'.format(token_name, token_symbol))
+            print('Did not find token {} ({}) from Coingecko!!!'.format(token_name, token_symbol))
+            return False
 
 
         return any(self.coin)

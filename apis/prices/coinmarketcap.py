@@ -47,7 +47,7 @@ class CoinMarketCap:
     def compute_financials(self):
         assetsUSD = self.req.get_data(cfg.settings['COINMARKETCAP']['URLs']['LISTINGS']['LINK'], 
                     self.headers, cfg.settings['COINMARKETCAP']['URLs']['LISTINGS']['ARGS']['USD'])
-                    
+
         assetsBTC = self.req.get_data(cfg.settings['COINMARKETCAP']['URLs']['LISTINGS']['LINK'], 
                     self.headers2, cfg.settings['COINMARKETCAP']['URLs']['LISTINGS']['ARGS']['BTC'])
 
@@ -65,18 +65,22 @@ class CoinMarketCap:
             self.coin = list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))
             if len(self.coin) > 0:
                 self.helper.options['WARNING'](token_name, token_symbol, 3, 'coinmarketcap')
-            else:
-                return False
-        asset = dict(self.assets[
-                self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))[0])])
-        
+
         if len(self.coin) > 0:
+            asset = dict(self.assets[
+                self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))[0])])
             self.coin = dict(self.assets[self.assets.index(self.coin[0])])
         elif not any(self.coin):
-            print('Did not find token {}, {} from Coingecko!!!'.format(token_name, token_symbol))
-
-        if not any(asset):
-            print('Did not find token {}, {} from Coinmarketcap!!!'.format(token_name, token_symbol))
+            print('Did not find token {} ({}) from Coinmarketcap!!!'.format(token_name, token_symbol))
+            return False
+        # # asset = dict(self.assets[
+        # #         self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))[0])])
+        
+        # if len(self.coin) > 0:
+        #     self.coin = dict(self.assets[self.assets.index(self.coin[0])])
+        # elif not any(self.coin):
+        #     print('Did not find token {}, {} from Coinmarketcap!!!'.format(token_name, token_symbol))
+        #     return False
 
         return any(asset)
 
