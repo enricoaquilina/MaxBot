@@ -1,6 +1,10 @@
 from dateutil.parser import parse
 
 import datetime as dt
+import time
+import datetime
+from termcolor import colored
+
 
 class Helper:
 
@@ -11,7 +15,8 @@ class Helper:
             'GET_RUN': self.get_run,
             'INSERT': self.event_insert,
             'UPDATE': self.event_update,
-            'WARNING': self.warning
+            'WARNING': self.warning,
+            'NOT_FOUND': self.not_found
         }
 
     def process_date(self, event, date_type):
@@ -28,26 +33,32 @@ class Helper:
         return date
         
     def start(self):
-        print('Starting news hunter job (' + dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')\n')
+        message = 'Starting news hunter job (' + dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')\n'
+        print(colored(message, 'cyan'))
 
     def finish(self, data):
-        print('Finished news hunter job (' + dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')')
-        print('________________________________________________________________________________________________________________________________________________________________________')
+        message = 'Finished news hunter job (' + dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')\n' + '________________________________________________________________________________________________________________________________________________________________________'
+        print(colored(message, 'cyan'))
 
         for datum in data:
             datum.clear()
 
     def event_insert(self, count):
-        print('Inserted {} events today!\n'.format(count))
+        date_details = (datetime.date.today().strftime("%A") + ', ' + datetime.date.today().strftime("%d") + ' of ' + datetime.date.today().strftime("%B")+' '+ datetime.date.today().strftime("%Y") + '(' +str(dt.date.today()) +')')
+        print(colored('Inserted {} events on {}, RUN {} !\n'.format(count, date_details, self.get_run()), 'magenta'))
     
+    print()
     def event_update(self, summary, count):
-        print('Summary:\n{}\n\nUpdated {} events today!\n'.format(summary, count))
+        print(colored('Summary:\n{}\n\nUpdated {} events today!\n'.format(summary, count), 'green'))
 
     def warning(self, name, symbol, count, api):
         if count == 2:
-            print('\033[33mWARNING: Found event {}({}) using only Name(2nd try) from {}!\n************************************************************************************************************************************************************************\n\033[0m'.format(name, symbol, api.upper()))
+            print(colored('WARNING: Found event {}({}) using only Name(2nd try) from {}!\n************************************************************************************************************************************************************************\n'.format(name, symbol, api.upper()), 'yellow'))
         if count == 3:
-            print('\033[33mWARNING: Found event {}({}) using only Symbol(3rd try) from {}!\n************************************************************************************************************************************************************************\n\033[0m'.format(name, symbol, api.upper()))
+            print(colored('WARNING: Found event {}({}) using only Symbol(3rd try) from {}!\n************************************************************************************************************************************************************************\n'.format(name, symbol, api.upper()), 'yellow'))
+
+    def not_found(self, token_name, token_symbol, api):
+        print(colored('NOT FOUND: Did not find token {} ({}) from {}!!!\n************************************************************************************************************************************************************************\n\033[0m'.format(token_name, token_symbol, api.upper()), 'red'))
 
     def get_run(self):
         timestamp = dt.datetime.now().time()

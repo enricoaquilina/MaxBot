@@ -71,7 +71,7 @@ class CoinMarketCap:
                 self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))[0])])
             self.coin = dict(self.assets[self.assets.index(self.coin[0])])
         elif not any(self.coin):
-            print('\033[31mDid not find token {} ({}) from Coinmarketcap!!!\033[0m'.format(token_name, token_symbol))
+            self.helper.options['NOT_FOUND'](token_name, token_symbol, 'coinmarketcap')
             return False
         # # asset = dict(self.assets[
         # #         self.assets.index(list(filter(lambda n: n.get('symbol').lower() == token_symbol.lower(), self.assets))[0])])
