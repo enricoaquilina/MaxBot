@@ -75,13 +75,13 @@ class EventHunter:
 
         self.helper.options['UPDATE'](summary, dailies.count())
 
-
     def insert_upcoming(self):
         count = 0
         for event in self.events.values():
             for e in event:
                 result = self.db.insert_event(self.news_collection, e)
-                count += result['n']
+                if not result['updatedExisting']:
+                    count += result['n']
 
         self.helper.options['INSERT'](count)
 
@@ -104,12 +104,23 @@ class EventHunter:
         # if event does not exist, insert
         events_to_compare = self.events[str(date)]
 
+        dailies = self.db.get_events_for_today(self.news_collection)
+
+
         found = False
+        # check against events retrieved today
         for existing_event in events_to_compare:
             # check both events and if they're similar, update existing
-            if str(existing_event.event_date.date()) == str(date) and existing_event.category == new_event.category and\
+            if str(existing_event.event_date.date()) == str(date) and\
                 next(iter(existing_event.financials.keys())) == next(iter(new_event.financials.keys())):
                 existing_event = self.update_existing(existing_event, new_event)
+                found = True
+
+        # check against the database
+        for daily in dailies:
+            # check both events and if they're similar, update existing
+            if str(daily['event_date'].date()) == str(date) and\
+                next(iter(daily['token_details'].keys())) == next(iter(new_event.financials.keys())):
                 found = True
         
         # if we encounter new event, insert here
