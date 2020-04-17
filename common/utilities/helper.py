@@ -33,7 +33,7 @@ class Helper:
         return date
         
     def start(self):
-        message = 'Starting news hunter job (' + dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')\n'
+        message = 'Starting news hunter job (' + dt.datetime.now().strftime('%d/%m/%Y %H:%M:%S') + ')\n' + '________________________________________________________________________________________________________________________________________________________________________\n'
         print(colored(message, 'cyan'))
 
     def finish(self, data):
