@@ -122,7 +122,7 @@ class EventHunter:
         for daily in dailies:
             # check both events and if they're similar, update existing
             if str(daily['event_date'].date()) == str(date) and\
-                next(iter(daily['token_details'].keys())) == next(iter(new_event.financials.keys())):
+                next(iter(daily['financials'].keys())) == next(iter(new_event.financials.keys())):
                 found = True
         
         # if we encounter new event, insert here
