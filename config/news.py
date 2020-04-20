@@ -15,6 +15,9 @@ settings = {
                 'LINK': 'https://developers.coinmarketcal.com/v1/categories',
             }
         },
+        'AUTH': {
+            'x-api-key': 'iFQY61z1SD4PanhjChc8E4RMo4KdUHdT5AXCx8Y8',
+        },
     },
     'COINDAR': {
         'URLs': {
@@ -35,6 +38,8 @@ settings = {
                 'LINK': 'https://coindar.org/api/v2/social',
             }   
         },
-
+        'AUTH': {
+            'access_token': '37949:XvvzaWNeECQuCXyJLZa'
+        },
     }
 }
