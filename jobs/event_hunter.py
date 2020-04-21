@@ -18,6 +18,7 @@ from common.database import mongo
 
 import config.database as cfg
 import datetime as dt
+from datetime import date 
 
 os.system("")
 
@@ -70,7 +71,7 @@ class EventHunter:
 
     def update_dailies(self):
         summary = ''
-        dailies = self.db.get_events_for_today(self.news_collection)
+        dailies = self.db.get_events_for_date(self.news_collection, date.today())
 
         for idx, event in enumerate(dailies):
             summary += 'Event {}: '.format(idx+1) + self.update_event(event)
@@ -106,8 +107,7 @@ class EventHunter:
         # if event does not exist, insert
         events_to_compare = self.events[str(date)]
 
-        dailies = self.db.get_events_for_today(self.news_collection)
-
+        database_events = self.db.get_events_for_date(self.news_collection, new_event.event_date)
 
         found = False
         # check against events retrieved today
@@ -119,7 +119,7 @@ class EventHunter:
                 found = True
 
         # check against the database
-        for daily in dailies:
+        for daily in database_events:
             # check both events and if they're similar, update existing
             if str(daily['event_date'].date()) == str(date) and\
                 next(iter(daily['financials'].keys())) == next(iter(new_event.financials.keys())):

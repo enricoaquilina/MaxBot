@@ -51,7 +51,8 @@ class CoinMarketCap:
         assetsBTC = self.req.get_data(cfg.settings['COINMARKETCAP']['URLs']['LISTINGS']['LINK'], 
                     self.headers2, cfg.settings['COINMARKETCAP']['URLs']['LISTINGS']['ARGS']['BTC'])
 
-        self.build_model(assetsUSD, assetsBTC)
+        if bool(assetsUSD) and bool(assetsBTC):
+            self.build_model(assetsUSD, assetsBTC)
 
     def does_coin_exist(self, token_name, token_symbol):
         self.coin = list(filter(lambda n: n.get('name').lower() == token_name.lower() and n.get('symbol').lower() == token_symbol.lower(), self.assets))

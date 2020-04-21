@@ -132,7 +132,8 @@ class CoinGecko:
 
     # this gets a list of all coins and their IDs
     def get_coins_list(self):
-        self.coins_list = self.req.get_data(cfg.settings['COINGECKO']['URLs']['COINLIST']['LINK'])
+        res = self.req.get_data(cfg.settings['COINGECKO']['URLs']['COINLIST']['LINK'])
+        self.coins_list = res if res is not None else []
 
     def get_social_activity(self):
          self.details = {

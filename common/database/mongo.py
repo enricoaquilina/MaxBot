@@ -24,8 +24,10 @@ class DB:
         )
         return result
 
-    def get_events_for_today(self, collection):
-        current_date = datetime.combine(date.today(), datetime.min.time())
+    def get_events_for_date(self, collection, date):
+
+        # current_date = datetime.combine(date.today(), datetime.min.time())
+        current_date = datetime.combine(date, datetime.min.time())
         next_date = current_date + timedelta(days=1)
 
         return self.db[collection].find(

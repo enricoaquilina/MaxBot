@@ -1,5 +1,6 @@
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
+from simplejson.errors import JSONDecodeError
 import requests
 import json
 
@@ -15,6 +16,7 @@ class MyRequest:
 
 
     def get_data(self, url, headers=None, params=None, dynamic=None):
+        res = None
         try:
             if dynamic is not None:
                 for k, v in params.items():
@@ -23,18 +25,22 @@ class MyRequest:
 
             headers = {} if headers is None else headers
 
-            req = requests.get(url, headers={**self.headers, **headers}, params=params).json()
+            res = requests.get(url, headers={**self.headers, **headers}, params=params).json()
 
-            # req['data'] = [{'originator': 'Coinmarketcap'}] + req['data']
-            
-            if 'body' in req:
-                return req['body']
-            elif 'data' in req:
-                return req['data']
+            if 'body' in res:
+                return res['body']
+            elif 'data' in res:
+                return res['data']
             else:
-                return req
-                
+                return res
+        
+            # req['data'] = [{'originator': 'Coinmarketcap'}] + req['data'] 
         except HTTPError as http_err:
             print(f'HTTP error occurred: {http_err}') 
         except URLError as url_err:
             print(f'URL error occurred: {url_err}')
+        except JSONDecodeError as e:
+            print('JSON Parse failed: {0}'.format(e))
+        except (TypeError, AttributeError) as e:
+            print('Type Error : {0}'.format(e))
+            
