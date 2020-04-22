@@ -7,6 +7,9 @@ settings = {
         'URLs': {
             'EVENTS': {
                 'LINK': 'https://developers.coinmarketcal.com/v1/events',
+                'ARGS': {
+                    'max': '75'
+                },
             },
             'COINS': {
                 'LINK': 'https://developers.coinmarketcal.com/v1/coins',
