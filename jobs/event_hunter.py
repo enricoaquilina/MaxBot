@@ -60,12 +60,16 @@ class EventHunter:
     def update_event(self, event):
         token_events = 0
         for asset in event['financials'].keys():
-            new_field = f'financials.{asset}.run{self.run_id}'
-            new_info = self.get_financials(event['token_details'][asset]['name'], event['token_details'][asset]['symbol'])
+            if not bool(asset):
+                self.helper.options['NOT_FOUND'](event['token_details'][asset]['name'], event['token_details'][asset]['symbol'], 'event_hunter')
 
-            result = self.db.create_financial_event(self.news_collection, event, new_field, new_info)
-            
-            token_events += 1 if result['ok'] == 1 else token_events
+            if bool(asset):
+                new_field = f'financials.{asset}.run{self.run_id}'
+                new_info = self.get_financials(event['token_details'][asset]['name'], event['token_details'][asset]['symbol'])
+
+                result = self.db.create_financial_event(self.news_collection, event, new_field, new_info)
+                
+                token_events += 1 if result['ok'] == 1 else token_events
 
         return '{}/{}\n'.format(token_events, len(event['financials'].keys()))
 
