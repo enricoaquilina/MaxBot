@@ -14,6 +14,23 @@ class CoinGecko:
 
         self.get_coins_list()
 
+        self.fields = {
+            'price': [ 'high_24h', 'low_24h', 'current_price', 'price_change_24h_in_currency'],
+            'percent_change': [   
+                'price_change_percentage_1h_in_currency', 'price_change_percentage_24h_in_currency', 'price_change_percentage_7d_in_currency', 
+                'price_change_percentage_14d_in_currency', 'price_change_percentage_30d_in_currency', 'price_change_percentage_60d_in_currency',
+                'price_change_percentage_200d_in_currency', 'price_change_percentage_1y_in_currency'
+            ],
+            'valuation': [
+                'market_cap', 'market_cap_change_24h_in_currency', 
+                'market_cap_change_percentage_24h_in_currency', 'total_volume'
+            ],
+            'general': { 
+                'ath': [ 'ath_change_percentage', 'ath_date', 'ath' ],
+                'atl': [ 'atl_change_percentage', 'atl_date', 'atl' ],
+            },
+        }
+        self.currencies = ['btc', 'usd', 'eur', 'gbp', 'jpy', 'cad', 'sgd', 'nok', 'cny', 'aud', 'chf', 'nzd', 'inr'] 
         # self.compute_financials()
 
         # self.get_coin_financials('bitcoin')
@@ -196,95 +213,21 @@ class CoinGecko:
 
 
     def trim_info(self):
-        currencies = ['btc', 'usd', 'eur', 'gbp', 'jpy', 'cad', 'sgd', 'nok', 'cny', 'aud', 'chf', 'nzd', 'inr']
-
         currency_financials = {}
 
-        for currency in currencies:
-            currency_formatted = currency.upper()        
+        for currency in self.currencies:
+            currency_financials[currency.upper()] = {}
 
-            # High/Low
-            currency_financials[currency_formatted] = {}
-            if 'high_24h' in self.coin_info and bool(self.coin_info['high_24h']):
-                currency_financials[currency_formatted]['high_24h'] = self.coin_info['market_data']['high_24h'][currency]
+            for field in self.fields:
+                currency_financials[currency.upper()][field] = {}
 
-            if 'low_24h' in self.coin_info and bool(self.coin_info['low_24h']):
-                currency_financials[currency_formatted]['low_24h'] = self.coin_info['market_data']['low_24h'][currency]
-
-            # ATH details
-            currency_financials[currency_formatted]['ath'] = {}
-            if 'ath' in self.coin_info and bool(self.coin_info['ath']):
-                currency_financials[currency_formatted]['ath']['price'] = self.coin_info['market_data']['ath'][currency]
-            
-            if 'ath_change_percentage' in self.coin_info and bool(self.coin_info['ath_change_percentage']):
-                currency_financials[currency_formatted]['ath']['ath_change_percentage'] = self.coin_info['market_data']['ath_change_percentage'][currency]
-
-            if 'ath_date' in self.coin_info and bool(self.coin_info['ath_date']):
-                currency_financials[currency_formatted]['ath']['ath_date'] = self.coin_info['market_data']['ath_date'][currency]
-
-            # ATL details
-            currency_financials[currency_formatted]['atl'] = {}
-            if 'atl' in self.coin_info and bool(self.coin_info['atl']):
-                currency_financials[currency_formatted]['atl']['price'] = self.coin_info['market_data']['atl'][currency]
-
-            if 'atl_change_percentage' in self.coin_info and bool(self.coin_info['atl_change_percentage']):
-                currency_financials[currency_formatted]['atl']['ath_change_percentage'] = self.coin_info['market_data']['atl_change_percentage'][currency]
-
-            if 'atl_date' in self.coin_info and bool(self.coin_info['atl_date']):
-                currency_financials[currency_formatted]['atl']['ath_date'] =  self.coin_info['market_data']['atl_date'][currency]
-
-            # Price changes
-            currency_financials[currency_formatted]['price'] = {}
-            if 'current_price' in self.coin_info and bool(self.coin_info['current_price']):
-                currency_financials[currency_formatted]['price']['current_price'] = self.coin_info['market_data']['current_price'][currency]
-
-            if 'price_change_24h_in_currency' in self.coin_info and bool(self.coin_info['price_change_24h_in_currency']):
-                currency_financials[currency_formatted]['price']['change_24h'] =  self.coin_info['market_data']['price_change_24h_in_currency'][currency]
-            
-            # Percent changes
-            currency_financials[currency_formatted]['price']['percent_change'] = {}
-            if 'price_change_percentage_24h_in_currency' in self.coin_info and bool(self.coin_info['price_change_percentage_24h_in_currency']):
-                currency_financials[currency_formatted]['price']['percent_change']['24h'] =  self.coin_info['market_data']['price_change_percentage_24h_in_currency'][currency]
-
-            if 'price_change_percentage_1h_in_currency' in self.coin_info and bool(self.coin_info['price_change_percentage_1h_in_currency']):
-                currency_financials[currency_formatted]['price']['percent_change']['1h'] = self.coin_info['market_data']['price_change_percentage_1h_in_currency'][currency]
-
-            if 'price_change_percentage_7d_in_currency' in self.coin_info and bool(self.coin_info['price_change_percentage_7d_in_currency']):
-                currency_financials[currency_formatted]['price']['percent_change']['7d'] =  self.coin_info['market_data']['price_change_percentage_7d_in_currency'][currency]
-
-            if 'price_change_percentage_1y_in_currency' in self.coin_info and bool(self.coin_info['price_change_percentage_1y_in_currency']):
-                currency_financials[currency_formatted]['price']['percent_change']['1y'] = self.coin_info['market_data']['price_change_percentage_1y_in_currency'][currency]
-                
-            if 'price_change_percentage_200d_in_currency' in self.coin_info and bool(self.coin_info['price_change_percentage_1y_in_currency']):
-                currency_financials[currency_formatted]['price']['percent_change']['200d'] = self.coin_info['market_data']['price_change_percentage_200d_in_currency'][currency]
-
-            if 'price_change_percentage_14d_in_currency' in self.coin_info and bool(self.coin_info['price_change_percentage_14d_in_currency']):
-                currency_financials[currency_formatted]['price']['percent_change']['14d'] =  self.coin_info['market_data']['price_change_percentage_14d_in_currency'][currency]
-            
-            if 'price_change_percentage_30d_in_currency' in self.coin_info and bool(self.coin_info['price_change_percentage_30d_in_currency']):
-                currency_financials[currency_formatted]['price']['percent_change']['30d'] =  self.coin_info['market_data']['price_change_percentage_30d_in_currency'][currency]
-
-            if 'price_change_percentage_60d_in_currency' in self.coin_info and bool(self.coin_info['price_change_percentage_60d_in_currency']):
-                currency_financials[currency_formatted]['price']['percent_change']['60d'] =  self.coin_info['market_data']['price_change_percentage_60d_in_currency'][currency]
-
-            # Valuation details
-            currency_financials[currency_formatted]['valuation'] = {}
-            if 'market_cap' in self.coin_info and bool(self.coin_info['market_cap']):
-                currency_financials[currency_formatted]['valuation']['market_cap_value'] = self.coin_info['market_data']['market_cap'][currency]
-
-            if 'market_cap_change_24h_in_currency' in self.coin_info and bool(self.coin_info['market_cap_change_24h_in_currency']):
-                currency_financials[currency_formatted]['valuation']['market_cap_change_24h'] = self.coin_info['market_data']['market_cap_change_24h_in_currency'][currency]
-            
-            if 'market_cap_change_percentage_24h_in_currency' in self.coin_info and bool(self.coin_info['market_cap_change_percentage_24h_in_currency']):
-                currency_financials[currency_formatted]['valuation']['market_cap_percent_change_24h'] = self.coin_info['market_data']['market_cap_change_percentage_24h_in_currency'][currency]
-
-            if 'total_volume' in self.coin_info and bool(self.coin_info['total_volume']):
-                currency_financials[currency_formatted]['valuation']['total_volume'] = self.coin_info['market_data']['total_volume'][currency]
+                for value in self.fields[field]:
+                    if value in self.coin_info['market_data'] and bool(self.coin_info['market_data'][value]) and self.coin_info['market_data'][value][currency]:
+                        currency_financials[currency.upper()][field][value] = self.coin_info['market_data'][value][currency]
 
         currency_financials['created_date'] =  dt.datetime.now()
 
         return currency_financials
-        # self.details['coingecko']['financials'][currency.upper()] = currency_financials
 
     def get_asset(self, token):
         pass

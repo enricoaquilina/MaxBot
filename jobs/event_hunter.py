@@ -35,6 +35,7 @@ class EventHunter:
         self.coinmarketcal = CoinMarketCal()
         self.coindar = CoinDar()
         self.coinmarketcap = CoinMarketCap()
+        
         self.coingecko = CoinGecko()
         self.events = {}
         self.events_list = []
