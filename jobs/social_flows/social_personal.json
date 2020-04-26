@@ -1,0 +1,1 @@
+[{"id":"74b76d09.f73ff4","type":"function","z":"5883a750.fffbc8","name":"on change","func":"// if (msg.payload == \"69\" ) {\n//     return msg;\n// }\nreturn msg;","outputs":1,"noerr":0,"x":450,"y":460,"wires":[["4d2e40a0.5c074"]]}]
