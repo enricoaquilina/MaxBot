@@ -222,7 +222,7 @@ class CoinGecko:
                 currency_financials[currency.upper()][field] = {}
 
                 for value in self.fields[field]:
-                    if value in self.coin_info['market_data'] and bool(self.coin_info['market_data'][value]) and self.coin_info['market_data'][value][currency]:
+                    if value in self.coin_info['market_data'] and bool(self.coin_info['market_data'][value]) and currency in self.coin_info['market_data'][value]:
                         currency_financials[currency.upper()][field][value] = self.coin_info['market_data'][value][currency]
 
         currency_financials['created_date'] =  dt.datetime.now()
