@@ -114,14 +114,18 @@ class EventHunter:
 
         database_events = self.db.get_events_for_date(self.news_collection, new_event.event_date)
 
+        if len(new_event.financials) == 0:
+            return None
+
         found = False
+
         # check against events retrieved today
         for existing_event in events_to_compare:
             # check both events and if they're similar, update existing
-            if str(existing_event.event_date.date()) == str(date) and\
-                next(iter(existing_event.financials.keys())) == next(iter(new_event.financials.keys())):
-                existing_event = self.update_existing(existing_event, new_event)
-                found = True
+            if str(existing_event.event_date.date()) == str(date):
+                if next(iter(existing_event.financials.keys())) == next(iter(new_event.financials.keys())):
+                    existing_event = self.update_existing(existing_event, new_event)
+                    found = True
 
         # check against the database
         for daily in database_events:
