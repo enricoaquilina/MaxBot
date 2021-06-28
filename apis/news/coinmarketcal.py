@@ -24,7 +24,7 @@ class CoinMarketCal:
     def build_model(self, event):
         self.event = dict(event)
         self.event['origin']         = 'coinmarketcal'
-        self.event['category']       = ['N/A'] if event['categories'] is None else event['categories'][0]['name']
+        self.event['category']       = ['N/A'] if 'categories' not in event else event['categories'][0]['name']
         self.event['event_date']     = self.helper.process_date(event, 'date_event')
         self.event['event_title']    = next(iter(event['title'].values()))
 
